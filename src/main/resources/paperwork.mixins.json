@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "deus.paperwork.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ItemsMixin",
+    "RecipeDenier"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

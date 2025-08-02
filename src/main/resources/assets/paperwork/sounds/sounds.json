@@ -1,0 +1,9 @@
+{
+  "material.paper.put": {
+    "subtitle": "subtitles.material.paper.put",
+    "sounds": [
+      "material/paper/put.ogg"
+
+    ]
+  }
+}

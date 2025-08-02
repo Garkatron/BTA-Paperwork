@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "paperwork",
   "version": "${version}",
 
-  "name": "Example Mod",
+  "name": "Paperwork",
   "description": "This mod aims to help new BTA modders.",
   "authors": [
-    "Turnip Labs"
+    "@Garkatron"
   ],
   "contact": {
     "homepage": "",
@@ -17,22 +17,37 @@
   "license": "CC0-1.0",
 
   "environment": "*",
-  "entrypoints": {
-    "main": [
-			"turniplabs.examplemod.ExampleMod"
-    ],
+	"entrypoints": {
+		"main": [
+			"deus.paperwork.Paperwork"
+		],
 		"beforeGameStart": [
-			"turniplabs.examplemod.ExampleMod"
+			"deus.paperwork.Paperwork"
 		],
 		"afterGameStart": [
-			"turniplabs.examplemod.ExampleMod"
+			"deus.paperwork.Paperwork"
+		],
+		"client": [
+			"deus.paperwork.PaperworkClient"
+		],
+		"beforeClientStart": [
+			"deus.paperwork.PaperworkClient"
+		],
+		"afterClientStart": [
+			"deus.paperwork.PaperworkClient"
+		],
+		"initModels": [
+			"deus.paperwork.entry_points.PaperworkModels"
 		],
 		"recipesReady": [
-			"turniplabs.examplemod.ExampleMod"
+			"deus.paperwork.entry_points.PaperworkRecipes"
+		],
+		"server": [
+			"deus.paperwork.PaperworkServer"
 		]
 	},
   "mixins": [
-      "examplemod.mixins.json"
+		"paperwork.mixins.json"
   ],
 
   "depends": {
