@@ -16,15 +16,18 @@ public class MenuPrinter extends MenuAbstract {
 	public MenuPrinter(ContainerInventory inventory, TileEntityPrinter tileEntityPrinter) {
 		this.printer = tileEntityPrinter;
 
-		this.addSlot(new Slot(tileEntityPrinter, 0, 17, 17));
-		this.addSlot(new Slot(tileEntityPrinter, 1, 36, 17));
-		this.addSlot(new Slot(tileEntityPrinter, 2, 55, 17));
+		this.addSlot(new Slot(tileEntityPrinter, 0, 24, 9));
+		this.addSlot(new Slot(tileEntityPrinter, 1, 43, 9));
+		this.addSlot(new Slot(tileEntityPrinter, 2, 62, 9));
 
-		this.addSlot(new Slot(tileEntityPrinter, 3, 36, 53));
+		this.addSlot(new Slot(tileEntityPrinter, 3, 24, (9*6)+3));
+		this.addSlot(new Slot(tileEntityPrinter, 4, 43, (9*6)+3));
+		this.addSlot(new Slot(tileEntityPrinter, 5, 62, (9*6)+3));
 
-		this.addSlot(new Slot(tileEntityPrinter, 4, 116, 34));
-		this.addSlot(new Slot(tileEntityPrinter, 5, 150, 31));
+		this.addSlot(new Slot(tileEntityPrinter, 6, 96, (9*4)+6));
+		this.addSlot(new Slot(tileEntityPrinter, 7, 119, (9*4)+6));
 
+		this.addSlot(new Slot(tileEntityPrinter, 8, 142, (9*4)+2));
 
 		int j;
 		for(j = 0; j < 3; ++j) {

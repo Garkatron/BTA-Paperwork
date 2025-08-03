@@ -1,0 +1,11 @@
+[
+  {
+    "type": "paperwork:printer",
+    "inputs": [
+      {"item": "minecraft:book"},
+      {"item": "minecraft:ink_sac"}
+    ],
+    "output": {"item": "minecraft:written_book"},
+    "process_type": "printing"
+  }
+]

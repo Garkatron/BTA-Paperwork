@@ -21,7 +21,7 @@ public class TileEntityPrinter extends TileEntity implements Container {
 	boolean activated = true;
 
 	public TileEntityPrinter() {
-		this.itemStacks = new ItemStack[6];
+		this.itemStacks = new ItemStack[12];
 		this.maxPrintTime = 200;
 		this.currentPrintTime = 200;
 		this.activated = true;
