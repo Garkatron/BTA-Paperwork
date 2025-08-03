@@ -8,6 +8,7 @@
     "RecipeDenier"
   ],
   "client": [
+    "PlayerLocalMixin"
   ],
   "injectors": {
     "defaultRequire": 1

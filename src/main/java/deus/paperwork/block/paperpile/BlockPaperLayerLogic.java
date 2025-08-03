@@ -55,4 +55,5 @@ public class BlockPaperLayerLogic extends BlockLogicLayerBase {
 				return null;
 		}
 	}
+	
 }

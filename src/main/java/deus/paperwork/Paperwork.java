@@ -1,6 +1,7 @@
 package deus.paperwork;
 
 import deus.paperwork.block.PaperworkBlocks;
+import deus.paperwork.entry_points.PaperworkEntities;
 import deus.paperwork.entry_points.PaperworkSounds;
 import deus.paperwork.item.PaperworkItems;
 import net.fabricmc.api.ModInitializer;
@@ -16,6 +17,7 @@ public class Paperwork implements ModInitializer, GameStartEntrypoint {
     public void onInitialize() {
 		PaperworkBlocks.initialize();
 		PaperworkItems.initialize();
+		PaperworkEntities.initialize();
 		LOGGER.info(MOD_ID+" Core Initialized.");
     }
 

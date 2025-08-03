@@ -3,6 +3,7 @@ package deus.paperwork.block.paperpile;
 import deus.paperwork.block.PaperworkMaterial;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.Item;
@@ -12,7 +13,7 @@ import net.minecraft.core.util.HardIllegalArgumentException;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 
-public class BlockFullPaperPileLogic extends BlockLogic {
+public class BlockFullPaperPileLogic extends BlockLogicRotatable {
 	private String itemnsp;
 	public BlockFullPaperPileLogic(Block<?> block, String itemnsp) {
 		super(block, PaperworkMaterial.paper);
