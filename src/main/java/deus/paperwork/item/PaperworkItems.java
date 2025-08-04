@@ -13,9 +13,12 @@ public class PaperworkItems {
 
 	private static int ITEM_ID = 24000;
 	public static Item NEWSPRINT;
+	public static Item CARDBOARD;
 
 	public static void initialize() {
 		NEWSPRINT = new CustomLayerItem("newsprint", MOD_ID+":item/newsprint", newItemID(), (Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_NEWSPRINT_LAYER);
+		CARDBOARD = new CustomLayerItem("cardboard", MOD_ID+":item/cardboard", newItemID(), (Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_CARDBOARD_LAYER);
+
 	}
 
 	public static int newItemID() {

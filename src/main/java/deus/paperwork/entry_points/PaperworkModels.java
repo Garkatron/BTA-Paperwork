@@ -1,5 +1,6 @@
 package deus.paperwork.entry_points;
 
+import deus.paperwork.block.cardboard_box.BlockModelCardboardBox;
 import deus.paperwork.block.paperpile.BlockModelPaper;
 import deus.paperwork.block.paperpile.BlockModelPaperLayer;
 import deus.paperwork.item.PaperworkItems;
@@ -9,7 +10,6 @@ import net.minecraft.client.render.TileEntityRenderDispatcher;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.client.render.block.model.BlockModelHorizontalRotation;
-import net.minecraft.client.render.block.model.BlockModelRotatable;
 import net.minecraft.client.render.block.model.BlockModelStandard;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
@@ -66,10 +66,34 @@ public class PaperworkModels implements ModelEntrypoint {
 			.setTex(0, MOD_ID + ":block/newsprint/topbottom", Side.BOTTOM)
 		);
 
-		ModelHelper.setBlockModel(BLOCK_CARTON_BOX, () -> new BlockModelHorizontalRotation<>(BLOCK_CARTON_BOX)
-			.setTex(0, MOD_ID + ":block/cartonbox/sides", Side.sides)
-			.setTex(0, MOD_ID + ":block/cartonbox/top", Side.TOP)
-			.setTex(0, MOD_ID + ":block/cartonbox/bottom", Side.BOTTOM)
+		ModelHelper.setBlockModel(BLOCK_CARDBOARD_BOX, () -> new BlockModelCardboardBox(BLOCK_CARDBOARD_BOX)
+			.setTex(0, MOD_ID + ":block/cardboard_box/0/sides", Side.sides)
+			.setTex(0, MOD_ID + ":block/cardboard_box/0/top", Side.TOP)
+			.setTex(0, MOD_ID + ":block/cardboard_box/0/bottom", Side.BOTTOM)
+		);
+
+		ModelHelper.setBlockModel(BLOCK_CARDBOARD_BOX_MEDIUM, () -> new BlockModelCardboardBox(BLOCK_CARDBOARD_BOX_MEDIUM)
+			.setTex(0, MOD_ID + ":block/cardboard_box/1/sides", Side.sides)
+			.setTex(0, MOD_ID + ":block/cardboard_box/1/top", Side.TOP)
+			.setTex(0, MOD_ID + ":block/cardboard_box/1/bottom", Side.BOTTOM)
+		);
+
+		ModelHelper.setBlockModel(BLOCK_CARDBOARD_BOX_SMALL, () -> new BlockModelCardboardBox(BLOCK_CARDBOARD_BOX_SMALL)
+			.setTex(0, MOD_ID + ":block/cardboard_box/2/sides", Side.sides)
+			.setTex(0, MOD_ID + ":block/cardboard_box/2/top", Side.TOP)
+			.setTex(0, MOD_ID + ":block/cardboard_box/2/bottom", Side.BOTTOM)
+		);
+
+		ModelHelper.setBlockModel(BLOCK_CARDBOARD_PILE, () -> new BlockModelPaper<>(BLOCK_CARDBOARD_PILE)
+			.setTex(0, MOD_ID + ":block/cardboard_pile/sides", Side.sides)
+			.setTex(0, MOD_ID + ":block/cardboard_pile/topbottom", Side.TOP)
+			.setTex(0, MOD_ID + ":block/cardboard_pile/topbottom", Side.BOTTOM)
+		);
+
+		ModelHelper.setBlockModel(BLOCK_CARDBOARD_LAYER, () -> new BlockModelPaperLayer<>(BLOCK_CARDBOARD_LAYER)
+			.setTex(0, MOD_ID + ":block/cardboard_pile/sides", Side.sides)
+			.setTex(0, MOD_ID + ":block/cardboard_pile/topbottom", Side.TOP)
+			.setTex(0, MOD_ID + ":block/cardboard_pile/topbottom", Side.BOTTOM)
 		);
 
 		ModelHelper.setBlockModel(BLOCK_CORCKBOARD, () -> new BlockModelStandard<>(BLOCK_CORCKBOARD)

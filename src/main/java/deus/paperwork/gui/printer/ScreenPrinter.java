@@ -1,4 +1,4 @@
-package deus.paperwork.gui;
+package deus.paperwork.gui.printer;
 
 import deus.paperwork.block.printer.TileEntityPrinter;
 import net.minecraft.client.gui.container.ScreenContainerAbstract;

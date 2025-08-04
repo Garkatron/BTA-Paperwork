@@ -18,8 +18,8 @@ import net.minecraft.core.world.WorldSource;
 
 public class BlockPaperLayerLogic extends BlockLogicLayerBase {
 	private final String itemnsp;
-	public BlockPaperLayerLogic(Block<?> block, String itemnsp) {
-		super(block, PaperworkBlocks.BLOCK_PAPER_PILE, PaperworkMaterial.paper);
+	public BlockPaperLayerLogic(Block<?> block, Block<?> fullblock, String itemnsp) {
+		super(block, fullblock, PaperworkMaterial.paper);
 		setBlockBounds(0.15,0.0,0.10,0.85,1,0.9);
 		this.itemnsp = itemnsp;
 	}
@@ -55,5 +55,5 @@ public class BlockPaperLayerLogic extends BlockLogicLayerBase {
 				return null;
 		}
 	}
-	
+
 }

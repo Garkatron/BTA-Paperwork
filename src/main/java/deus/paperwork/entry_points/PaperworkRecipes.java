@@ -27,14 +27,12 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 
 	@Override
 	public void onRecipesReady() {
-		// Acceder al grupo de recetas "printer"
 		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
 		if (group == null) {
 			System.out.println("Error: El grupo 'printer' no está registrado.");
 			return;
 		}
 
-		// Listar todas las recetas cargadas para depuración
 		System.out.println("Recetas cargadas en el grupo 'printer':");
 		for (Object recipe : group.getAllRecipes()) {
 			System.out.println("Receta: " + group.getKey(recipe));
