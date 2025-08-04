@@ -13,10 +13,9 @@ public class BlockCardboardBoxLogic extends BlockLogic {
 	public BlockCardboardBoxLogic(Block<?> block, Material material, int type) {
 		super(block, material);
 		this.type = type;
-		block.withEntity(TileEntityCardboardBox::new);
+		block.withEntity(()->new TileEntityCardboardBox(type));
 
 		switch (type) {
-
 			case 1: {
 				setBlockBounds(0.15,0.0,0.15,0.85,0.65,0.85); break;
 			}
@@ -32,7 +31,6 @@ public class BlockCardboardBoxLogic extends BlockLogic {
 	public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
 		if (!world.isClientSide) {
 			TileEntityCardboardBox tileEntityCardboardBox = (TileEntityCardboardBox)world.getTileEntity(x, y, z);
-			tileEntityCardboardBox.type = type;
 			((IPaperworkDisplay)player).paperwork$displayCardboardBoxScreen(tileEntityCardboardBox);
 		}
 		return true;

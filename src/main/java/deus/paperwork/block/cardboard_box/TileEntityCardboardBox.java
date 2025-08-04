@@ -19,9 +19,21 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 public class TileEntityCardboardBox extends TileEntity implements Container {
-	private ItemStack[] chestContents = new ItemStack[36];
+	private ItemStack[] chestContents;
 	public int type = 0;
-	public TileEntityCardboardBox() {
+	public TileEntityCardboardBox(int type) {
+		this.type = type;
+		switch (type) {
+			case 0: {
+				chestContents = new ItemStack[36]; break;
+			}
+			case 1: {
+				chestContents = new ItemStack[30]; break;
+			}
+			case 2: {
+				chestContents = new ItemStack[9]; break;
+			}
+		}
 	}
 
 	public int getContainerSize() {
