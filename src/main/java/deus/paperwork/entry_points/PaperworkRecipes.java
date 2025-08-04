@@ -31,26 +31,25 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 	@Override
 	public void onRecipesReady() {
 
-
 		RecipeBuilder.Shaped(MOD_ID)
 			.setShape("c c", "ccc", "ccc")
 			.addInput('c', PaperworkItems.CARDBOARD)
-			.create("rune:rune_stone", PaperworkItems.ARMOR_CHESTPLATE_CARDBOARD.getDefaultStack());
+			.create(MOD_ID+"armor_chestplate_cardboard", PaperworkItems.ARMOR_CHESTPLATE_CARDBOARD.getDefaultStack());
 
 		RecipeBuilder.Shaped(MOD_ID)
 			.setShape("ccc", "c c", "   ")
 			.addInput('c', PaperworkItems.CARDBOARD)
-			.create("rune:rune_stone", PaperworkItems.ARMOR_HELMET_CARDBOARD.getDefaultStack());
+			.create(MOD_ID+":armor_helmet_cardboard", PaperworkItems.ARMOR_HELMET_CARDBOARD.getDefaultStack());
 
 		RecipeBuilder.Shaped(MOD_ID)
 			.setShape("ccc", "c c", "c c")
 			.addInput('c', PaperworkItems.CARDBOARD)
-			.create("rune:rune_stone", PaperworkItems.ARMOR_LEGGINS_CARDBOARD.getDefaultStack());
+			.create(MOD_ID+":armor_leggins_cardboard", PaperworkItems.ARMOR_LEGGINS_CARDBOARD.getDefaultStack());
 
 		RecipeBuilder.Shaped(MOD_ID)
 			.setShape("   ", "c c", "c c")
 			.addInput('c', PaperworkItems.CARDBOARD)
-			.create("rune:rune_stone", PaperworkItems.ARMOR_BOOTS_CARDBOARD.getDefaultStack());
+			.create(MOD_ID+":armor_boots_cardboard", PaperworkItems.ARMOR_BOOTS_CARDBOARD.getDefaultStack());
 
 		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
 		if (group == null) {

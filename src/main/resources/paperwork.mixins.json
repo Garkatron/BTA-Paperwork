@@ -8,7 +8,8 @@
     "RecipeDenier"
   ],
   "client": [
-    "PlayerLocalMixin"
+    "PlayerLocalMixin",
+    "IAEntityDispatcher"
   ],
   "injectors": {
     "defaultRequire": 1
