@@ -51,6 +51,11 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 			.addInput('c', PaperworkItems.CARDBOARD)
 			.create(MOD_ID+":armor_boots_cardboard", PaperworkItems.ARMOR_BOOTS_CARDBOARD.getDefaultStack());
 
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("p  ", "   ", "   ")
+			.addInput('p', Items.PAPER)
+			.create(MOD_ID+":paperplane", PaperworkItems.PAPERPLANE.getDefaultStack());
+
 		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
 		if (group == null) {
 			System.out.println("Error: El grupo 'printer' no está registrado.");

@@ -23,6 +23,9 @@ public class PaperworkItems {
 	public static Item ARMOR_CHESTPLATE_CARDBOARD;
 	public static Item ARMOR_HELMET_CARDBOARD;
 
+	public static Item PAPERPLANE;
+
+
 	public static void initialize() {
 		NEWSPRINT = new CustomLayerItem("newsprint", MOD_ID+":item/newsprint", newItemID(), (Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_NEWSPRINT_LAYER);
 		CARDBOARD = new CustomLayerItem("cardboard", MOD_ID+":item/cardboard", newItemID(), (Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_CARDBOARD_LAYER);
@@ -31,6 +34,8 @@ public class PaperworkItems {
 		ARMOR_LEGGINS_CARDBOARD = new ItemArmor("armor_leggins_cardboard",MOD_ID+":item/armor/cardboard/leggins", newItemID(), PaperworkArmorMaterial.CARDBOARD, 1);
 		ARMOR_CHESTPLATE_CARDBOARD = new ItemArmor("armor_chestplate_cardboard",MOD_ID+":item/armor/cardboard/chestplate", newItemID(), PaperworkArmorMaterial.CARDBOARD, 2);
 		ARMOR_HELMET_CARDBOARD = new ItemArmor("armor_helmet_cardboard",MOD_ID+":item/armor/cardboard/helmet", newItemID(), PaperworkArmorMaterial.CARDBOARD, 3);
+
+		PAPERPLANE = new ItemPaperPlane("paperplane", MOD_ID+":item/paperplane", newItemID());
 	}
 
 	public static int newItemID() {

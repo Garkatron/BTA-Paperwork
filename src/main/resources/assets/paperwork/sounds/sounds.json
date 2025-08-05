@@ -3,7 +3,24 @@
     "subtitle": "subtitles.material.paper.put",
     "sounds": [
       "material/paper/put.ogg"
-
+    ]
+  },
+  "material.paper.jiggle0": {
+    "subtitle": "subtitles.material.paper.jiggle",
+    "sounds": [
+      "material/paper/jiggle0.wav"
+    ]
+  },
+  "material.paper.jiggle1": {
+    "subtitle": "subtitles.material.paper.jiggle",
+    "sounds": [
+      "material/paper/jiggle1.wav"
+    ]
+  },
+  "material.paper.soft": {
+    "subtitle": "subtitles.material.paper.soft",
+    "sounds": [
+      "material/paper/soft.wav"
     ]
   }
 }

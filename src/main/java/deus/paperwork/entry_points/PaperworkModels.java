@@ -1,10 +1,11 @@
 package deus.paperwork.entry_points;
 
-import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.block.cardboard_box.BlockModelCardboardBox;
 import deus.paperwork.block.paperpile.BlockModelPaper;
 import deus.paperwork.block.paperpile.BlockModelPaperLayer;
-import deus.paperwork.entities.EntityPaperPlane;
+import deus.paperwork.entities.paperplane.EntityPaperPlane;
+import deus.paperwork.entities.paperplane.ModelPaperPlane;
+import deus.paperwork.entities.paperplane.PaperPlaneRenderer;
 import deus.paperwork.item.PaperworkItems;
 import deus.paperwork.mixin.IAEntityDispatcher;
 import deus.paperwork.util.StaticFieldsExtractor;
@@ -17,15 +18,12 @@ import net.minecraft.client.render.block.model.BlockModelStandard;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
-import net.minecraft.client.render.model.ModelSkeleton;
-import net.minecraft.client.render.model.ModelZombie;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.helper.Side;
 import org.jetbrains.annotations.NotNull;
-import org.useless.DragonFly;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
 
@@ -138,7 +136,7 @@ public class PaperworkModels implements ModelEntrypoint {
 
 	@Override
 	public void initEntityModels(EntityRenderDispatcher dispatcher) {
-		//addEntityModel(dispatcher, EntityPaperPlane.class, EntityPaperPlane.class, DragonFly.loadEntityModel(MOD_ID+":entity/model.geo.json",0.0f));
+		addEntityModel(dispatcher, EntityPaperPlane.class, new PaperPlaneRenderer(new ModelPaperPlane()));
 
 	}
 

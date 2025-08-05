@@ -13,7 +13,7 @@ public class BlockCardboardBoxLogic extends BlockLogic {
 	public BlockCardboardBoxLogic(Block<?> block, Material material, int type) {
 		super(block, material);
 		this.type = type;
-		block.withEntity(()->new TileEntityCardboardBox(type));
+		//block.withEntity(()->new TileEntityCardboardBox(type));
 
 		switch (type) {
 			case 1: {

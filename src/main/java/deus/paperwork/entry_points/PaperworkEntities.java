@@ -2,7 +2,7 @@ package deus.paperwork.entry_points;
 
 import deus.paperwork.block.cardboard_box.TileEntityCardboardBox;
 import deus.paperwork.block.printer.TileEntityPrinter;
-import deus.paperwork.entities.EntityPaperPlane;
+import deus.paperwork.entities.paperplane.EntityPaperPlane;
 import net.minecraft.core.util.collection.NamespaceID;
 import turniplabs.halplibe.helper.EntityHelper;
 
