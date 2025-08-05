@@ -1,27 +1,23 @@
-package deus.paperwork.entities.paperplane;
+package deus.paperwork.entities.big_paperplane;
 
 import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.MobRenderer;
-import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.tessellator.Tessellator;
 import org.lwjgl.opengl.GL11;
 
-import java.util.Random;
+public class BigPaperPlaneRenderer extends EntityRenderer<EntityBigPaperPlane> {
 
-public class PaperPlaneRenderer extends EntityRenderer<EntityPaperPlane> {
-
-	ModelPaperPlane modelPaperPlane;
-	public PaperPlaneRenderer(ModelPaperPlane model) {
+	ModelBigPaperPlane modelPaperPlane;
+	public BigPaperPlaneRenderer(ModelBigPaperPlane model) {
 		modelPaperPlane = model;
 	}
 
 	@Override
-	public void render(Tessellator tessellator, EntityPaperPlane entity, double x, double y, double z, float yaw, float partialTick) {
+	public void render(Tessellator tessellator, EntityBigPaperPlane entity, double x, double y, double z, float yaw, float partialTick) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)x, (float)y, (float)z);
 		GL11.glRotatef(180.0F - yaw, 0.0F, 1.0F, 0.0F);
 		GL11.glScalef(-1.0F, -1.0F, 1.0F);
-		float scale = 0.0625F;
+		float scale = 0.1625F;
 		GL11.glTranslatef(0.0F, -24.0F * scale, 0.0F);
 
 		this.bindTexture("/assets/paperwork/textures/entity/paperplane/texture.png");

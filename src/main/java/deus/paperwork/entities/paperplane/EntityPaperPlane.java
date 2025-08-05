@@ -20,13 +20,11 @@ public class EntityPaperPlane extends Entity {
 
 	private int damageTaken;
 	private int timeSinceHit;
-	private int rockDirection;
 	public EntityPaperPlane(World world) {
 		super(world);
 		this.setSize(0.5F, 0.5F);
 		this.damageTaken = 0;
 		this.timeSinceHit = 0;
-		this.rockDirection = 1;
 	}
 
 	@Override
@@ -43,6 +41,9 @@ public class EntityPaperPlane extends Entity {
 		if (this.damageTaken > 0) {
 			this.damageTaken--;
 		}
+
+		this.xRot += 2;
+
 		this.xo = this.x;
 		this.yo = this.y;
 		this.zo = this.z;
@@ -110,7 +111,6 @@ public class EntityPaperPlane extends Entity {
 	@Override
 	public boolean hurt(Entity entity, int damage, DamageType type) {
 		if (!this.world.isClientSide && !this.removed) {
-			this.rockDirection = -this.rockDirection;
 			this.timeSinceHit = 10;
 
 			this.markHurt();
@@ -122,13 +122,17 @@ public class EntityPaperPlane extends Entity {
 			if (entity instanceof Player && ((Player)entity).getGamemode() == Gamemode.creative) {
 				this.remove();
 			} else {
-				this.dropItem(PaperworkItems.PAPERPLANE.id, 1, 0.0F);
+				dropOnHurt();
 				this.remove();
 			}
 
 			return true;
 		}
 		return true;
+	}
+
+	protected void dropOnHurt() {
+		this.dropItem(PaperworkItems.PAPERPLANE.id, 1, 0.0F);
 	}
 
 	@Override

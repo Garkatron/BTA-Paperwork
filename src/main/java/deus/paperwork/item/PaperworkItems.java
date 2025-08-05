@@ -24,6 +24,7 @@ public class PaperworkItems {
 	public static Item ARMOR_HELMET_CARDBOARD;
 
 	public static Item PAPERPLANE;
+	public static Item BIG_PAPERPLANE;
 
 
 	public static void initialize() {
@@ -36,6 +37,7 @@ public class PaperworkItems {
 		ARMOR_HELMET_CARDBOARD = new ItemArmor("armor_helmet_cardboard",MOD_ID+":item/armor/cardboard/helmet", newItemID(), PaperworkArmorMaterial.CARDBOARD, 3);
 
 		PAPERPLANE = new ItemPaperPlane("paperplane", MOD_ID+":item/paperplane", newItemID());
+		BIG_PAPERPLANE = new ItemBigPaperPlane("big_paperplane", MOD_ID+":item/big_paperplane", newItemID());
 	}
 
 	public static int newItemID() {

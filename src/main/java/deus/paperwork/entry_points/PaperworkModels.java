@@ -3,6 +3,9 @@ package deus.paperwork.entry_points;
 import deus.paperwork.block.cardboard_box.BlockModelCardboardBox;
 import deus.paperwork.block.paperpile.BlockModelPaper;
 import deus.paperwork.block.paperpile.BlockModelPaperLayer;
+import deus.paperwork.entities.big_paperplane.BigPaperPlaneRenderer;
+import deus.paperwork.entities.big_paperplane.EntityBigPaperPlane;
+import deus.paperwork.entities.big_paperplane.ModelBigPaperPlane;
 import deus.paperwork.entities.paperplane.EntityPaperPlane;
 import deus.paperwork.entities.paperplane.ModelPaperPlane;
 import deus.paperwork.entities.paperplane.PaperPlaneRenderer;
@@ -137,6 +140,7 @@ public class PaperworkModels implements ModelEntrypoint {
 	@Override
 	public void initEntityModels(EntityRenderDispatcher dispatcher) {
 		addEntityModel(dispatcher, EntityPaperPlane.class, new PaperPlaneRenderer(new ModelPaperPlane()));
+		addEntityModel(dispatcher, EntityBigPaperPlane.class, new BigPaperPlaneRenderer(new ModelBigPaperPlane()));
 
 	}
 

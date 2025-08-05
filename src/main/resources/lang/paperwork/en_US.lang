@@ -1,9 +1,29 @@
-tile.paperwork.printer.name = Printer
-tile.paperwork.photocopier.name = Photocopier
-tile.paperwork.cardboard_box.name = Cardboard Box
-tile.paperwork.paperpile.name = Paper Pile
-tile.paperwork.paper_layer.name = Paper Layer
-tile.paperwork.corckboard.name = Corck Board
-tile.paperwork.chalkboard.name = Chalk Board
-tile.paperwork.file_cabinet_browk_planks.name = Brown Planks File Cabinet
-tile.paperwork.file_cabinet_iron.name = Iron File Cabinet
+# Paperwork Mod Language Entries
+
+# Blocks (tiles)
+tile.paperwork.cardboard_box_medium.name=Medium Cardboard Box
+tile.paperwork.cardboard_box_small.name=Small Cardboard Box
+tile.paperwork.paper_pile.name=Paper Pile
+tile.paperwork.newsprint_pile.name=Newsprint Pile
+tile.paperwork.newsprint_layer.name=Newsprint Layer
+tile.paperwork.cardboard_pile.name=Cardboard Pile
+tile.paperwork.cardboard_layer.name=Cardboard Layer
+tile.paperwork.printer.name=Printer
+tile.paperwork.photocopier.name=Photocopier
+tile.paperwork.cardboard_box.name=Cardboard Box
+tile.paperwork.paperpile.name=Paper Pile
+tile.paperwork.paper_layer.name=Paper Layer
+tile.paperwork.corckboard.name=Cork Board
+tile.paperwork.chalkboard.name=Chalk Board
+tile.paperwork.file_cabinet_browk_planks.name=Brown Planks File Cabinet
+tile.paperwork.file_cabinet_iron.name=Iron File Cabinet
+
+# Items
+item.newsprint.name=Newsprint
+item.cardboard.name=Cardboard
+item.armor_boots_cardboard.name=Cardboard Boots
+item.armor_leggins_cardboard.name=Cardboard Leggings
+item.armor_chestplate_cardboard.name=Cardboard Chestplate
+item.armor_helmet_cardboard.name=Cardboard Helmet
+item.paperplane.name=Paper Plane
+item.big_paperplane.name=Big Paper Plane
