@@ -9,15 +9,13 @@ public class ModelPaperPlane extends ModelBase {
 
 	public ModelPaperPlane() {
 
-		// Parte principal (bb_main, cuerpo)
 		this.bb_main = new Cube(0, 0, 64,64);
 		this.bb_main.addBox(-1.0F, -2.0F, -6.0F, 0, 2, 12);
 		this.bb_main.setRotationPoint(0.0F, 24.0F, 0.0F);
 
-		// Ala (segundo cubo)
-		this.wing = new Cube(-12, 0, 64,64); // Offset de textura corregido para el ala
+		this.wing = new Cube(-12, 0, 64,64);
 		this.wing.addBox(-7.0F, -2.0F, -6.0F, 12, 0, 12);
-		this.wing.setRotationPoint(0.0F, 24.0F, 0.0F); // Mismo rotationPoint que bb_main
+		this.wing.setRotationPoint(0.0F, 24.0F, 0.0F);
 	}
 
 	@Override
