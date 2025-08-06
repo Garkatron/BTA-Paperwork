@@ -10,6 +10,9 @@ import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.weather.Weather;
+import net.minecraft.core.world.weather.WeatherClear;
+import net.minecraft.core.world.weather.Weathers;
 import org.jetbrains.annotations.NotNull;
 
 import static deus.paperwork.Paperwork.MOD_ID;
@@ -19,7 +22,6 @@ public class EntityBigPaperPlane extends EntityPaperPlane {
 	public EntityBigPaperPlane(World world) {
 		super(world);
 		this.setSize(1F, 1F);
-
 	}
 
 	@Override
@@ -35,6 +37,11 @@ public class EntityBigPaperPlane extends EntityPaperPlane {
 			double d1 = Math.sin((double)this.yRot * Math.PI / 180.0) * 0.1;
 			this.passenger.setPos(this.x + d, this.y + this.getRideHeight() + this.passenger.getRidingHeight(), this.z + d1);
 		}
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
 
 	}
 

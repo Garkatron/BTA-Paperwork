@@ -1,26 +1,9 @@
 package deus.paperwork.entities.big_paperplane;
 
+import deus.paperwork.entities.paperplane.ModelPaperPlane;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 
-public class ModelBigPaperPlane extends ModelBase {
-	private final Cube bb_main;
-	private final Cube wing;
+public class ModelBigPaperPlane extends ModelPaperPlane {
 
-	public ModelBigPaperPlane() {
-
-		this.bb_main = new Cube(0, 0, 64,64);
-		this.bb_main.addBox(-1.0F, -2.0F, -6.0F, 0, 2, 12);
-		this.bb_main.setRotationPoint(0.0F, 24.0F, 0.0F);
-
-		this.wing = new Cube(-12, 0, 64,64);
-		this.wing.addBox(-7.0F, -2.0F, -6.0F, 12, 0, 12);
-		this.wing.setRotationPoint(0.0F, 24.0F, 0.0F);
-	}
-
-	@Override
-	public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
-		this.bb_main.render(scale);
-		this.wing.render(scale);
-	}
 }

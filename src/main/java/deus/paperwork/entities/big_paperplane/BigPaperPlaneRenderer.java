@@ -20,7 +20,18 @@ public class BigPaperPlaneRenderer extends EntityRenderer<EntityBigPaperPlane> {
 		float scale = 0.1625F;
 		GL11.glTranslatef(0.0F, -24.0F * scale, 0.0F);
 
-		this.bindTexture("/assets/paperwork/textures/entity/paperplane/texture.png");
+		switch (entity.getWetState()) {
+			case DRY:
+				this.bindTexture("/assets/paperwork/textures/entity/paperplane/big_texture.png");
+				break;
+			case WET:
+				this.bindTexture("/assets/paperwork/textures/entity/paperplane/big_wet_texture.png");
+				break;
+			case VERY_WET:
+				this.bindTexture("/assets/paperwork/textures/entity/paperplane/big_very_wet_texture.png");
+				break;
+		}
+
 
 		GL11.glEnable(32826);
 		GL11.glEnable(3008);

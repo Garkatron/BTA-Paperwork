@@ -5,11 +5,12 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ItemsMixin",
+    "PlayerMixin",
     "RecipeDenier"
   ],
   "client": [
-    "PlayerLocalMixin",
-    "IAEntityDispatcher"
+    "IAEntityDispatcher",
+    "PlayerLocalMixin"
   ],
   "injectors": {
     "defaultRequire": 1

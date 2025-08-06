@@ -4,43 +4,88 @@ import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.item.PaperworkItems;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.weather.Weathers;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
 public class EntityPaperPlane extends Entity {
+	public enum WetState {
+		DRY(0),
+		WET(100),
+		VERY_WET(150);
 
-	private int damageTaken;
-	private int timeSinceHit;
+		private final int atUnderRainTime;
+
+		WetState(int lvl) {
+			this.atUnderRainTime = lvl;
+		}
+
+		public int getAtUnderRainTime() {
+			return atUnderRainTime;
+		}
+
+		public static WetState get(int atUnderRainTime) {
+			if (atUnderRainTime >= VERY_WET.atUnderRainTime) {
+				return VERY_WET;
+			} else if (atUnderRainTime >= WET.atUnderRainTime) {
+				return WET;
+			} else {
+				return DRY;
+			}
+		}
+	}
+
+	private static final int DATA_WET_STATE = 1;
+	private final int maxTimeUnderRain = 200;
+	private int currentTimeUnderRain = 0;
+	public WetState wetState = WetState.DRY;
+	private final double DEFAULT_GRAVITY = 0.008F;
+	private final double WET_GRAVITY = 0.028F;
+	private double currentGravity = DEFAULT_GRAVITY;
+
 	public EntityPaperPlane(World world) {
 		super(world);
 		this.setSize(0.5F, 0.5F);
-		this.damageTaken = 0;
-		this.timeSinceHit = 0;
 	}
 
 	@Override
 	protected void defineSynchedData() {
+		this.entityData.define(DATA_WET_STATE, currentTimeUnderRain, Integer.class);
+	}
 
+	protected void updateWet() {
+		if (world.weatherManager.getCurrentWeather().weatherId == Weathers.OVERWORLD_RAIN.weatherId) {
+			if (currentTimeUnderRain < maxTimeUnderRain) {
+				currentTimeUnderRain++;
+			} else {
+				currentTimeUnderRain = maxTimeUnderRain;
+				remove();
+			}
+			wetState = WetState.get(currentTimeUnderRain);
+			this.entityData.set(DATA_WET_STATE, wetState.atUnderRainTime);
+			switch (wetState) {
+				case DRY:
+					currentGravity = DEFAULT_GRAVITY;
+					break;
+				case WET:
+				case VERY_WET:
+					currentGravity = WET_GRAVITY;
+					break;
+			}
+		}
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		if (this.timeSinceHit > 0) {
-			this.timeSinceHit--;
-		}
-		if (this.damageTaken > 0) {
-			this.damageTaken--;
-		}
+
+		updateWet();
 
 		this.xRot += 2;
 
@@ -69,7 +114,7 @@ public class EntityPaperPlane extends Entity {
 			}
 
 
-			this.yd -= 0.008F;
+			this.yd -= currentGravity;
 
 			this.move(this.xd, this.yd, this.zd);
 
@@ -98,20 +143,23 @@ public class EntityPaperPlane extends Entity {
 		return true;
 	}
 
+
 	@Override
 	public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-
+		this.currentTimeUnderRain = compoundTag.getInteger("CurrentTimeUnderRain");
+		this.wetState = WetState.get(currentTimeUnderRain);
+		this.entityData.set(DATA_WET_STATE, wetState.atUnderRainTime);
+		this.currentGravity = (wetState == WetState.DRY) ? DEFAULT_GRAVITY : WET_GRAVITY;
 	}
 
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-
+		compoundTag.putInt("CurrentTimeUnderRain", this.currentTimeUnderRain);
 	}
 
 	@Override
 	public boolean hurt(Entity entity, int damage, DamageType type) {
 		if (!this.world.isClientSide && !this.removed) {
-			this.timeSinceHit = 10;
 
 			this.markHurt();
 
@@ -138,5 +186,8 @@ public class EntityPaperPlane extends Entity {
 	@Override
 	protected boolean makeStepSound() {
 		return false;
+	}
+	public WetState getWetState() {
+		return WetState.get(this.entityData.getInt(DATA_WET_STATE));
 	}
 }
