@@ -2,13 +2,12 @@ package deus.paperwork.item;
 
 import deus.paperwork.armor.PaperworkArmorMaterial;
 import deus.paperwork.block.PaperworkBlocks;
+import deus.paperwork.item.big_paperplane.ItemBigPaperPlane;
+import deus.paperwork.item.paperplane.ItemPaperPlane;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLayerBase;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
-import net.minecraft.core.item.ItemPlaceable;
-import net.minecraft.core.item.block.ItemBlockLayer;
-import net.minecraft.core.item.material.ArmorMaterial;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
@@ -36,7 +35,7 @@ public class PaperworkItems {
 		ARMOR_CHESTPLATE_CARDBOARD = new ItemArmor("armor_chestplate_cardboard",MOD_ID+":item/armor/cardboard/chestplate", newItemID(), PaperworkArmorMaterial.CARDBOARD, 2);
 		ARMOR_HELMET_CARDBOARD = new ItemArmor("armor_helmet_cardboard",MOD_ID+":item/armor/cardboard/helmet", newItemID(), PaperworkArmorMaterial.CARDBOARD, 3);
 
-		PAPERPLANE = new ItemPaperPlane("paperplane", MOD_ID+":item/paperplane", newItemID());
+		PAPERPLANE = new ItemPaperPlane("paperplane", MOD_ID+":item/paperplane/paperplane", newItemID());
 		BIG_PAPERPLANE = new ItemBigPaperPlane("big_paperplane", MOD_ID+":item/big_paperplane", newItemID());
 	}
 

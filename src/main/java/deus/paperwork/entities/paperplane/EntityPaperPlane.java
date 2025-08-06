@@ -7,6 +7,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.weather.Weathers;
@@ -41,6 +42,7 @@ public class EntityPaperPlane extends Entity {
 		}
 	}
 
+	private DyeColor color = DyeColor.WHITE;
 	private static final int DATA_WET_STATE = 1;
 	private final int maxTimeUnderRain = 200;
 	private int currentTimeUnderRain = 0;
@@ -189,5 +191,13 @@ public class EntityPaperPlane extends Entity {
 	}
 	public WetState getWetState() {
 		return WetState.get(this.entityData.getInt(DATA_WET_STATE));
+	}
+
+	public void setColor(DyeColor color) {
+		this.color = color;
+	}
+
+	public DyeColor getColor() {
+		return color;
 	}
 }

@@ -1,7 +1,7 @@
 package deus.paperwork.mixin;
 
 
-import deus.paperwork.item.CustomItemPaper;
+import deus.paperwork.item.custom_paper.CustomItemPaper;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.Items;
 import org.spongepowered.asm.mixin.Mixin;

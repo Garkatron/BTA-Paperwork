@@ -1,8 +1,10 @@
 package deus.paperwork.entry_points;
 
 import deus.paperwork.block.cardboard_box.BlockModelCardboardBox;
-import deus.paperwork.block.paperpile.BlockModelPaper;
-import deus.paperwork.block.paperpile.BlockModelPaperLayer;
+import deus.paperwork.block.paperpile.layer.painted.BlockModelPaperLayerPainted;
+import deus.paperwork.block.paperpile.regular.BlockModelPaperPile;
+import deus.paperwork.block.paperpile.layer.BlockModelPaperLayer;
+import deus.paperwork.block.paperpile.painted.BlockModelPaperPilePainted;
 import deus.paperwork.entities.big_paperplane.BigPaperPlaneRenderer;
 import deus.paperwork.entities.big_paperplane.EntityBigPaperPlane;
 import deus.paperwork.entities.big_paperplane.ModelBigPaperPlane;
@@ -10,6 +12,9 @@ import deus.paperwork.entities.paperplane.EntityPaperPlane;
 import deus.paperwork.entities.paperplane.ModelPaperPlane;
 import deus.paperwork.entities.paperplane.PaperPlaneRenderer;
 import deus.paperwork.item.PaperworkItems;
+import deus.paperwork.item.big_paperplane.ItemBigPaperplaneModel;
+import deus.paperwork.item.custom_paper.CustomItemPaperModel;
+import deus.paperwork.item.paperplane.ItemPaperplaneModel;
 import deus.paperwork.mixin.IAEntityDispatcher;
 import deus.paperwork.util.StaticFieldsExtractor;
 import net.minecraft.client.render.EntityRenderDispatcher;
@@ -25,6 +30,7 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.Item;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.Side;
 import org.jetbrains.annotations.NotNull;
 import turniplabs.halplibe.helper.ModelHelper;
@@ -52,11 +58,19 @@ public class PaperworkModels implements ModelEntrypoint {
 			.setTex(0, MOD_ID + ":block/photocopier/bottom", Side.BOTTOM)
 		);
 
-		ModelHelper.setBlockModel(BLOCK_PAPER_PILE, () -> new BlockModelPaper<>(BLOCK_PAPER_PILE)
+		ModelHelper.setBlockModel(BLOCK_PAPER_PILE, () -> new BlockModelPaperPile<>(BLOCK_PAPER_PILE)
 			.setTex(0, MOD_ID + ":block/paperpile/sides", Side.sides)
 			.setTex(0, MOD_ID + ":block/paperpile/topbottom", Side.TOP)
 			.setTex(0, MOD_ID + ":block/paperpile/topbottom", Side.BOTTOM)
 		);
+
+
+		ModelHelper.setBlockModel(BLOCK_PAPER_PILE_PAINTED, () -> new BlockModelPaperPilePainted<>(BLOCK_PAPER_PILE_PAINTED)
+			.setTex(0, MOD_ID + ":block/paperpile/sides", Side.sides)
+			.setTex(0, MOD_ID + ":block/paperpile/topbottom", Side.TOP)
+			.setTex(0, MOD_ID + ":block/paperpile/topbottom", Side.BOTTOM)
+		);
+
 
 		ModelHelper.setBlockModel(BLOCK_PAPER_LAYER, () -> new BlockModelPaperLayer<>(BLOCK_PAPER_LAYER)
 			.setTex(0, MOD_ID + ":block/paperpile/sides", Side.sides)
@@ -64,7 +78,14 @@ public class PaperworkModels implements ModelEntrypoint {
 			.setTex(0, MOD_ID + ":block/paperpile/topbottom", Side.BOTTOM)
 		);
 
-		ModelHelper.setBlockModel(BLOCK_NEWSPRINT_PILE, () -> new BlockModelPaper<>(BLOCK_NEWSPRINT_PILE)
+		ModelHelper.setBlockModel(BLOCK_PAPER_LAYER_PAINTED, () -> new BlockModelPaperLayerPainted<>(BLOCK_PAPER_LAYER_PAINTED)
+			.setTex(0, MOD_ID + ":block/paperpile/sides", Side.sides)
+			.setTex(0, MOD_ID + ":block/paperpile/topbottom", Side.TOP)
+			.setTex(0, MOD_ID + ":block/paperpile/topbottom", Side.BOTTOM)
+		);
+
+
+		ModelHelper.setBlockModel(BLOCK_NEWSPRINT_PILE, () -> new BlockModelPaperPile<>(BLOCK_NEWSPRINT_PILE)
 			.setTex(0, MOD_ID + ":block/newsprint/sides", Side.sides)
 			.setTex(0, MOD_ID + ":block/newsprint/topbottom", Side.TOP)
 			.setTex(0, MOD_ID + ":block/newsprint/topbottom", Side.BOTTOM)
@@ -94,7 +115,7 @@ public class PaperworkModels implements ModelEntrypoint {
 			.setTex(0, MOD_ID + ":block/cardboard_box/2/bottom", Side.BOTTOM)
 		);
 
-		ModelHelper.setBlockModel(BLOCK_CARDBOARD_PILE, () -> new BlockModelPaper<>(BLOCK_CARDBOARD_PILE)
+		ModelHelper.setBlockModel(BLOCK_CARDBOARD_PILE, () -> new BlockModelPaperPile<>(BLOCK_CARDBOARD_PILE)
 			.setTex(0, MOD_ID + ":block/cardboard_pile/sides", Side.sides)
 			.setTex(0, MOD_ID + ":block/cardboard_pile/topbottom", Side.TOP)
 			.setTex(0, MOD_ID + ":block/cardboard_pile/topbottom", Side.BOTTOM)
@@ -135,6 +156,24 @@ public class PaperworkModels implements ModelEntrypoint {
 	@Override
 	public void initItemModels(ItemModelDispatcher itemModelDispatcher) {
 		makeItemModels(PaperworkItems.class);
+		ModelHelper.setItemModel(Items.PAPER,
+			() -> {
+				ItemModelStandard model = new CustomItemPaperModel(Items.PAPER, MOD_ID);
+				model.icon = TextureRegistry.getTexture(Items.PAPER.namespaceID);
+				return model;
+			});
+		ModelHelper.setItemModel(PaperworkItems.PAPERPLANE,
+			() -> {
+				ItemModelStandard model = new ItemPaperplaneModel(PaperworkItems.PAPERPLANE, MOD_ID);
+				model.icon = TextureRegistry.getTexture(PaperworkItems.PAPERPLANE.namespaceID);
+				return model;
+			});
+		ModelHelper.setItemModel(PaperworkItems.BIG_PAPERPLANE,
+			() -> {
+				ItemModelStandard model = new ItemBigPaperplaneModel(PaperworkItems.BIG_PAPERPLANE, MOD_ID);
+				model.icon = TextureRegistry.getTexture(PaperworkItems.BIG_PAPERPLANE.namespaceID);
+				return model;
+			});
 	}
 
 	@Override

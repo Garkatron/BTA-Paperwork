@@ -2,11 +2,13 @@ package deus.paperwork.entities.paperplane;
 
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.core.util.helper.DyeColor;
 import org.lwjgl.opengl.GL11;
 
 public class PaperPlaneRenderer extends EntityRenderer<EntityPaperPlane> {
 
 	ModelPaperPlane modelPaperPlane;
+	private final String DEFAULT_TEXTURE = "/assets/paperwork/textures/entity/paperplane/paperplane.png";
 
 	public PaperPlaneRenderer(ModelPaperPlane model) {
 		this.modelPaperPlane = model;
@@ -21,24 +23,34 @@ public class PaperPlaneRenderer extends EntityRenderer<EntityPaperPlane> {
 		float scale = 0.0625F;
 		GL11.glTranslatef(0.0F, -24.0F * scale, 0.0F);
 
+		String currentTexture = DEFAULT_TEXTURE;
+
+		DyeColor color = entity.getColor();
+		if (color!=null) {
+			currentTexture = "/assets/paperwork/textures/entity/paperplane/" + entity.getColor().colorID + ".png";
+		}
+
+		this.bindTexture(currentTexture);
+
 		switch (entity.getWetState()) {
 			case DRY:
-				this.bindTexture("/assets/paperwork/textures/entity/paperplane/big_texture.png");
+				GL11.glColor3f(1.0F, 1.0F, 1.0F);
 				break;
 			case WET:
-				this.bindTexture("/assets/paperwork/textures/entity/paperplane/big_wet_texture.png");
+				GL11.glColor3f(0.7F, 0.7F, 0.7F);
 				break;
 			case VERY_WET:
-				this.bindTexture("/assets/paperwork/textures/entity/paperplane/big_very_wet_texture.png");
+				GL11.glColor3f(0.4F, 0.4F, 0.4F);
 				break;
 		}
 
-		GL11.glEnable(32826); // GL_RESCALE_NORMAL
-		GL11.glEnable(3008);  // GL_ALPHA_TEST
+		GL11.glEnable(32826);
+		GL11.glEnable(3008);
 
 		this.modelPaperPlane.render(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, scale);
 
 		GL11.glDisable(32826);
+		GL11.glColor3f(1.0F, 1.0F, 1.0F);
 		GL11.glPopMatrix();
 	}
 }

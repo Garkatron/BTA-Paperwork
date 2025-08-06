@@ -1,7 +1,5 @@
 package deus.paperwork.item;
 
-import deus.paperwork.block.PaperworkBlocks;
-import deus.paperwork.block.paperpile.BlockPaperLayerLogic;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLayerBase;
 import net.minecraft.core.block.tag.BlockTags;
