@@ -3,6 +3,7 @@ package deus.paperwork.entities.cardboard_box;
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
 import deus.paperwork.interfaces.IPaperworkDisplay;
+import deus.paperwork.item.PaperworkItems;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -61,8 +62,12 @@ public class EntityCardboardBox extends Entity implements Container {
 
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-		ListTag nbttaglist = new ListTag();
+		compoundTag.put("Items", save());
+	}
 
+
+	private ListTag save() {
+		ListTag nbttaglist = new ListTag();
 		for(int i = 0; i < this.chestContents.length; ++i) {
 			if (this.chestContents[i] != null) {
 				CompoundTag nbttagcompound1 = new CompoundTag();
@@ -71,11 +76,8 @@ public class EntityCardboardBox extends Entity implements Container {
 				nbttaglist.addTag(nbttagcompound1);
 			}
 		}
-
-		compoundTag.put("Items", nbttaglist);
+		return nbttaglist;
 	}
-
-
 
 
 	private double calcGravity() {
@@ -177,6 +179,21 @@ public class EntityCardboardBox extends Entity implements Container {
 			return null;
 		}
 	}
+
+	@Override
+	public boolean hurt(Entity attacker, int baseDamage, DamageType type) {
+		ItemStack stack = new ItemStack(PaperworkItems.CARDBOARD_BOX);
+
+		CompoundTag tag = new CompoundTag();
+		tag.put("Items", save());
+		stack.setData(tag);
+
+		dropItem(stack, 0);
+		this.remove();
+
+		return super.hurt(attacker, baseDamage, type);
+	}
+
 
 	public void setItem(int index, @Nullable ItemStack itemstack) {
 		this.chestContents[index] = itemstack;

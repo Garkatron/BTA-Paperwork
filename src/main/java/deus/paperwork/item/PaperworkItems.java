@@ -2,6 +2,7 @@ package deus.paperwork.item;
 
 import deus.paperwork.armor.PaperworkArmorMaterial;
 import deus.paperwork.block.PaperworkBlocks;
+import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
 import deus.paperwork.item.big_paperplane.ItemBigPaperPlane;
 import deus.paperwork.item.paperplane.ItemPaperPlane;
 import net.minecraft.core.block.Block;
@@ -25,6 +26,8 @@ public class PaperworkItems {
 	public static Item PAPERPLANE;
 	public static Item BIG_PAPERPLANE;
 
+	public static Item CARDBOARD_BOX;
+
 
 	public static void initialize() {
 		NEWSPRINT = new CustomLayerItem("newsprint", MOD_ID+":item/newsprint", newItemID(), (Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_NEWSPRINT_LAYER);
@@ -37,6 +40,9 @@ public class PaperworkItems {
 
 		PAPERPLANE = new ItemPaperPlane("paperplane", MOD_ID+":item/paperplane/paperplane", newItemID());
 		BIG_PAPERPLANE = new ItemBigPaperPlane("big_paperplane", MOD_ID+":item/big_paperplane", newItemID());
+
+		CARDBOARD_BOX = new ItemCardboardBox("cardboard_box", MOD_ID+":item/cardboard_box", newItemID());
+
 	}
 
 	public static int newItemID() {
