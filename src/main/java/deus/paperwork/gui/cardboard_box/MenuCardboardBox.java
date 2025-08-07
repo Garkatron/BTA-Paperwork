@@ -1,6 +1,5 @@
 package deus.paperwork.gui.cardboard_box;
 
-import deus.paperwork.block.cardboard_box.TileEntityCardboardBox;
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.Container;
@@ -14,7 +13,6 @@ import java.util.List;
 
 public class MenuCardboardBox extends MenuAbstract {
 
-	public TileEntityCardboardBox entity;
 	private Container container;
 	private int numberOfRows;
 	private int numberOfSlots = 9;

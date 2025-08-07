@@ -1,7 +1,7 @@
 package deus.paperwork.mixin;
 
-import deus.paperwork.block.cardboard_box.TileEntityCardboardBox;
 import deus.paperwork.block.printer.TileEntityPrinter;
+import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
 import deus.paperwork.gui.cardboard_box.ScreenCardboardBox;
 import deus.paperwork.gui.printer.ScreenPrinter;
 import deus.paperwork.interfaces.IPaperworkDisplay;
@@ -19,8 +19,9 @@ public class PlayerLocalMixin implements IPaperworkDisplay {
 	}
 
 	@Override
-	public void paperwork$displayCardboardBoxScreen(TileEntityCardboardBox printer) {
+	public void paperwork$displayCardboardBoxScreen(EntityCardboardBox cardboardBox) {
 		Minecraft mc = Minecraft.getMinecraft();
-		mc.displayScreen(new ScreenCardboardBox(mc.thePlayer.inventory, printer));
+		mc.displayScreen(new ScreenCardboardBox(mc.thePlayer.inventory, cardboardBox));
 	}
+
 }
