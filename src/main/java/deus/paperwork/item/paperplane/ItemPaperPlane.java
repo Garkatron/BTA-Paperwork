@@ -34,9 +34,8 @@ public class ItemPaperPlane extends ItemColored {
 
 		paperPlane.moveTo(entityplayer.x, entityplayer.y, entityplayer.z, entityplayer.yRot, 0);
 
-
 		paperPlane.xd = -MathHelper.sin(yaw) * MathHelper.cos(pitch) * speed;
-		paperPlane.yd = -MathHelper.sin(pitch) * speed;
+		paperPlane.yd = -MathHelper.sin(pitch) * (speed/1.5);
 		paperPlane.zd = MathHelper.cos(yaw) * MathHelper.cos(pitch) * speed;
 
 		world.entityJoinedWorld(paperPlane);

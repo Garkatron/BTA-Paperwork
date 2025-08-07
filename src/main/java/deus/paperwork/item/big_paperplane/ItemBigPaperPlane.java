@@ -37,7 +37,7 @@ public class ItemBigPaperPlane extends ItemColored {
 
 
 		paperPlane.xd = -MathHelper.sin(yaw) * MathHelper.cos(pitch) * speed;
-		paperPlane.yd = -MathHelper.sin(pitch) * speed;
+		paperPlane.yd = -MathHelper.sin(pitch) * (speed/1.5);
 		paperPlane.zd = MathHelper.cos(yaw) * MathHelper.cos(pitch) * speed;
 
 		world.entityJoinedWorld(paperPlane);
