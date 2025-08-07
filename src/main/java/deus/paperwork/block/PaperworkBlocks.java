@@ -1,7 +1,6 @@
 package deus.paperwork.block;
 
 
-import deus.paperwork.block.cardboard_box.BlockCardboardBoxLogic;
 import deus.paperwork.block.chalkboard.BlockChalkboardLogic;
 import deus.paperwork.block.corckboard.BlockCorckboardLogic;
 import deus.paperwork.block.file_cabinet.BlockFileCabinetLogic;
@@ -26,15 +25,11 @@ public class PaperworkBlocks {
 	public static Block<? extends BlockLogic> BLOCK_PRINTER;
 	public static Block<? extends BlockLogic> BLOCK_PHOTOCOPIER;
 
-	public static Block<? extends BlockLogic> BLOCK_CARDBOARD_BOX;
-	public static Block<? extends BlockLogic> BLOCK_CARDBOARD_BOX_MEDIUM;
-	public static Block<? extends BlockLogic> BLOCK_CARDBOARD_BOX_SMALL;
 
 	public static Block<? extends BlockLogic> BLOCK_CORCKBOARD;
 
 	public static Block<? extends BlockLogic> BLOCK_PAPER_PILE;
 	public static Block<? extends BlockLogic> BLOCK_PAPER_PILE_PAINTED;
-
 
 	public static Block<? extends BlockLogic> BLOCK_PAPER_LAYER;
 	public static Block<? extends BlockLogic> BLOCK_PAPER_LAYER_PAINTED;
@@ -64,10 +59,6 @@ public class PaperworkBlocks {
 	public static void initialize() {
 		BLOCK_PRINTER = genericBlockBuilder.build("printer", "printer", newBlockID(), (b) -> new BlockPrinterLogic(b, Material.steel));
 		BLOCK_PHOTOCOPIER = genericBlockBuilder.build("photocopier", "photocopier", newBlockID(), (b) -> new BlockPhotocopierLogic(b, Material.steel));
-
-		BLOCK_CARDBOARD_BOX = genericBlockBuilder.build("cardboard_box", "cardboard_box", newBlockID(), (b) -> new BlockCardboardBoxLogic(b, Material.wood, 0));
-		BLOCK_CARDBOARD_BOX_MEDIUM = genericBlockBuilder.build("cardboard_box_medium", "cardboard_box_medium", newBlockID(), (b) -> new BlockCardboardBoxLogic(b, Material.wood, 1));
-		BLOCK_CARDBOARD_BOX_SMALL = genericBlockBuilder.build("cardboard_box_small", "cardboard_box_small", newBlockID(), (b) -> new BlockCardboardBoxLogic(b, Material.wood, 2));
 
 		BLOCK_PAPER_PILE = paperBlockBuilder.build("paper_pile", "paper_pile", newBlockID(), (b) -> new BlockFullPaperPileLogic(b, "minecraft:item/paper"));
 		BLOCK_PAPER_PILE_PAINTED = paperBlockBuilder.build("paper_pile_painted", "paper_pile_painted", newBlockID(), (b) -> new BlockFullPaperPileLogicPainted(b, "minecraft:item/paper"));

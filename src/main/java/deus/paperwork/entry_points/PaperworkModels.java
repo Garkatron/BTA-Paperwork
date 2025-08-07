@@ -1,6 +1,5 @@
 package deus.paperwork.entry_points;
 
-import deus.paperwork.block.cardboard_box.BlockModelCardboardBox;
 import deus.paperwork.block.paperpile.layer.painted.BlockModelPaperLayerPainted;
 import deus.paperwork.block.paperpile.regular.BlockModelPaperPile;
 import deus.paperwork.block.paperpile.layer.BlockModelPaperLayer;
@@ -95,24 +94,6 @@ public class PaperworkModels implements ModelEntrypoint {
 			.setTex(0, MOD_ID + ":block/newsprint/sides", Side.sides)
 			.setTex(0, MOD_ID + ":block/newsprint/topbottom", Side.TOP)
 			.setTex(0, MOD_ID + ":block/newsprint/topbottom", Side.BOTTOM)
-		);
-
-		ModelHelper.setBlockModel(BLOCK_CARDBOARD_BOX, () -> new BlockModelCardboardBox(BLOCK_CARDBOARD_BOX)
-			.setTex(0, MOD_ID + ":block/cardboard_box/0/sides", Side.sides)
-			.setTex(0, MOD_ID + ":block/cardboard_box/0/top", Side.TOP)
-			.setTex(0, MOD_ID + ":block/cardboard_box/0/bottom", Side.BOTTOM)
-		);
-
-		ModelHelper.setBlockModel(BLOCK_CARDBOARD_BOX_MEDIUM, () -> new BlockModelCardboardBox(BLOCK_CARDBOARD_BOX_MEDIUM)
-			.setTex(0, MOD_ID + ":block/cardboard_box/1/sides", Side.sides)
-			.setTex(0, MOD_ID + ":block/cardboard_box/1/top", Side.TOP)
-			.setTex(0, MOD_ID + ":block/cardboard_box/1/bottom", Side.BOTTOM)
-		);
-
-		ModelHelper.setBlockModel(BLOCK_CARDBOARD_BOX_SMALL, () -> new BlockModelCardboardBox(BLOCK_CARDBOARD_BOX_SMALL)
-			.setTex(0, MOD_ID + ":block/cardboard_box/2/sides", Side.sides)
-			.setTex(0, MOD_ID + ":block/cardboard_box/2/top", Side.TOP)
-			.setTex(0, MOD_ID + ":block/cardboard_box/2/bottom", Side.BOTTOM)
 		);
 
 		ModelHelper.setBlockModel(BLOCK_CARDBOARD_PILE, () -> new BlockModelPaperPile<>(BLOCK_CARDBOARD_PILE)
