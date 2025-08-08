@@ -1,6 +1,7 @@
 package deus.paperwork.item;
 
 import com.mojang.nbt.tags.CompoundTag;
+import deus.paperwork.entities.cardboard_box.BoxSize;
 import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -13,17 +14,19 @@ import net.minecraft.core.world.World;
 import java.lang.reflect.InvocationTargetException;
 
 public class ItemCardboardBox extends Item {
-	public ItemCardboardBox(String translationKey, String namespaceId, int id) {
+
+	private final BoxSize boxSize;
+
+	public ItemCardboardBox(String translationKey, String namespaceId, int id, BoxSize boxSize) {
 		super(translationKey, namespaceId, id);
+		this.boxSize = boxSize;
 	}
-
-
 
 	@Override
 	public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
-		Entity spawnedEntity = new EntityCardboardBox(world);
+		EntityCardboardBox spawnedEntity = new EntityCardboardBox(world);
 
-
+		spawnedEntity.setBoxSize(this.boxSize);
 		CompoundTag tag = itemstack.getData();
 
 		if (tag.containsKey("Items")) {
@@ -40,7 +43,6 @@ public class ItemCardboardBox extends Item {
 			float speed = 1.25F;
 
 			spawnedEntity.moveTo(player.x, player.y, player.z, player.yRot, 0);
-
 
 			spawnedEntity.xd = -MathHelper.sin(yaw) * MathHelper.cos(pitch) * speed;
 			spawnedEntity.yd = -MathHelper.sin(pitch) * (speed / 1.5);

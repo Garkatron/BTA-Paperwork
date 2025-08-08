@@ -1,5 +1,6 @@
 package deus.paperwork.gui.cardboard_box;
 
+import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.Container;
@@ -13,11 +14,11 @@ import java.util.List;
 
 public class MenuCardboardBox extends MenuAbstract {
 
-	private Container container;
+	private EntityCardboardBox container;
 	private int numberOfRows;
 	private int numberOfSlots = 9;
 
-	public MenuCardboardBox(Container playerContainer, Container container) {
+	public MenuCardboardBox(Container playerContainer, EntityCardboardBox container) {
 		this.container = container;
 		this.numberOfRows = container.getContainerSize() / 9;
 		int i = (this.numberOfRows - 4) * 18;
@@ -26,7 +27,7 @@ public class MenuCardboardBox extends MenuAbstract {
 		int j1;
 		for(l = 0; l < this.numberOfRows; ++l) {
 			for(j1 = 0; j1 < numberOfSlots; ++j1) {
-				this.addSlot(new Slot(container, j1 + l * 9, 8 + j1 * 18, 18 + l * 18));
+				this.addSlot(new BoxSlot(container, j1 + l * 9, 8 + j1 * 18, 18 + l * 18));
 			}
 		}
 

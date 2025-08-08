@@ -1,6 +1,7 @@
 package deus.paperwork;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.util.collection.NamespaceID;
 import turniplabs.halplibe.helper.EntityHelper;
@@ -18,7 +19,12 @@ public class PaperworkClient implements ClientStartEntrypoint, ClientModInitiali
 
 	@Override
 	public void beforeClientStart() {
-
+		try {
+			TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.guiSpriteAtlas, true);
+			TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.particleAtlas, true);
+		} catch (Exception var2) {
+			LOGGER.warn(MOD_ID+": Failed to fully initialize assets, some issue may occur!", var2);
+		}
 	}
 
 	@Override

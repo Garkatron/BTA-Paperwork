@@ -2,6 +2,7 @@ package deus.paperwork.item;
 
 import deus.paperwork.armor.PaperworkArmorMaterial;
 import deus.paperwork.block.PaperworkBlocks;
+import deus.paperwork.entities.cardboard_box.BoxSize;
 import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
 import deus.paperwork.item.big_paperplane.ItemBigPaperPlane;
 import deus.paperwork.item.paperplane.ItemPaperPlane;
@@ -26,7 +27,10 @@ public class PaperworkItems {
 	public static Item PAPERPLANE;
 	public static Item BIG_PAPERPLANE;
 
-	public static Item CARDBOARD_BOX;
+	public static Item CARDBOARD_BOX_REGULAR;
+	public static Item CARDBOARD_BOX_SMALL;
+	public static Item CARDBOARD_BOX_MEDIUM;
+	public static Item CARDBOARD_BOX_LARGE;
 
 
 	public static void initialize() {
@@ -41,7 +45,10 @@ public class PaperworkItems {
 		PAPERPLANE = new ItemPaperPlane("paperplane", MOD_ID+":item/paperplane/paperplane", newItemID());
 		BIG_PAPERPLANE = new ItemBigPaperPlane("big_paperplane", MOD_ID+":item/big_paperplane", newItemID());
 
-		CARDBOARD_BOX = new ItemCardboardBox("cardboard_box", MOD_ID+":item/cardboard_box", newItemID());
+		CARDBOARD_BOX_REGULAR = new ItemCardboardBox("cardboard_box_regular", MOD_ID+":item/cardboard_box_regular", newItemID(), BoxSize.REGULAR);
+		CARDBOARD_BOX_SMALL = new ItemCardboardBox("cardboard_box_small", MOD_ID+":item/cardboard_box_small", newItemID(), BoxSize.SMALL);
+		CARDBOARD_BOX_MEDIUM = new ItemCardboardBox("cardboard_box_medium", MOD_ID+":item/cardboard_box_medium", newItemID(), BoxSize.MEDIUM);
+		CARDBOARD_BOX_LARGE = new ItemCardboardBox("cardboard_box_large", MOD_ID+":item/cardboard_box_large", newItemID(), BoxSize.LARGE);
 
 	}
 

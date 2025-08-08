@@ -3,6 +3,7 @@ package deus.paperwork.entities.cardboard_box;
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
 import deus.paperwork.interfaces.IPaperworkDisplay;
+import deus.paperwork.interfaces.IItemWeight;
 import deus.paperwork.item.PaperworkItems;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -19,21 +20,33 @@ import org.jetbrains.annotations.Nullable;
 public class EntityCardboardBox extends Entity implements Container {
 	private ItemStack[] chestContents = new ItemStack[36];
 
+	private BoxSize boxSize = BoxSize.SMALL;
 	private final double DEFAULT_GRAVITY = 0.1F;
-	private final double WEIGHT_PER_ITEM = 0.0001F;
-	private double currentGravity = DEFAULT_GRAVITY;
+	public boolean slotsLocked = false;
 
 	public EntityCardboardBox(@Nullable World world) {
 		super(world);
 		this.setSize(0.8F, 0.8F);
 	}
 
+	public BoxSize getBoxSize() {
+		return boxSize;
+	}
+
+	public void setBoxSize(BoxSize boxSize) {
+		this.boxSize = boxSize;
+		this.setSize(boxSize.getSize(),boxSize.getSize());
+		ItemStack[] newContents = new ItemStack[getContainerSize()];
+		for (int i = 0; i < Math.min(newContents.length, chestContents.length); i++) {
+			newContents[i] = chestContents[i];
+		}
+		chestContents = newContents;
+	}
+
 	@Override
 	protected void defineSynchedData() {
 
 	}
-
-
 
 	@Override
 	public boolean isPickable() {
@@ -58,11 +71,16 @@ public class EntityCardboardBox extends Entity implements Container {
 			}
 		}
 
+		if (compoundTag.containsKey("BoxSize")) {
+			this.setBoxSize(BoxSize.values()[compoundTag.getInteger("BoxSize")]);
+		}
+
 	}
 
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
 		compoundTag.put("Items", save());
+		compoundTag.putInt("BoxSize", this.getBoxSize().ordinal());
 	}
 
 
@@ -80,19 +98,34 @@ public class EntityCardboardBox extends Entity implements Container {
 	}
 
 
+	private void updateWeightStatus() {
+		// double gravity = calcGravity();
+		// slotsLocked = gravity < boxSize.getMaxWeight();
+	}
+
+
 	private double calcGravity() {
-		int items = 0;
-		if (chestContents.length == 0) return 0;
-		for (ItemStack chestContent : chestContents) {
-			if (chestContent != null) {
-				items += chestContent.stackSize;
+		double totalWeight = 0;
+		if (chestContents == null) return 0;
+
+		int limit = Math.min(chestContents.length, getContainerSize());
+
+		for (int i = 0; i < limit; i++) {
+			ItemStack stack = chestContents[i];
+			if (stack != null && stack.getItem() instanceof IItemWeight) {
+				totalWeight += stack.stackSize *
+					((IItemWeight) stack.getItem()).paperwork$getWeight();
 			}
 		}
-		return WEIGHT_PER_ITEM * items;
+		return totalWeight;
 	}
+
+
 	@Override
 	public void tick() {
 		super.tick();
+
+		updateWeightStatus();
 
 		this.xo = this.x;
 		this.yo = this.y;
@@ -182,16 +215,27 @@ public class EntityCardboardBox extends Entity implements Container {
 
 	@Override
 	public boolean hurt(Entity attacker, int baseDamage, DamageType type) {
-		ItemStack stack = new ItemStack(PaperworkItems.CARDBOARD_BOX);
 
-		CompoundTag tag = new CompoundTag();
-		tag.put("Items", save());
-		stack.setData(tag);
+		if (attacker instanceof Player || type == DamageType.DROWN || type == DamageType.FIRE) {
+			ItemStack stack = null;
 
-		dropItem(stack, 0);
-		this.remove();
+			switch (boxSize) {
+				case SMALL: stack =  new ItemStack(PaperworkItems.CARDBOARD_BOX_SMALL); break;
+				case MEDIUM: stack =  new ItemStack(PaperworkItems.CARDBOARD_BOX_MEDIUM); break;
+				case REGULAR: stack =  new ItemStack(PaperworkItems.CARDBOARD_BOX_REGULAR); break;
+				case LARGE: stack =  new ItemStack(PaperworkItems.CARDBOARD_BOX_LARGE); break;
+			}
 
-		return super.hurt(attacker, baseDamage, type);
+			CompoundTag tag = new CompoundTag();
+			tag.put("Items", save());
+			stack.setData(tag);
+
+			dropItem(stack, 0);
+			this.remove();
+			return super.hurt(attacker, baseDamage, type);
+		}
+
+		return false;
 	}
 
 
@@ -214,7 +258,7 @@ public class EntityCardboardBox extends Entity implements Container {
 
 	@Override
 	public void setChanged() {
-
+		updateWeightStatus();
 	}
 
 	public boolean stillValid(Player entityplayer) {
@@ -226,6 +270,10 @@ public class EntityCardboardBox extends Entity implements Container {
 	}
 
 	public int getContainerSize() {
-		return 27;
+		return boxSize.getSlots();
+	}
+
+	public double getMaxWeight() {
+		return boxSize.getMaxWeight();
 	}
 }
