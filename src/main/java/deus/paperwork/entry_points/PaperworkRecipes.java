@@ -1,5 +1,6 @@
 package deus.paperwork.entry_points;
 
+import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.item.PaperworkItems;
 import deus.paperwork.recipe.RecipeEntryPrinter;
 import net.minecraft.core.block.Blocks;
@@ -7,6 +8,7 @@ import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeGroup;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.util.RecipeEntrypoint;
@@ -60,6 +62,14 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 			.setShape("p p", " p ", "   ")
 			.addInput('p', Items.PAPER)
 			.create(MOD_ID+":big_paperplane", PaperworkItems.BIG_PAPERPLANE.getDefaultStack());
+
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("ppp", "ppp", "  c")
+			.addInput('p', Items.PAPER)
+			.addInput('c', Items.TOOL_SHEARS)
+			.create(MOD_ID+":confetti_layer", new ItemStack(PaperworkBlocks.BLOCK_CONFETTI, 16));
+
+
 
 		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
 		if (group == null) {

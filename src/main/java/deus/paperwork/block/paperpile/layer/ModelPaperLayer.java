@@ -6,8 +6,8 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.WorldSource;
 
-public class BlockModelPaperLayer<T extends BlockLogic> extends BlockModelLayer<T> {
-	public BlockModelPaperLayer(Block block) {
+public class ModelPaperLayer<T extends BlockLogic> extends BlockModelLayer<T> {
+	public ModelPaperLayer(Block block) {
 		super(block);
 	}
 

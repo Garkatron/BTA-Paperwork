@@ -1,25 +1,20 @@
 package deus.paperwork.item.custom_paper;
 
 import deus.paperwork.block.PaperworkBlocks;
-import deus.paperwork.block.paperpile.layer.BlockPaperLayerLogic;
+import deus.paperwork.block.paperpile.layer.PaperLayerLogic;
 import deus.paperwork.item.CustomLayerItem;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.IPaintable;
-import net.minecraft.core.block.IPainted;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemDye;
 import net.minecraft.core.item.ItemPaintBrush;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.util.helper.DyeColor;
-import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
 
 public class CustomItemPaper extends CustomLayerItem {
 
 	public CustomItemPaper(String translationKey, String namespaceId, int id) {
-		super(translationKey, namespaceId, id, (Block<BlockPaperLayerLogic>) PaperworkBlocks.BLOCK_PAPER_LAYER);
+		super(translationKey, namespaceId, id, (Block<PaperLayerLogic>) PaperworkBlocks.BLOCK_PAPER_LAYER);
 	}
 
 

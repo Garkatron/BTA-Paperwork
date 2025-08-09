@@ -15,9 +15,23 @@ import net.minecraft.core.world.WorldSource;
 
 import java.util.Iterator;
 
-public class BlockModelPaperPilePainted<T extends BlockLogic> extends BlockModelStandard<T> {
+public class ModelPaperPilePainted<T extends BlockLogic> extends BlockModelStandard<T> {
 	public static final IconCoordinate[] topTextures = new IconCoordinate[16];
 	public static final IconCoordinate[] sideTextures = new IconCoordinate[16];
+
+	static {
+		DyeColor c;
+		for (Iterator var0 = DyeColor.blockOrderedColors().iterator(); var0.hasNext(); sideTextures[c.blockMeta] = TextureRegistry.getTexture("paperwork:block/paperpile/" + c.colorID + "/sides")) {
+			c = (DyeColor) var0.next();
+			topTextures[c.blockMeta] = TextureRegistry.getTexture("paperwork:block/paperpile/" + c.colorID + "/topbottom");
+		}
+
+	}
+
+	public ModelPaperPilePainted(Block block) {
+		super(block);
+	}
+
 
 	@Override
 	public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
@@ -30,22 +44,6 @@ public class BlockModelPaperPilePainted<T extends BlockLogic> extends BlockModel
 			return side.getAxis() == Axis.Y ? topTextures[color] : sideTextures[color];
 		}
 	}
-
-	static {
-		DyeColor c;
-		for(Iterator var0 = DyeColor.blockOrderedColors().iterator(); var0.hasNext(); sideTextures[c.blockMeta] = TextureRegistry.getTexture("paperwork:block/paperpile/" + c.colorID + "/sides")) {
-			c = (DyeColor)var0.next();
-			topTextures[c.blockMeta] = TextureRegistry.getTexture("paperwork:block/paperpile/" + c.colorID + "/topbottom");
-		}
-
-	}
-
-	public BlockModelPaperPilePainted(Block block) {
-		super(block);
-
-
-	}
-
 
 	@Override
 	public boolean shouldSideBeRendered(WorldSource blockAccess, AABB bounds, int x, int y, int z, int side) {
