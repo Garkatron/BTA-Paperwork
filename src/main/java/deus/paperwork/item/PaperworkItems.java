@@ -10,6 +10,8 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLayerBase;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
+import net.minecraft.core.item.material.ToolMaterial;
+import net.minecraft.core.item.tool.ItemToolSword;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
@@ -32,6 +34,8 @@ public class PaperworkItems {
 	public static Item CARDBOARD_BOX_MEDIUM;
 	public static Item CARDBOARD_BOX_LARGE;
 
+	public static Item CARDBOARD_TUBE;
+
 
 	public static void initialize() {
 		NEWSPRINT = new CustomLayerItem("newsprint", MOD_ID+":item/newsprint", newItemID(), (Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_NEWSPRINT_LAYER);
@@ -49,7 +53,7 @@ public class PaperworkItems {
 		CARDBOARD_BOX_SMALL = new ItemCardboardBox("cardboard_box_small", MOD_ID+":item/cardboard_box_small", newItemID(), BoxSize.SMALL);
 		CARDBOARD_BOX_MEDIUM = new ItemCardboardBox("cardboard_box_medium", MOD_ID+":item/cardboard_box_medium", newItemID(), BoxSize.MEDIUM);
 		CARDBOARD_BOX_LARGE = new ItemCardboardBox("cardboard_box_large", MOD_ID+":item/cardboard_box_large", newItemID(), BoxSize.LARGE);
-
+		CARDBOARD_TUBE = new ItemToolSword("cardboard_tube", MOD_ID+":item/cardboard_tube", newItemID(), PaperworkToolMaterial.CARDBOARD);
 	}
 
 	public static int newItemID() {

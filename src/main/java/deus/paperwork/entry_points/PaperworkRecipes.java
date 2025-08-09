@@ -70,6 +70,13 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 			.create(MOD_ID+":confetti_layer", new ItemStack(PaperworkBlocks.BLOCK_CONFETTI, 16));
 
 
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("p  ", " p ", "  p")
+			.addInput('p', PaperworkItems.CARDBOARD)
+			.create(MOD_ID+":cardboard_tube", PaperworkItems.CARDBOARD_TUBE.getDefaultStack());
+
+
+
 
 		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
 		if (group == null) {
