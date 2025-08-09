@@ -1,6 +1,7 @@
 package deus.paperwork.block;
 
 
+import deus.paperwork.Paperwork;
 import deus.paperwork.block.chalkboard.BlockChalkboardLogic;
 import deus.paperwork.block.confetti.ConfettiLogic;
 import deus.paperwork.block.corckboard.BlockCorckboardLogic;
@@ -47,7 +48,7 @@ public class PaperworkBlocks {
 	public static Block<? extends BlockLogic> BLOCK_FILE_CABINET_BROWN_PLANKS;
 	public static Block<? extends BlockLogic> BLOCK_FILE_CABINET_IRON;
 
-	private static int BLOCK_ID = 12000;
+	private static int BLOCK_ID = Paperwork.CONFIG.getInt("IDs.startBlockId");;
 
 	static BlockBuilder genericBlockBuilder = new BlockBuilder(MOD_ID)
 		.setBlockSound(BlockSounds.STONE)

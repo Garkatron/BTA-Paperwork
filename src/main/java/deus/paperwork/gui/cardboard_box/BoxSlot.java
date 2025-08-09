@@ -25,13 +25,62 @@ public class BoxSlot extends Slot {
 
 		BoxSize containerSize = box.getBoxSize();
 
-		if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_SMALL.id) {
-			return containerSize == BoxSize.LARGE;
-		} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_LARGE.id) {
-			return containerSize != BoxSize.SMALL;
-		} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_REGULAR.id) {
-			return containerSize == BoxSize.LARGE;
+		if (containerSize == BoxSize.SMALL) {
+			if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_SMALL.id) {
+				return false;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_REGULAR.id) {
+				return false;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_MEDIUM.id) {
+				return false;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_LARGE.id) {
+				return false;
+			}
 		}
+
+		if (containerSize == BoxSize.REGULAR) {
+			if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_SMALL.id) {
+				return true;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_REGULAR.id) {
+				return false;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_MEDIUM.id) {
+				return false;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_LARGE.id) {
+				return false;
+			}
+		}
+
+
+		if (containerSize == BoxSize.MEDIUM) {
+			if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_SMALL.id) {
+				return true;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_REGULAR.id) {
+				return true;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_MEDIUM.id) {
+				return false;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_LARGE.id) {
+				return false;
+			}
+		}
+
+
+		if (containerSize == BoxSize.LARGE) {
+			if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_SMALL.id) {
+				return true;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_REGULAR.id) {
+				return true;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_MEDIUM.id) {
+				return true;
+			} else if (itemstack.itemID == PaperworkItems.CARDBOARD_BOX_LARGE.id) {
+				return false;
+			}
+		}
+
+
+
+
+
+
+
 
 		return true;
 	}

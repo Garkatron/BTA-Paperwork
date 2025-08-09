@@ -1,5 +1,6 @@
 package deus.paperwork.item;
 
+import deus.paperwork.Paperwork;
 import deus.paperwork.armor.PaperworkArmorMaterial;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entities.cardboard_box.BoxSize;
@@ -17,7 +18,7 @@ import static deus.paperwork.Paperwork.MOD_ID;
 
 public class PaperworkItems {
 
-	private static int ITEM_ID = 24000;
+	private static int ITEM_ID = Paperwork.CONFIG.getInt("IDs.startItemId");
 	public static Item NEWSPRINT;
 	public static Item CARDBOARD;
 

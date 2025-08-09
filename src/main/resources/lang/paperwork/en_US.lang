@@ -1,8 +1,6 @@
 # Paperwork Mod Language Entries
 
 # Blocks (tiles)
-tile.paperwork.cardboard_box_medium.name=Medium Cardboard Box
-tile.paperwork.cardboard_box_small.name=Small Cardboard Box
 tile.paperwork.paper_pile.name=Paper Pile
 tile.paperwork.newsprint_pile.name=Newsprint Pile
 tile.paperwork.newsprint_layer.name=Newsprint Layer
@@ -17,6 +15,9 @@ tile.paperwork.corckboard.name=Cork Board
 tile.paperwork.chalkboard.name=Chalk Board
 tile.paperwork.file_cabinet_browk_planks.name=Brown Planks File Cabinet
 tile.paperwork.file_cabinet_iron.name=Iron File Cabinet
+tile.paperwork.paper_pile_painted.name=Painted Paper Pile
+tile.paperwork.paper_layer_painted.name=Painted Paper Layer
+tile.paperwork.confetti.name=Confetti
 
 # Items
 item.newsprint.name=Newsprint
@@ -27,3 +28,13 @@ item.armor_chestplate_cardboard.name=Cardboard Chestplate
 item.armor_helmet_cardboard.name=Cardboard Helmet
 item.paperplane.name=Paper Plane
 item.big_paperplane.name=Big Paper Plane
+item.cardboard_box_regular.name=Regular Cardboard Box
+item.cardboard_box_small.name=Small Cardboard Box
+item.cardboard_box_medium.name=Medium Cardboard Box
+item.cardboard_box_large.name=Large Cardboard Box
+item.cardboard_tube.name=Cardboard Tube
+
+# Subtitles
+subtitles.material.paper.put = Paper put
+subtitles.material.paper.jiggle = Paper jiggle
+subtitles.material.paper.soft = Soft paper

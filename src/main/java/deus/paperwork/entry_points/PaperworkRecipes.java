@@ -76,6 +76,34 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 			.create(MOD_ID+":cardboard_tube", PaperworkItems.CARDBOARD_TUBE.getDefaultStack());
 
 
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("pp", "pp", "   ")
+			.addInput('p', PaperworkItems.CARDBOARD)
+			.create(MOD_ID+":cardboard_box_small", PaperworkItems.CARDBOARD_BOX_SMALL.getDefaultStack());
+
+
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("ppp", "p p", "ppp")
+			.addInput('p', PaperworkItems.CARDBOARD)
+			.create(MOD_ID+":cardboard_box_regular", PaperworkItems.CARDBOARD_BOX_REGULAR.getDefaultStack());
+
+
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("ppp", "pcp", "ppp")
+			.addInput('p', PaperworkItems.CARDBOARD)
+			.addInput('c', Items.INGOT_IRON)
+			.create(MOD_ID+":cardboard_box_medium", PaperworkItems.CARDBOARD_BOX_MEDIUM.getDefaultStack());
+
+
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("ppp", "pcp", "ppp")
+			.addInput('p', PaperworkItems.CARDBOARD)
+			.addInput('c', Items.DIAMOND)
+			.create(MOD_ID+":cardboard_box_large", PaperworkItems.CARDBOARD_BOX_LARGE.getDefaultStack());
+
+
+
+
 
 
 		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
