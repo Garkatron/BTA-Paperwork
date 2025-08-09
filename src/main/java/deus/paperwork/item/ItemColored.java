@@ -15,9 +15,7 @@ public class ItemColored extends Item {
 
 	@Override
 	public ItemStack onInventoryInteract(Player player, Slot slot, ItemStack stackInSlot, boolean isItemGrabbed) {
-		if (isItemGrabbed) {
-			return stackInSlot;
-		} else {
+		if (!isItemGrabbed) {
 			DyeColor currentColor = ItemPaintBrush.getColor(stackInSlot);
 			ItemStack grabbedItem = player.inventory.getHeldItemStack();
 			if (grabbedItem != null && grabbedItem.getItem() instanceof ItemDye) {
@@ -30,8 +28,8 @@ public class ItemColored extends Item {
 					}
 				}
 			}
-			return stackInSlot;
 		}
+		return stackInSlot;
 	}
 
 	@Override
