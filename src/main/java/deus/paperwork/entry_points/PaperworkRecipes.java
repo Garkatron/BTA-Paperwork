@@ -10,8 +10,12 @@ import net.minecraft.core.data.registry.recipe.RecipeGroup;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.util.helper.DyeColor;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.util.RecipeEntrypoint;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 import static net.minecraft.core.data.registry.Registries.stackListOf;
@@ -25,7 +29,16 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 		Registries.RECIPES.register(MOD_ID, PAPERWORK_RECIPE_NAMESPACE);
 
 		Registries.RECIPE_TYPES.register(MOD_ID + ":printer", RecipeEntryPrinter.class);
-		Registries.ITEM_GROUPS.register(MOD_ID+":dyes", stackListOf(Items.DYE));
+
+		List<ItemStack> dyeList = new ArrayList<>();
+
+		DyeColor[] var17 = DyeColor.values();
+		int var18 = var17.length;
+		for(int var19 = 0; var19 < var18; ++var19) {
+			DyeColor color = var17[var19];
+			dyeList.add(new ItemStack(Items.DYE, 1, color.itemMeta));
+		}
+		Registries.ITEM_GROUPS.register(MOD_ID+":dyes", dyeList);
 
 		PAPERWORK_RECIPE_NAMESPACE.register("printer", new RecipeGroup<RecipeEntryPrinter>(new RecipeSymbol(MOD_ID+":dyes")));
 	}
@@ -101,9 +114,43 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 			.addInput('c', Items.DIAMOND)
 			.create(MOD_ID+":cardboard_box_large", PaperworkItems.CARDBOARD_BOX_LARGE.getDefaultStack());
 
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("ppp", "pcp", "p p")
+			.addInput('p', Items.INGOT_IRON)
+			.addInput('c', Blocks.CHEST_PLANKS_OAK)
+			.create(MOD_ID+":file_cabinet_iron", PaperworkBlocks.BLOCK_FILE_CABINET_IRON.getDefaultStack());
 
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("ppp", "pcp", "p p")
+			.addInput('p', Blocks.PLANKS_OAK)
+			.addInput('c', Blocks.CHEST_PLANKS_OAK)
+			.create(MOD_ID+":file_cabinet_planks_oak", PaperworkBlocks.BLOCK_FILE_CABINET_BROWN_PLANKS.getDefaultStack());
 
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("   ", "IBI", "RRR")
+			.addInput('R', Items.DUST_REDSTONE)
+			.addInput('B', Blocks.BLOCK_IRON)
+			.addInput('I', Items.INGOT_IRON)
+			.create(MOD_ID+":printer", PaperworkBlocks.BLOCK_PRINTER.getDefaultStack());
 
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("   ", "IBI", "RRR")
+			.addInput('R', Items.DUST_REDSTONE)
+			.addInput('B', PaperworkBlocks.BLOCK_PRINTER)
+			.addInput('I', Items.INGOT_IRON)
+			.create(MOD_ID+":photocopier", PaperworkBlocks.BLOCK_PHOTOCOPIER.getDefaultStack());
+
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("www", "www", "  f")
+			.addInput('w', Blocks.PLANKS_OAK)
+			.addInput('f', Items.FLINT)
+			.create(MOD_ID+":cardboard", new ItemStack(PaperworkItems.CARDBOARD, 64));
+
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("ppp", "ppp", "ddd")
+			.addInput('p', Items.PAPER)
+			.addInput('d', MOD_ID+":dyes")
+			.create(MOD_ID+":confetti", new ItemStack(PaperworkBlocks.BLOCK_CONFETTI, 16));
 
 
 		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
