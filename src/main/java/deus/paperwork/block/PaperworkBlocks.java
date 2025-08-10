@@ -5,7 +5,7 @@ import deus.paperwork.Paperwork;
 import deus.paperwork.block.chalkboard.BlockChalkboardLogic;
 import deus.paperwork.block.confetti.ConfettiLogic;
 import deus.paperwork.block.corckboard.BlockCorckboardLogic;
-import deus.paperwork.block.file_cabinet.BlockFileCabinetLogic;
+import deus.paperwork.block.file_cabinet.BlockLogicFileCabinet;
 import deus.paperwork.block.paperpile.layer.painted.PaperLayerLogicPainted;
 import deus.paperwork.block.paperpile.regular.PaperPileLogic;
 import deus.paperwork.block.paperpile.painted.PaperPileLogicPainted;
@@ -82,8 +82,8 @@ public class PaperworkBlocks {
 		BLOCK_CORCKBOARD = genericBlockBuilder.build("corckboard", "corckboard", newBlockID(), (b) -> new BlockCorckboardLogic(b, Material.granite));
 		BLOCK_CHALKBOARD = genericBlockBuilder.build("chalkboard", "chalkboard", newBlockID(), (b) -> new BlockChalkboardLogic(b, Material.granite));
 
-		BLOCK_FILE_CABINET_BROWN_PLANKS = genericBlockBuilder.build("file_cabinet_browk_planks", "file_cabinet_browk_planks", newBlockID(), (b) -> new BlockFileCabinetLogic(b, Material.steel));
-		BLOCK_FILE_CABINET_IRON = genericBlockBuilder.build("file_cabinet_iron", "file_cabinet_iron", newBlockID(), (b) -> new BlockFileCabinetLogic(b, Material.steel));
+		BLOCK_FILE_CABINET_BROWN_PLANKS = genericBlockBuilder.build("file_cabinet_browk_planks", "file_cabinet_browk_planks", newBlockID(), (b) -> new BlockLogicFileCabinet(b, Material.steel));
+		BLOCK_FILE_CABINET_IRON = genericBlockBuilder.build("file_cabinet_iron", "file_cabinet_iron", newBlockID(), (b) -> new BlockLogicFileCabinet(b, Material.steel));
 	}
 
 	public static int newBlockID() {

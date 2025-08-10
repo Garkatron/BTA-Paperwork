@@ -2,6 +2,7 @@ package deus.paperwork.entry_points;
 
 
 import deus.paperwork.block.confetti.ModelConfetti;
+import deus.paperwork.block.file_cabinet.BlockModelFileCabinet;
 import deus.paperwork.block.paperpile.layer.painted.ModelPaperLayerPainted;
 import deus.paperwork.block.paperpile.regular.BlockModelPaperPile;
 import deus.paperwork.block.paperpile.layer.ModelPaperLayer;
@@ -50,15 +51,15 @@ public class PaperworkModels implements ModelEntrypoint {
 	public void initBlockModels(BlockModelDispatcher blockModelDispatcher) {
 		ModelHelper.setBlockModel(BLOCK_PRINTER, () -> new BlockModelHorizontalRotation<>(BLOCK_PRINTER)
 			.setTex(0, MOD_ID + ":block/printer/sides", Side.sides)
-			.setTex(0, MOD_ID + ":block/printer/top", Side.TOP)     // <-- corregido
-			.setTex(0, MOD_ID + ":block/printer/front", Side.NORTH)      // <-- corregido
+			.setTex(0, MOD_ID + ":block/printer/top", Side.TOP)
+			.setTex(0, MOD_ID + ":block/printer/front", Side.NORTH)
 			.setTex(0, MOD_ID + ":block/printer/bottom", Side.BOTTOM)
 		);
 
 		ModelHelper.setBlockModel(BLOCK_PHOTOCOPIER, () -> new BlockModelHorizontalRotation<>(BLOCK_PHOTOCOPIER)
 			.setTex(0, MOD_ID + ":block/photocopier/sides", Side.sides)
-			.setTex(0, MOD_ID + ":block/photocopier/top", Side.TOP)     // <-- corregido
-			.setTex(0, MOD_ID + ":block/photocopier/front", Side.NORTH)     // <-- corregido
+			.setTex(0, MOD_ID + ":block/photocopier/top", Side.TOP)
+			.setTex(0, MOD_ID + ":block/photocopier/front", Side.NORTH)
 			.setTex(0, MOD_ID + ":block/photocopier/bottom", Side.BOTTOM)
 		);
 
@@ -128,17 +129,17 @@ public class PaperworkModels implements ModelEntrypoint {
 			.setTex(0, MOD_ID + ":block/chalkboard/all", Side.sides)
 		);
 
-		ModelHelper.setBlockModel(BLOCK_FILE_CABINET_IRON, () -> new BlockModelHorizontalRotation<>(BLOCK_FILE_CABINET_IRON)
+		ModelHelper.setBlockModel(BLOCK_FILE_CABINET_IRON, () -> new BlockModelFileCabinet<>(BLOCK_FILE_CABINET_IRON)
 			.setTex(0, MOD_ID + ":block/file_cabinet/iron/sides", Side.sides)
-			.setTex(0, MOD_ID + ":block/file_cabinet/iron/top", Side.TOP)     // <-- corregido
-			.setTex(0, MOD_ID + ":block/file_cabinet/iron/front", Side.NORTH)     // <-- corregido
+			.setTex(0, MOD_ID + ":block/file_cabinet/iron/top", Side.TOP)
+			.setTex(0, MOD_ID + ":block/file_cabinet/iron/front", Side.NORTH)
 			.setTex(0, MOD_ID + ":block/file_cabinet/iron/bottom", Side.BOTTOM)
 		);
 
-		ModelHelper.setBlockModel(BLOCK_FILE_CABINET_BROWN_PLANKS, () -> new BlockModelHorizontalRotation<>(BLOCK_FILE_CABINET_BROWN_PLANKS)
+		ModelHelper.setBlockModel(BLOCK_FILE_CABINET_BROWN_PLANKS, () -> new BlockModelFileCabinet<>(BLOCK_FILE_CABINET_BROWN_PLANKS)
 			.setTex(0, MOD_ID + ":block/file_cabinet/planks/brown/sides", Side.sides)
-			.setTex(0, MOD_ID + ":block/file_cabinet/planks/brown/top", Side.TOP)     // <-- corregido
-			.setTex(0, MOD_ID + ":block/file_cabinet/planks/brown/front", Side.NORTH)     // <-- corregido
+			.setTex(0, MOD_ID + ":block/file_cabinet/planks/brown/top", Side.TOP)
+			.setTex(0, MOD_ID + ":block/file_cabinet/planks/brown/front", Side.NORTH)
 			.setTex(0, MOD_ID + ":block/file_cabinet/planks/brown/bottom", Side.BOTTOM)
 		);
 
