@@ -2,7 +2,6 @@ package deus.paperwork.item;
 
 import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.block.PaperworkBlocks;
-import deus.paperwork.block.cardboard_box_trap.TileEntityCardboardBoxTrap;
 import deus.paperwork.entities.cardboard_box.BoxSize;
 import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
 import net.minecraft.core.block.entity.TileEntity;
@@ -105,7 +104,6 @@ public class ItemCardboardBox extends Item {
 			entityCardboardBox.setSavedBlockId(id);
 			entityCardboardBox.setSavedBlockMeta(meta);
 			TileEntity tileEntity = world.getTileEntity(blockX, blockY, blockZ);
-
 			if (tileEntity != null) {
 				try {
 					Constructor<? extends TileEntity> constructor = tileEntity.getClass().getDeclaredConstructor();
@@ -123,6 +121,7 @@ public class ItemCardboardBox extends Item {
 				}
 			}
 
+			entityCardboardBox.setBoxSize(this.boxSize);
 			world.setBlockWithNotify(blockX,blockY,blockZ,0);
 			entityCardboardBox.moveTo(blockX, blockY, blockZ, 0, 0);
 			entityCardboardBox.spawnInit();

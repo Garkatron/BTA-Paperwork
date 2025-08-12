@@ -9,6 +9,7 @@ import deus.paperwork.interfaces.IItemWeight;
 import deus.paperwork.item.PaperworkItems;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
+import net.minecraft.core.block.entity.TileEntityDispatcher;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.EntityItem;
@@ -36,7 +37,6 @@ public class EntityCardboardBox extends Entity implements Container {
 
 	private int savedBlockId = 0;
 	private int savedBlockMeta = 0;
-	private TileEntity tileEntity = null;
 	private CompoundTag entityCompoundTag = null;
 	private NamespaceID savedEntityNamespaceId = null;
 
@@ -50,7 +50,7 @@ public class EntityCardboardBox extends Entity implements Container {
 	}
 
 	public boolean isLocked() {
-		return tileEntity != null || savedEntityNamespaceId != null;
+		return savedEntityNamespaceId != null || savedBlockId != 0;
 	}
 
 	public void setBoxSize(BoxSize boxSize) {
@@ -81,12 +81,11 @@ public class EntityCardboardBox extends Entity implements Container {
 	}
 
 	public void setTileEntity(TileEntity tileEntity) {
-		this.tileEntity = tileEntity;
+		this.entityCompoundTag = new CompoundTag();
+		tileEntity.writeToNBT(entityCompoundTag);
+		savedEntityNamespaceId = TileEntityDispatcher.getIDFromClass(tileEntity.getClass());
 	}
 
-	public TileEntity getTileEntity() {
-		return tileEntity;
-	}
 
 	public double getMaxWeight() {
 		return boxSize.getMaxWeight();
@@ -134,9 +133,12 @@ public class EntityCardboardBox extends Entity implements Container {
 			this.setBoxSize(BoxSize.values()[compoundTag.getInteger("BoxSize")]);
 		}
 
-		savedBlockId = compoundTag.getInteger("savedBlockId");
-		savedBlockMeta = compoundTag.getInteger("savedBlockMeta");
-		entityCompoundTag = compoundTag.getCompound("entityCompoundTag");
+		savedBlockId = compoundTag.getInteger("SavedBlockID");
+		savedBlockMeta = compoundTag.getInteger("SavedBlockMeta");
+
+		if (compoundTag.containsKey("EntityCompoundTag")) {
+			entityCompoundTag = compoundTag.getCompound("EntityCompoundTag");
+		}
 
 		if (compoundTag.containsKey("SavedEntityNamespace")) {
 			try {
@@ -152,9 +154,12 @@ public class EntityCardboardBox extends Entity implements Container {
 	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
 		compoundTag.put("Items", save());
 		compoundTag.putInt("BoxSize", this.getBoxSize().ordinal());
-		compoundTag.putInt("SavedBlock", savedBlockId);
+		compoundTag.putInt("SavedBlockID", savedBlockId);
 		compoundTag.putInt("SavedBlockMeta", savedBlockMeta);
-		compoundTag.putCompound("entityCompoundTag", entityCompoundTag);
+
+		if(entityCompoundTag != null) {
+			compoundTag.putCompound("EntityCompoundTag", entityCompoundTag);
+		}
 
 		if (savedEntityNamespaceId != null) {
 			Paperwork.LOGGER.info("Entity saved: {}", savedEntityNamespaceId);
@@ -262,15 +267,18 @@ public class EntityCardboardBox extends Entity implements Container {
 				case LARGE: stack =  new ItemStack(PaperworkItems.CARDBOARD_BOX_LARGE); break;
 			}
 
-			if (savedEntityNamespaceId == null) {
+			if (this.getSavedBlockId() != 0) {
 				world.setBlockAndMetadataWithNotify((int) x, (int) y, (int) z, this.getSavedBlockId(), this.getSavedBlockMeta());
-				if (tileEntity != null) world.setTileEntity((int) x, (int) y, (int) z, tileEntity);
+
+				if (savedEntityNamespaceId != null) {
+					TileEntity newTileEntity = TileEntityDispatcher.createAndLoadEntity(entityCompoundTag);
+					world.setTileEntity((int) x, (int) y, (int) z, newTileEntity);
+				}
 			} else {
 				try {
 					Constructor<? extends Entity> constructor = EntityDispatcher.classForId(savedEntityNamespaceId).getDeclaredConstructor(World.class);
 					constructor.setAccessible(true);
 					Entity newEntity = constructor.newInstance(world);
-					System.out.println(entityCompoundTag);
 
 					newEntity.readAdditionalSaveData(this.entityCompoundTag);
 					newEntity.moveTo(x + 0.5, y, z + 0.5, 0, 0);
