@@ -63,15 +63,49 @@ public class ItemCardboardBox extends Item {
 
 	@Override
 	public boolean onUseItemOnBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-		if (world.getBlockId(blockX,blockY,blockZ)==PaperworkBlocks.BLOCK_CARDBOARD_BOX_TRAP.id()) return false;
+//		if (world.getBlockId(blockX,blockY,blockZ)==PaperworkBlocks.BLOCK_CARDBOARD_BOX_TRAP.id()) return false;
+//		if (entityplayer.isSneaking()) {
+//			int id = world.getBlockId(blockX, blockY, blockZ);
+//			int meta = world.getBlockMetadata(blockX, blockY, blockZ);
+//			TileEntity tileEntity = world.getTileEntity(blockX, blockY, blockZ);
+//
+//			TileEntityCardboardBoxTrap tileEntityCardboardBoxTrap = new TileEntityCardboardBoxTrap();
+//			tileEntityCardboardBoxTrap.setSavedBlockId(id);
+//			tileEntityCardboardBoxTrap.setSavedBlockMeta(meta);
+//			if (tileEntity != null) {
+//				try {
+//					Constructor<? extends TileEntity> constructor = tileEntity.getClass().getDeclaredConstructor();
+//					constructor.setAccessible(true);
+//					TileEntity t = constructor.newInstance();
+//
+//					CompoundTag compoundTag = new CompoundTag();
+//					tileEntity.writeToNBT(compoundTag);
+//					t.readFromNBT(compoundTag);
+//					tileEntityCardboardBoxTrap.setTileEntity(t);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					return false;
+//				}
+//			}
+//
+//			world.setBlockRaw(blockX, blockY, blockZ, PaperworkBlocks.BLOCK_CARDBOARD_BOX_TRAP.id());
+//			world.removeBlockTileEntity(blockX, blockY, blockZ);
+//			world.markBlockNeedsUpdate(blockX, blockY, blockZ);
+//
+//			world.setTileEntity(blockX, blockY, blockZ, tileEntityCardboardBoxTrap);
+//			return true;
+//		} else {
+//			return false;
+//		}
+
 		if (entityplayer.isSneaking()) {
+			EntityCardboardBox entityCardboardBox = new EntityCardboardBox(world);
 			int id = world.getBlockId(blockX, blockY, blockZ);
 			int meta = world.getBlockMetadata(blockX, blockY, blockZ);
+			entityCardboardBox.setSavedBlockId(id);
+			entityCardboardBox.setSavedBlockMeta(meta);
 			TileEntity tileEntity = world.getTileEntity(blockX, blockY, blockZ);
 
-			TileEntityCardboardBoxTrap tileEntityCardboardBoxTrap = new TileEntityCardboardBoxTrap();
-			tileEntityCardboardBoxTrap.setSavedBlockId(id);
-			tileEntityCardboardBoxTrap.setSavedBlockMeta(meta);
 			if (tileEntity != null) {
 				try {
 					Constructor<? extends TileEntity> constructor = tileEntity.getClass().getDeclaredConstructor();
@@ -81,36 +115,37 @@ public class ItemCardboardBox extends Item {
 					CompoundTag compoundTag = new CompoundTag();
 					tileEntity.writeToNBT(compoundTag);
 					t.readFromNBT(compoundTag);
-					tileEntityCardboardBoxTrap.setTileEntity(t);
+					entityCardboardBox.setTileEntity(t);
+					world.removeBlockTileEntity(blockX, blockY, blockZ);
 				} catch (Exception e) {
 					e.printStackTrace();
 					return false;
 				}
 			}
 
-			world.setBlockRaw(blockX, blockY, blockZ, PaperworkBlocks.BLOCK_CARDBOARD_BOX_TRAP.id());
-			world.removeBlockTileEntity(blockX, blockY, blockZ);
-			world.markBlockNeedsUpdate(blockX, blockY, blockZ);
-
-			world.setTileEntity(blockX, blockY, blockZ, tileEntityCardboardBoxTrap);
-			return true;
-		} else {
-			this.onUseItem(itemstack, world, entityplayer);
-			return false;
+			world.setBlockWithNotify(blockX,blockY,blockZ,0);
+			entityCardboardBox.moveTo(blockX, blockY, blockZ, 0, 0);
+			entityCardboardBox.spawnInit();
+			world.entityJoinedWorld(entityCardboardBox);
 		}
+
+		return false;
 	}
 
 	@Override
 	public boolean useItemOnEntity(ItemStack itemstack, Mob mob, Player player) {
-
-		if (player.isSneaking()) {
-			TileEntityCardboardBoxTrap tileEntityCardboardBoxTrap = new TileEntityCardboardBoxTrap();
-			tileEntityCardboardBoxTrap.setEntity(mob);
+		if (player.isSneaking() && this.boxSize.compareTo(BoxSize.REGULAR) > 0) {
+			EntityCardboardBox cardboardBox = new EntityCardboardBox(player.world);
+			cardboardBox.setBoxSize(this.boxSize);
+			cardboardBox.setEntity(mob);
 			mob.remove();
-			player.world.setBlockWithNotify((int) Math.round(mob.x), (int) Math.round(mob.y), (int) Math.round(mob.z), PaperworkBlocks.BLOCK_CARDBOARD_BOX_TRAP.id());
-			player.world.setTileEntity((int) Math.round(mob.x), (int) Math.round(mob.y), (int) Math.round(mob.z), tileEntityCardboardBoxTrap);
+			cardboardBox.moveTo(mob.x, mob.y, mob.z, 0, 0);
+			cardboardBox.spawnInit();
+
+			player.world.entityJoinedWorld(cardboardBox);
 		}
 
 		return super.useItemOnEntity(itemstack, mob, player);
 	}
+
 }

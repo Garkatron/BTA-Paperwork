@@ -21,6 +21,9 @@ public class MenuCardboardBox extends MenuAbstract {
 	public MenuCardboardBox(Container playerContainer, EntityCardboardBox container) {
 		this.container = container;
 		this.numberOfRows = container.getContainerSize() / 9;
+
+		if (container.isLocked()) return;
+
 		int i = (this.numberOfRows - 4) * 18;
 
 		int l;

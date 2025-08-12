@@ -76,12 +76,6 @@ public class BoxSlot extends Slot {
 		}
 
 
-
-
-
-
-
-
-		return true;
+		return !box.isLocked();
 	}
 }
