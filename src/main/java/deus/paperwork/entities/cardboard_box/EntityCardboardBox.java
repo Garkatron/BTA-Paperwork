@@ -2,17 +2,21 @@ package deus.paperwork.entities.cardboard_box;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
+import deus.paperwork.entities.motion.CarriedEntity;
 import deus.paperwork.interfaces.IPaperworkDisplay;
 import deus.paperwork.interfaces.IItemWeight;
 import deus.paperwork.item.PaperworkItems;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.InventorySorter;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.ICarriable;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -180,9 +184,16 @@ public class EntityCardboardBox extends Entity implements Container {
 	@Override
 	public boolean interact(@NotNull Player player) {
 
-		((IPaperworkDisplay)player).paperwork$displayCardboardBoxScreen(this);
+		if (player.isSneaking()) {
+			player.setHeldObject(new CarriedEntity(player,this));
+			remove();
+			return false;
+		} else {
+			((IPaperworkDisplay)player).paperwork$displayCardboardBoxScreen(this);
+		}
 
 		return true;
+
 	}
 
 
@@ -225,17 +236,35 @@ public class EntityCardboardBox extends Entity implements Container {
 				case REGULAR: stack =  new ItemStack(PaperworkItems.CARDBOARD_BOX_REGULAR); break;
 				case LARGE: stack =  new ItemStack(PaperworkItems.CARDBOARD_BOX_LARGE); break;
 			}
+//
+//			CompoundTag tag = new CompoundTag();
+//			tag.put("Items", save());
+//			stack.setData(tag);
 
-			CompoundTag tag = new CompoundTag();
-			tag.put("Items", save());
-			stack.setData(tag);
+
 
 			dropItem(stack, 0);
+			dropContents(world, (int) x, (int) y, (int) z);
 			this.remove();
 			return super.hurt(attacker, baseDamage, type);
 		}
 
 		return false;
+	}
+
+	public void dropContents(World world, int x, int y, int z) {
+
+		for(int i = 0; i < this.getContainerSize(); ++i) {
+			ItemStack itemStack = this.getItem(i);
+			if (itemStack != null) {
+				EntityItem item = world.dropItem(x, y, z, itemStack);
+				item.xd *= 0.5;
+				item.yd *= 0.5;
+				item.zd *= 0.5;
+				item.pickupDelay = 0;
+			}
+		}
+
 	}
 
 
@@ -276,4 +305,90 @@ public class EntityCardboardBox extends Entity implements Container {
 	public double getMaxWeight() {
 		return boxSize.getMaxWeight();
 	}
+
+//	@Override
+//	public void heldTick(World world, Entity entity) {
+//
+//	}
+//
+//	@Override
+//	public boolean tryPlace(World world, Entity holder, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+//		if (world.isClientSide) return false;
+//
+//		EntityCardboardBox newBox = new EntityCardboardBox(world);
+//		CompoundTag data = new CompoundTag();
+//		this.addAdditionalSaveData(data);
+//		newBox.readAdditionalSaveData(data);
+//
+//		double px = blockX + side.getOffsetX() + 0.5;
+//		double py = blockY + side.getOffsetY();
+//		double pz = blockZ + side.getOffsetZ() + 0.5;
+//
+//		newBox.moveTo(px, py, pz, holder.yRot, holder.xRot);
+//		world.entityJoinedWorld(newBox);
+//
+//		return true;
+//	}
+//
+//	@Override
+//	public void drop(World world, Entity holder) {
+//		int baseX = MathHelper.floor(holder.x);
+//		int baseY = MathHelper.floor(holder.y);
+//		int baseZ = MathHelper.floor(holder.z);
+//
+//		for (int y = baseY - 1; y <= baseY + 1; y++) {
+//			for (int x = baseX - 1; x <= baseX + 1; x++) {
+//				for (int z = baseZ - 1; z <= baseZ + 1; z++) {
+//					if (tryPlace(world, holder, x, y, z, Side.TOP, 0.0, 0.0)) {
+//						return;
+//					}
+//				}
+//			}
+//		}
+//
+//		EntityCardboardBox newBox = new EntityCardboardBox(world);
+//		CompoundTag data = new CompoundTag();
+//		this.addAdditionalSaveData(data);
+//		newBox.readAdditionalSaveData(data);
+//		newBox.moveTo(holder.x, holder.y, holder.z, 0, 0);
+//		world.entityJoinedWorld(newBox);
+//	}
+//
+//	@Override
+//	public boolean canBeCarried(World world, Entity entity) {
+//		return calcGravity() <= this.getMaxWeight();
+//	}
+//
+//	@Override
+//	public ICarriable pickup(World world, Entity entity) {
+//		return this;
+//	}
+//
+//	@Override
+//	public void writeToNBT(CompoundTag tag) {
+//		tag.put("Items", save());
+//		tag.putInt("BoxSize", this.boxSize.ordinal());
+//		tag.putString("type", "cardboard_box");
+//	}
+//
+//	@Override
+//	public void readFromNBT(CompoundTag tag) {
+//		if (tag.containsKey("Items")) {
+//			ListTag nbttaglist = tag.getList("Items");
+//			this.chestContents = new ItemStack[this.getContainerSize()];
+//
+//			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+//				CompoundTag nbttagcompound1 = (CompoundTag) nbttaglist.tagAt(i);
+//				int slot = nbttagcompound1.getByte("Slot") & 255;
+//				if (slot >= 0 && slot < this.chestContents.length) {
+//					this.chestContents[slot] = ItemStack.readItemStackFromNbt(nbttagcompound1);
+//				}
+//			}
+//		}
+//
+//		if (tag.containsKey("BoxSize")) {
+//			this.setBoxSize(BoxSize.values()[tag.getInteger("BoxSize")]);
+//		}
+//	}
+
 }

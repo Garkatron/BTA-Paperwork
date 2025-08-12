@@ -2,6 +2,7 @@ package deus.paperwork.block;
 
 
 import deus.paperwork.Paperwork;
+import deus.paperwork.block.cardboard_box_trap.LogicCardboardBoxTrap;
 import deus.paperwork.block.chalkboard.BlockChalkboardLogic;
 import deus.paperwork.block.confetti.ConfettiLogic;
 import deus.paperwork.block.corckboard.BlockCorckboardLogic;
@@ -48,6 +49,8 @@ public class PaperworkBlocks {
 	public static Block<? extends BlockLogic> BLOCK_FILE_CABINET_BROWN_PLANKS;
 	public static Block<? extends BlockLogic> BLOCK_FILE_CABINET_IRON;
 
+	public static Block<? extends BlockLogic> BLOCK_CARDBOARD_BOX_TRAP;
+
 	private static int BLOCK_ID = Paperwork.CONFIG.getInt("IDs.startBlockId");;
 
 	static BlockBuilder genericBlockBuilder = new BlockBuilder(MOD_ID)
@@ -84,6 +87,8 @@ public class PaperworkBlocks {
 
 		BLOCK_FILE_CABINET_BROWN_PLANKS = genericBlockBuilder.build("file_cabinet_browk_planks", "file_cabinet_browk_planks", newBlockID(), (b) -> new BlockLogicFileCabinet(b, Material.steel));
 		BLOCK_FILE_CABINET_IRON = genericBlockBuilder.build("file_cabinet_iron", "file_cabinet_iron", newBlockID(), (b) -> new BlockLogicFileCabinet(b, Material.steel));
+
+		BLOCK_CARDBOARD_BOX_TRAP = genericBlockBuilder.build("cardboard_box_trap", "cardboard_box_trap", newBlockID(), (b) -> new LogicCardboardBoxTrap(b, Material.steel));
 	}
 
 	public static int newBlockID() {

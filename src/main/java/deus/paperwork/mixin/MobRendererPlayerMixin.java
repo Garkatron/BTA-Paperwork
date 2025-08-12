@@ -1,0 +1,68 @@
+package deus.paperwork.mixin;
+
+import deus.paperwork.entities.motion.CarriedEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.render.EntityRenderDispatcher;
+import net.minecraft.client.render.Lighting;
+import net.minecraft.client.render.RenderBlocks;
+import net.minecraft.client.render.TileEntityRenderDispatcher;
+import net.minecraft.client.render.block.model.BlockModel;
+import net.minecraft.client.render.block.model.BlockModelDispatcher;
+import net.minecraft.client.render.entity.MobRendererPlayer;
+import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.client.render.tileentity.TileEntityRenderer;
+import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.entity.TileEntity;
+import net.minecraft.core.block.motion.CarriedBlock;
+import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.world.BlocksContainer;
+import org.lwjgl.opengl.GL11;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(value = MobRendererPlayer.class, remap = false)
+public class MobRendererPlayerMixin {
+	@Inject(method = "drawHeldObject", at = @At("HEAD"), remap = false)
+	public void test(Player player, float partialTick, CallbackInfo ci) {
+		Object held = player.getHeldObject();
+
+		if (held instanceof CarriedEntity) {
+			CarriedEntity carriedBlock = (CarriedEntity) held;
+
+			Tessellator tessellator = Tessellator.instance;
+			tessellator.setTranslation(0.0, 0.0, 0.0);
+
+			Minecraft mc = Minecraft.getMinecraft();
+			TextureRegistry.blockAtlas.bind();
+			Lighting.disable();
+			GL11.glPushMatrix();
+			GL11.glBlendFunc(770, 771);
+			GL11.glEnable(3042);
+			GL11.glDisable(2884);
+			if (mc.isAmbientOcclusionEnabled()) {
+				GL11.glShadeModel(7425);
+			} else {
+				GL11.glShadeModel(7424);
+			}
+
+			GL11.glScalef(0.55F, -0.55F, 0.55F);
+			GL11.glTranslatef(0.0F, -1.61F, -0.75F);
+
+			EntityRenderDispatcher.instance.getRenderer(carriedBlock.getCarried())
+				.render(tessellator, carriedBlock.getCarried(), 0.0, 0.0, 0.0, 0.0f, partialTick);
+
+			GL11.glPopMatrix();
+			GL11.glEnable(2896);
+			GL11.glEnable(16384);
+			GL11.glEnable(16385);
+			GL11.glEnable(2903);
+		}
+	}
+
+
+}

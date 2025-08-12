@@ -143,7 +143,10 @@ public class PaperworkModels implements ModelEntrypoint {
 			.setTex(0, MOD_ID + ":block/file_cabinet/planks/brown/bottom", Side.BOTTOM)
 		);
 
+		ModelHelper.setBlockModel(BLOCK_CARDBOARD_BOX_TRAP, () -> new BlockModelFileCabinet<>(BLOCK_CARDBOARD_BOX_TRAP)
+			.setTex(0, MOD_ID + ":block/cardboard_pile/sides", Side.sides)
 
+		);
 
 	}
 
