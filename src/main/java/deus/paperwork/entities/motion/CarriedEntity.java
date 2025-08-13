@@ -4,7 +4,8 @@ import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.Paperwork;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
-import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.util.HardIllegalArgumentException;
+import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.ICarriable;
@@ -15,28 +16,43 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Constructor;
 
 public class CarriedEntity implements ICarriable {
-
+	private static final String TYPE_ENTITY = "entity";
+	private float offsetX = 0.0F;
+	private float offsetY = -1.61F;
+	private float offsetZ = -0.75F;
 	private @Nullable Entity carried;
 	private @NotNull Entity holder;
 	private @NotNull World world;
+	private NamespaceID savedEntityNamespaceId = null;
+	private @Nullable CompoundTag cachedEntityData;
 
 	public CarriedEntity(@NotNull Entity holder, @NotNull Entity carried) {
 		this.holder = holder;
 		this.carried = carried;
+		Paperwork.LOGGER.info("[CarriedEntity]: Carried -> {}", carried);
 		this.world = holder.world;
-		assert this.world != null : "World reference must not be null!";
+		if (this.world == null) {
+			throw new IllegalStateException("World reference must not be null!");
+		}
+		this.cachedEntityData = new CompoundTag();
+		this.carried.addAdditionalSaveData(this.cachedEntityData);
+		savedEntityNamespaceId = EntityDispatcher.idForClass(carried.getClass());
+		savedEntityNamespaceId.makePermanent();
 	}
 
-	protected CarriedEntity(@NotNull Entity holder) {
+	private CarriedEntity(@NotNull Entity holder) {
 		this.holder = holder;
 		this.world = holder.world;
-		assert this.world != null : "World reference must not be null!";
+		Paperwork.LOGGER.info("[CarriedEntity]: Not carried entity inside");
+		if (this.world == null) {
+			throw new IllegalStateException("World reference must not be null!");
+		}
 	}
 
 	@Override
 	public void heldTick(World world, Entity holder) {
 		if (this.carried != null) {
-			// this.carried.tick();
+			this.carried.tick();
 		}
 	}
 
@@ -51,14 +67,12 @@ public class CarriedEntity implements ICarriable {
 			double pz = blockZ + side.getOffsetZ() + 0.5;
 
 			newEntity.moveTo(px, py, pz, holder.yRot, holder.xRot);
+			newEntity.spawnInit();
 			world.entityJoinedWorld(newEntity);
 			return true;
 		}
+		Paperwork.LOGGER.error("[CarriedEntity(tryPlace)]: newEntity is null.");
 		return false;
-	}
-
-	public @Nullable Entity getCarried() {
-		return carried;
 	}
 
 	@Override
@@ -67,10 +81,14 @@ public class CarriedEntity implements ICarriable {
 		int baseY = MathHelper.floor(holder.y);
 		int baseZ = MathHelper.floor(holder.z);
 
-		// Intentar colocar cerca del portador
+		if (tryPlace(world, holder, baseX, baseY, baseZ, Side.TOP, 0.0, 0.0)) {
+			return;
+		}
+
 		for (int y = baseY - 1; y <= baseY + 1; y++) {
 			for (int x = baseX - 1; x <= baseX + 1; x++) {
 				for (int z = baseZ - 1; z <= baseZ + 1; z++) {
+					if (x == baseX && y == baseY && z == baseZ) continue;
 					if (tryPlace(world, holder, x, y, z, Side.TOP, 0.0, 0.0)) {
 						return;
 					}
@@ -78,11 +96,14 @@ public class CarriedEntity implements ICarriable {
 			}
 		}
 
-		Paperwork.LOGGER.warn("[{}] Can't spawn the entity.", getClass().getSimpleName());
 		Entity newEntity = recreateEntity();
 		if (newEntity != null) {
 			newEntity.moveTo(holder.x, holder.y, holder.z, 0, 0);
+			newEntity.spawnInit();
 			world.entityJoinedWorld(newEntity);
+			Paperwork.LOGGER.info("[CarriedEntity(drop)]: Entity dropped at holder's position.");
+		} else {
+			Paperwork.LOGGER.warn("[CarriedEntity(drop)]: Failed to drop entity, recreation failed.");
 		}
 	}
 
@@ -98,18 +119,48 @@ public class CarriedEntity implements ICarriable {
 
 	@Override
 	public void writeToNBT(CompoundTag tag) {
-		if (this.carried != null) {
-			CompoundTag entityTag = new CompoundTag();
-			this.carried.addAdditionalSaveData(entityTag);
-			tag.put("entity", entityTag);
+		// ? If exists a entity ID, save it
+		if (savedEntityNamespaceId != null) {
+			Paperwork.LOGGER.info("Entity saved: {}", savedEntityNamespaceId);
+			tag.putString("SavedEntityNamespace", savedEntityNamespaceId.toString());
 		}
-		tag.putString("type", "entity");
+
+		// ? Save carried entity data
+		if (cachedEntityData != null) {
+			tag.putCompound("entity",this.cachedEntityData);
+		}
+
+		// ? Mark as type entity
+		tag.putString("type", TYPE_ENTITY);
 	}
 
 	@Override
 	public void readFromNBT(CompoundTag tag) {
+		// ? Avoid load other NBT data
+		if (!TYPE_ENTITY.equals(tag.getString("type"))) {
+			Paperwork.LOGGER.error("[CarriedEntity]: Invalid type in NBT: {}. Expected: {}.", tag.getString("type"), TYPE_ENTITY);
+			return;
+		}
+
+		// ? Save entity ID
+		if (tag.containsKey("SavedEntityNamespace")) {
+			try {
+				savedEntityNamespaceId = NamespaceID.getPermanent(tag.getString("SavedEntityNamespace"));
+				Paperwork.LOGGER.info("Entity loaded: {}", savedEntityNamespaceId);
+			} catch (HardIllegalArgumentException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		// ? If exists an entity inside, read the NBT of it
 		if (tag.containsKey("entity")) {
-			this.carried = EntityDispatcher.createEntityFromNBT(tag.getCompound("entity"), world);
+			this.cachedEntityData = tag.getCompound("entity");
+			this.carried = recreateEntity();
+			if (this.carried == null) {
+				Paperwork.LOGGER.error("[CarriedEntity]: Failed to load entity from NBT data.");
+			}
+		} else {
+			Paperwork.LOGGER.warn("[CarriedEntity]: No entity data found in NBT.");
 		}
 	}
 
@@ -119,23 +170,44 @@ public class CarriedEntity implements ICarriable {
 		return carriedEntity;
 	}
 
-
+	@Nullable
 	private Entity recreateEntity() {
-		if (this.carried == null) return null;
 		try {
-			Constructor<? extends Entity> constructor = carried.getClass().getDeclaredConstructor(World.class);
+			Constructor<? extends Entity> constructor = EntityDispatcher.classForId(savedEntityNamespaceId).getDeclaredConstructor(World.class);
 			constructor.setAccessible(true);
 			Entity newEntity = constructor.newInstance(world);
-
-			CompoundTag data = new CompoundTag();
-			carried.addAdditionalSaveData(data);
-			newEntity.readAdditionalSaveData(data);
-
-			newEntity.spawnInit();
+			newEntity.readAdditionalSaveData(this.cachedEntityData);
 			return newEntity;
+
 		} catch (ReflectiveOperationException e) {
-			Paperwork.LOGGER.error("[{}] Error instancing the entity: {}", getClass().getSimpleName(), carried.getClass().getName(), e);
+			Paperwork.LOGGER.error("[" + getClass().getSimpleName() + "] Error instancing entity...");
 			return null;
 		}
+	}
+
+
+
+	public CarriedEntity setXYZ(float offsetX, float offsetY, float offsetZ) {
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+		this.offsetZ = offsetZ;
+		return this;
+	}
+
+	public float getOffsetX() {
+		return offsetX;
+	}
+
+	public float getOffsetY() {
+		return offsetY;
+	}
+
+	public float getOffsetZ() {
+		return offsetZ;
+	}
+
+	@Nullable
+	public Entity getCarried() {
+		return carried;
 	}
 }

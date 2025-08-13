@@ -21,6 +21,7 @@ import net.minecraft.core.util.HardIllegalArgumentException;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -152,10 +153,11 @@ public class EntityCardboardBox extends Entity implements Container {
 
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-		compoundTag.put("Items", save());
+		compoundTag.put("Items", saveItems());
 		compoundTag.putInt("BoxSize", this.getBoxSize().ordinal());
 		compoundTag.putInt("SavedBlockID", savedBlockId);
 		compoundTag.putInt("SavedBlockMeta", savedBlockMeta);
+
 
 		if(entityCompoundTag != null) {
 			compoundTag.putCompound("EntityCompoundTag", entityCompoundTag);
@@ -167,7 +169,7 @@ public class EntityCardboardBox extends Entity implements Container {
 		}
 	}
 
-	private ListTag save() {
+	private ListTag saveItems() {
 		ListTag nbttaglist = new ListTag();
 		for (int i = 0; i < this.chestContents.length; ++i) {
 			if (this.chestContents[i] != null) {
@@ -246,7 +248,7 @@ public class EntityCardboardBox extends Entity implements Container {
 	@Override
 	public boolean interact(@NotNull Player player) {
 		if (player.isSneaking()) {
-			player.setHeldObject(new CarriedEntity(player, this));
+			player.setHeldObject(new CarriedEntity(player, this).setXYZ(boxSize.getX(), boxSize.getY(), boxSize.getZ()));
 			remove();
 			return false;
 		} else {
@@ -274,7 +276,7 @@ public class EntityCardboardBox extends Entity implements Container {
 					TileEntity newTileEntity = TileEntityDispatcher.createAndLoadEntity(entityCompoundTag);
 					world.setTileEntity((int) x, (int) y, (int) z, newTileEntity);
 				}
-			} else {
+			} else if(savedEntityNamespaceId != null) {
 				try {
 					Constructor<? extends Entity> constructor = EntityDispatcher.classForId(savedEntityNamespaceId).getDeclaredConstructor(World.class);
 					constructor.setAccessible(true);
@@ -361,4 +363,18 @@ public class EntityCardboardBox extends Entity implements Container {
 		savedEntityNamespaceId = EntityDispatcher.idForClass(entity.getClass());
 		savedEntityNamespaceId.makePermanent();
 	}
+
+	@Override
+	public AABB getBb() {
+		return bb;
+//		return AABB.getPermanentBB(
+//			this.x - this.bbWidth / 2,
+//			this.y,
+//			this.z - this.bbWidth / 2,
+//			this.x + this.bbWidth / 2,
+//			this.y + this.bbHeight + 0.1,
+//			this.z + this.bbWidth / 2
+//		);
+	}
+
 }

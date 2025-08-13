@@ -4,21 +4,11 @@ import deus.paperwork.entities.motion.CarriedEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.Lighting;
-import net.minecraft.client.render.RenderBlocks;
-import net.minecraft.client.render.TileEntityRenderDispatcher;
-import net.minecraft.client.render.block.model.BlockModel;
-import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
-import net.minecraft.client.render.tileentity.TileEntityRenderer;
-import net.minecraft.core.block.Blocks;
-import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.block.motion.CarriedBlock;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.world.BlocksContainer;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -51,10 +41,13 @@ public class MobRendererPlayerMixin {
 			}
 
 			GL11.glScalef(0.55F, -0.55F, 0.55F);
-			GL11.glTranslatef(0.0F, -1.61F, -0.75F);
+			GL11.glTranslatef(carriedBlock.getOffsetX(), carriedBlock.getOffsetY(), carriedBlock.getOffsetZ());
 
-			EntityRenderDispatcher.instance.getRenderer(carriedBlock.getCarried())
-				.render(tessellator, carriedBlock.getCarried(), 0.0, 0.0, 0.0, 0.0f, partialTick);
+			Entity carried = carriedBlock.getCarried();
+			if (carried != null) {
+				EntityRenderDispatcher.instance.getRenderer(carried)
+					.render(tessellator, carriedBlock.getCarried(), 0.0, 0.0, 0.0, 0.0f, partialTick);
+			}
 
 			GL11.glPopMatrix();
 			GL11.glEnable(2896);
