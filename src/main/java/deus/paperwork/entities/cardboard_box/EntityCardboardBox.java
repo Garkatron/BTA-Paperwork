@@ -247,7 +247,7 @@ public class EntityCardboardBox extends Entity implements Container {
 
 	@Override
 	public boolean interact(@NotNull Player player) {
-		if (player.isSneaking()) {
+		if (player.isSneaking() && player.getHeldObject() == null) {
 			player.setHeldObject(new CarriedEntity(player, this).setXYZ(boxSize.getX(), boxSize.getY(), boxSize.getZ()));
 			remove();
 			return false;
