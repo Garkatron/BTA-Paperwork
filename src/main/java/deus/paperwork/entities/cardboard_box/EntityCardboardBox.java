@@ -15,11 +15,13 @@ import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.player.inventory.InventorySorter;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.HardIllegalArgumentException;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
@@ -35,7 +37,8 @@ public class EntityCardboardBox extends Entity implements Container {
 	private ItemStack[] chestContents = new ItemStack[36];
 	private BoxSize boxSize = BoxSize.SMALL;
 	public boolean slotsLocked = false;
-
+	private DyeColor color = null;
+	public boolean halloween = false;
 	private int savedBlockId = 0;
 	private int savedBlockMeta = 0;
 	private CompoundTag entityCompoundTag = null;
@@ -46,12 +49,24 @@ public class EntityCardboardBox extends Entity implements Container {
 		this.setSize(0.8F, 0.8F);
 	}
 
+	public NamespaceID getSavedEntityNamespaceId() {
+		return savedEntityNamespaceId;
+	}
+
+	public CompoundTag getEntityCompoundTag() {
+		return entityCompoundTag;
+	}
+
 	public BoxSize getBoxSize() {
 		return boxSize;
 	}
 
 	public boolean isLocked() {
 		return savedEntityNamespaceId != null || savedBlockId != 0;
+	}
+
+	public DyeColor getColor() {
+		return color;
 	}
 
 	public void setBoxSize(BoxSize boxSize) {
@@ -137,6 +152,8 @@ public class EntityCardboardBox extends Entity implements Container {
 		savedBlockId = compoundTag.getInteger("SavedBlockID");
 		savedBlockMeta = compoundTag.getInteger("SavedBlockMeta");
 
+		halloween = compoundTag.getBoolean("Halloween");
+
 		if (compoundTag.containsKey("EntityCompoundTag")) {
 			entityCompoundTag = compoundTag.getCompound("EntityCompoundTag");
 		}
@@ -149,6 +166,10 @@ public class EntityCardboardBox extends Entity implements Container {
 				throw new RuntimeException(e);
 			}
 		}
+
+		if (compoundTag.containsKey("Color")) {
+			color = DyeColor.colorFromItemMeta(compoundTag.getInteger("Color"));
+		}
 	}
 
 	@Override
@@ -157,7 +178,11 @@ public class EntityCardboardBox extends Entity implements Container {
 		compoundTag.putInt("BoxSize", this.getBoxSize().ordinal());
 		compoundTag.putInt("SavedBlockID", savedBlockId);
 		compoundTag.putInt("SavedBlockMeta", savedBlockMeta);
+		compoundTag.putBoolean("Halloween", halloween);
 
+		if (color != null) {
+			compoundTag.putInt("Color", color.itemMeta);
+		}
 
 		if(entityCompoundTag != null) {
 			compoundTag.putCompound("EntityCompoundTag", entityCompoundTag);
@@ -247,13 +272,46 @@ public class EntityCardboardBox extends Entity implements Container {
 
 	@Override
 	public boolean interact(@NotNull Player player) {
-		if (player.isSneaking() && player.getHeldObject() == null) {
+		if (player.isSneaking() && player.getHeldObject() == null && player.getHeldItem() == null) {
 			player.setHeldObject(new CarriedEntity(player, this).setXYZ(boxSize.getX(), boxSize.getY(), boxSize.getZ()));
 			remove();
-			return false;
 		} else {
-			((IPaperworkDisplay) player).paperwork$displayCardboardBoxScreen(this);
-			return true;
+			ItemStack itemStack = player.getCurrentEquippedItem();
+
+			if (itemStack != null && (itemStack.itemID == Items.TOOL_SHEARS.id || itemStack.itemID == Items.TOOL_SHEARS_STEEL.id)) {
+				dropAdditionalContent();
+				halloween = false;
+				color = null;
+				return true;
+			}
+
+			if (itemStack != null && itemStack.itemID == Blocks.PUMPKIN_CARVED_IDLE.asItem().id) {
+				halloween = !halloween;
+				return true;
+			}
+
+			if (itemStack != null && itemStack.itemID == Items.PAPER.id) {
+				CompoundTag data = itemStack.getData();
+				if (data.containsKey("Color")) {
+					color = DyeColor.colorFromItemMeta(data.getInteger("Color"));
+					itemStack.consumeItem(player);
+				}
+			} else {
+				((IPaperworkDisplay) player).paperwork$displayCardboardBoxScreen(this);
+			}
+		}
+		return true;
+	}
+
+	public void dropAdditionalContent() {
+		if (halloween) dropItem(Blocks.PUMPKIN_CARVED_IDLE.id(), 1);
+
+		if (color != null) {
+			ItemStack c = new ItemStack(Items.PAPER, 1);
+			CompoundTag data = c.getData();
+			data.putInt("Color", color.itemMeta);
+			c.setData(data);
+			dropItem(c, 0);
 		}
 	}
 
@@ -291,6 +349,7 @@ public class EntityCardboardBox extends Entity implements Container {
 				}
 			}
 
+			dropAdditionalContent();
 			dropItem(stack, 0);
 			dropContents(world, (int) x, (int) y, (int) z);
 			this.remove();

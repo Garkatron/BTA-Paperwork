@@ -4,6 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entities.cardboard_box.BoxSize;
 import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
+import deus.paperwork.entities.gift_box.EntityGiftBox;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
