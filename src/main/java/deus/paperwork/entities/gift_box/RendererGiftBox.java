@@ -31,16 +31,16 @@ public class RendererGiftBox extends EntityRenderer<EntityGiftBox> {
 
 
 		DyeColor color = entity.getColor();
-		if (color == null) {
-			if (entity.halloween) {
-				this.bindTexture("/assets/paperwork/textures/entity/cardboard_box/halloween/pumpkin.png");
-			} else {
-				this.bindTexture("/assets/paperwork/textures/entity/gift_box/red.png");
-			}
-		} else {
-			this.bindTexture("/assets/paperwork/textures/entity/gift_box/"+color.colorID+".png");
-		}
-
+//		if (color == null) {
+//			if (entity.halloween) {
+//				this.bindTexture("/assets/paperwork/textures/entity/cardboard_box/halloween/pumpkin.png");
+//			} else {
+//				this.bindTexture("/assets/paperwork/textures/entity/gift_box/red.png");
+//			}
+//		} else {
+//			this.bindTexture("/assets/paperwork/textures/entity/cardboard_box/gift_box/"+color.colorID+".png");
+//		}
+		this.bindTexture("/assets/paperwork/textures/cardboard_box/entity/gift_box/test.png");
 		GL11.glEnable(32826);
 		GL11.glEnable(3008);
 

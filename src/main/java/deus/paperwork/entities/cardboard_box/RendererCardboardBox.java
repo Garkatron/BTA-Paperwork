@@ -47,6 +47,8 @@ public class RendererCardboardBox extends EntityRenderer<EntityCardboardBox> {
 				this.bindTexture("/assets/paperwork/textures/entity/cardboard_box/texture.png");
 			}
 		} else {
+			//this.bindTexture("/assets/paperwork/textures/cardboard_box/entity/gift_box/test.png");
+
 			this.bindTexture("/assets/paperwork/textures/entity/cardboard_box/gift_box/"+color.colorID+".png");
 		}
 
