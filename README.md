@@ -1,37 +1,43 @@
-# Example Mod
+# Planned Features for First Release (v1.0.0)
 
-Template for making Babric mods for BTA!
+> Note: Some features may not function optimally in multiplayer environments and will require further testing and optimization.
 
-**Note: *DO NOT fork this repository unless you want to contribute!***
+## Items
+- Cardboard Boxes (Multiple Sizes)
+- Cardboard Armor Set
+- Cardboard Sword
+- Paper Plane
+- Large Paper Plane
+- Colored Paper Planes
+- Colored Paper
+- Confetti
 
-## Prerequisites
-- JDK for Java 17 ([Eclipse Temurin](https://adoptium.net/temurin/releases/) recommended)
-- [Intellij IDEA](https://www.jetbrains.com/idea/download/) (Scroll down for the free community edition, if using linux **DO NOT** use the flatpak distribution)
-- Minecraft Development plugin (Optional, but highly recommended)
+## Decorative Blocks
+- Confetti Layer
+- Paper Layers and Piles
+- Cardboard Layers and Piles
+- Printer
+- Photocopier
+- Nightstand (Small Storage, Similar to a Tiny Chest)
+- Iron File Cabinet (Small Storage, Similar to a Tiny Chest)
+- Chalkboard
+- Corkboard
 
-## Setup instructions
-   
+## Future Features (v1.x.x)
+> *Note: Features marked with [?] are under consideration and may not be included.*
 
-1. Click the `Use this template` button on this repo's page above (Will only appear if logged in). Choose `Create a new repository`, you will be redirected to a new page. Enter your repo's name and description, and hit `Create repository`.  
-   To get your project, open IntelliJ IDEA and click `Get from VCS`. Select `Repository URL` and enter your repo's url
+- Paper Planes Transporting Items [?]
+- Explosive Charge Paper Plane
+- Throwing Explosive Charges from Large Paper Plane
+- Paper Letters
+- Paper Plane Letters [?]
+- Mailboxes [?]
+- Letter Stamps [?]
+- Capturing Mobs Inside Cardboard Boxes
+- Storing an Entire Block Inside a Cardboard Box [?]
+- Paper Boat and Paper Boat Hat
+- Drawing on Paper [?]
+- Paper Posters [?]
+- Adding Logos to Cardboard Boxes [?]
 
-2. After the project has finished importing, close it and open it again.  
-   If that does not work, open the right sidebar with `Gradle` on it, open `Tasks` > `fabric` and run `ideaSyncTask`.
-
-3. Create a new run configuration by going in `Run > Edit Configurations`.  
-   Then click on the plus icon and select Gradle. In the `Tasks and Arguments` field enter `build`.  
-   Running it will build your finished jar files and put them in `build/libs/`.
-
-4. Lastly, open `File` > `Settings` and head to `Build, Execution, Development` > `Build Tools` > `Gradle`.  
-   Make sure `Build and run using` and `Run tests using` is set to `Gradle`.
-
-5. Done! Now, all that's left is to change every mention of `examplemod` and `turniplabs` to your own mod id and mod group, respectively. Happy modding!
-
-## Tips
-
-1. If you haven't already you should join the BTA modding discord! https://discord.gg/FTUNJhswBT
-2. You can set your username when launching the client run configuration by setting `--username <username>` in your program arguments.
-3. When launching the server run configuration you may want to remove the `nogui` program argument in order to see the regular server GUI.
-4. In Intellij you can double press shift or press ctrl+N to search class files, change the search from the default `Project Files` to `All Places` you can easily explore the classes for you dependencies and even BTA itself.
-5. In Intellij if ctrl+left click on a field or method you can quickly get information on when and where that field or method is assign or used.
-
+**Full Changelog**: https://github.com/Garkatron/BTA-Paperwork/commits/1.0.0
