@@ -33,7 +33,8 @@ item.cardboard_box_small.name=Small Cardboard Box
 item.cardboard_box_medium.name=Medium Cardboard Box
 item.cardboard_box_large.name=Large Cardboard Box
 item.cardboard_tube.name=Cardboard Tube
-
+item.paperwork.closed_letter.name=Closed Letter
+item.paperwork.letter.name=Letter
 # Subtitles
 subtitles.material.paper.put = Paper put
 subtitles.material.paper.jiggle = Paper jiggle

@@ -4,15 +4,16 @@ import deus.paperwork.Paperwork;
 import deus.paperwork.armor.PaperworkArmorMaterial;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entities.cardboard_box.BoxSize;
-import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
 import deus.paperwork.item.big_paperplane.ItemBigPaperPlane;
+import deus.paperwork.item.letter.ItemClosedLetter;
+import deus.paperwork.item.letter.ItemLetter;
 import deus.paperwork.item.paperplane.ItemPaperPlane;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLayerBase;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
-import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
+import turniplabs.halplibe.helper.ItemBuilder;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
@@ -37,6 +38,9 @@ public class PaperworkItems {
 
 	public static Item CARDBOARD_TUBE;
 
+	public static Item LETTER;
+	public static Item CLOSED_LETTER;
+
 
 	public static void initialize() {
 		NEWSPRINT = new CustomLayerItem("newsprint", MOD_ID+":item/newsprint", newItemID(), (Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_NEWSPRINT_LAYER);
@@ -55,6 +59,9 @@ public class PaperworkItems {
 		CARDBOARD_BOX_MEDIUM = new ItemCardboardBox("cardboard_box_medium", MOD_ID+":item/cardboard_box_medium", newItemID(), BoxSize.MEDIUM);
 		CARDBOARD_BOX_LARGE = new ItemCardboardBox("cardboard_box_large", MOD_ID+":item/cardboard_box_large", newItemID(), BoxSize.LARGE);
 		CARDBOARD_TUBE = new ItemToolSword("cardboard_tube", MOD_ID+":item/cardboard_tube", newItemID(), PaperworkToolMaterial.CARDBOARD);
+
+		LETTER = new ItemBuilder(MOD_ID).setStackSize(1).build(new ItemLetter("letter",MOD_ID+":item/letter/letter", newItemID()));
+		CLOSED_LETTER = new ItemBuilder(MOD_ID).setStackSize(1).build(new ItemClosedLetter("closed_letter",MOD_ID+":item/letter/closed_letter", newItemID()));
 	}
 
 	public static int newItemID() {

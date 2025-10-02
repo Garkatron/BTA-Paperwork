@@ -152,17 +152,21 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 			.addInput('d', MOD_ID+":dyes")
 			.create(MOD_ID+":confetti", new ItemStack(PaperworkBlocks.BLOCK_CONFETTI, 16));
 
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("pb ", "   ", "   ")
+			.addInput('p', Items.PAPER)
+			.addInput('b', Items.PAINTBRUSH)
+			.create(MOD_ID+":letter", PaperworkItems.LETTER.getDefaultStack());
 
-		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
-		if (group == null) {
-			System.out.println("Error: El grupo 'printer' no está registrado.");
-			return;
-		}
-
-		System.out.println("Recetas cargadas en el grupo 'printer':");
-		for (Object recipe : group.getAllRecipes()) {
-			System.out.println("Receta: " + group.getKey(recipe));
-
-		}
+//
+//		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
+//		if (group == null) {
+//			return;
+//		}
+//
+//		for (Object recipe : group.getAllRecipes()) {
+//			System.out.println("Receta: " + group.getKey(recipe));
+//
+//		}
 	}
 }
