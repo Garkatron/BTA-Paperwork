@@ -4,6 +4,7 @@ import deus.paperwork.block.file_cabinet.TileEntityFileCabinet;
 import deus.paperwork.block.printer.TileEntityPrinter;
 import deus.paperwork.entities.big_paperplane.EntityBigPaperPlane;
 import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
+import deus.paperwork.entities.clippy.MobClippy;
 import deus.paperwork.entities.gift_box.EntityGiftBox;
 import deus.paperwork.entities.paperplane.EntityPaperPlane;
 import deus.paperwork.entities.pigeon.EntityPigeon;
@@ -22,5 +23,6 @@ public class PaperworkEntities {
 		EntityHelper.createEntity(EntityGiftBox.class, NamespaceID.getPermanent(MOD_ID, "entity_gift_box"), "entity_gift_box");
 		EntityHelper.createEntity(EntityPigeon.class, NamespaceID.getPermanent(MOD_ID, "entity_pigeon"), "entity_pigeon");
 		EntityHelper.createEntity(SteplerProjectile.class, NamespaceID.getPermanent(MOD_ID, "entity_stepler_projectile"), "entity_stepler_projectile");
+		EntityHelper.createEntity(MobClippy.class, NamespaceID.getPermanent(MOD_ID, "entity_clippy"), "entity_clippy");
 	}
 }

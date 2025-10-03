@@ -13,6 +13,9 @@ import deus.paperwork.entities.big_paperplane.ModelBigPaperPlane;
 import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
 import deus.paperwork.entities.cardboard_box.ModelCardboardBox;
 import deus.paperwork.entities.cardboard_box.RendererCardboardBox;
+import deus.paperwork.entities.clippy.ClippyRenderer;
+import deus.paperwork.entities.clippy.MobClippy;
+import deus.paperwork.entities.clippy.Modelclippy;
 import deus.paperwork.entities.gift_box.EntityGiftBox;
 import deus.paperwork.entities.gift_box.ModelGiftBox;
 import deus.paperwork.entities.gift_box.RendererGiftBox;
@@ -185,6 +188,7 @@ public class PaperworkModels implements ModelEntrypoint {
 		addEntityModel(dispatcher, EntityGiftBox.class, new RendererGiftBox(new ModelGiftBox()));
 		addEntityModel(dispatcher, EntityPigeon.class, new PigeonRenderer(new ModelPigeon()));
 		addEntityModel(dispatcher, SteplerProjectile.class, new SteplerProjectileRenderer());
+		addEntityModel(dispatcher, MobClippy.class, new ClippyRenderer(new Modelclippy()));
 
 	}
 
