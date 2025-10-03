@@ -35,6 +35,8 @@ item.cardboard_box_large.name=Large Cardboard Box
 item.cardboard_tube.name=Cardboard Tube
 item.paperwork.closed_letter.name=Closed Letter
 item.paperwork.letter.name=Letter
+item.paperwork.stepler.name=Stepler
+item.iron_nugget.name=Iron Nugget
 # Subtitles
 subtitles.material.paper.put = Paper put
 subtitles.material.paper.jiggle = Paper jiggle

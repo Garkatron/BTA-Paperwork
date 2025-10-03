@@ -40,6 +40,8 @@ public class PaperworkItems {
 
 	public static Item LETTER;
 	public static Item CLOSED_LETTER;
+	public static Item STEPLER;
+	public static Item IRON_NUGGET;
 
 
 	public static void initialize() {
@@ -62,6 +64,9 @@ public class PaperworkItems {
 
 		LETTER = new ItemBuilder(MOD_ID).setStackSize(1).build(new ItemLetter("letter",MOD_ID+":item/letter/letter", newItemID()));
 		CLOSED_LETTER = new ItemBuilder(MOD_ID).setStackSize(1).build(new ItemClosedLetter("closed_letter",MOD_ID+":item/letter/closed_letter", newItemID()));
+		STEPLER = new ItemBuilder(MOD_ID).setStackSize(1).build(new Stepler("stepler",MOD_ID+":item/stepler", newItemID()));
+		IRON_NUGGET = new Item("iron_nugget", MOD_ID+":item/iron_nugget", newItemID());
+
 	}
 
 	public static int newItemID() {

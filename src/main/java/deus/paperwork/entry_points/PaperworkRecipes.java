@@ -158,6 +158,24 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 			.addInput('b', Items.PAINTBRUSH)
 			.create(MOD_ID+":letter", PaperworkItems.LETTER.getDefaultStack());
 
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("I  ", "   ", "   ")
+			.addInput('I', Items.INGOT_IRON)
+			.create(MOD_ID+":iron_nugget", new ItemStack(PaperworkItems.IRON_NUGGET, 9));
+
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("NNN", "NNN", "NNN")
+			.addInput('N', PaperworkItems.IRON_NUGGET)
+			.create(MOD_ID+":iron_nugget_to_iron", Items.INGOT_IRON.getDefaultStack());
+
+
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("III", "NSS", " SS")
+			.addInput('S', Items.INGOT_STEEL)
+			.addInput('I', Items.INGOT_IRON)
+			.addInput('N', PaperworkItems.IRON_NUGGET)
+			.create(MOD_ID+":stepler", PaperworkItems.STEPLER);
+
 //
 //		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
 //		if (group == null) {
