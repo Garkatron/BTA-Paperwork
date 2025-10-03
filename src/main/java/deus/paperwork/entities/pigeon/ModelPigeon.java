@@ -77,7 +77,14 @@ public class ModelPigeon extends ModelBase {
 	}
 
 	@Override
+	public void setupAnimation(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
+		this.wing1.zRot = limbPitch;
+		this.wing2.zRot = -limbPitch;
+	}
+
+	@Override
 	public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
+
 		this.body.render(scale);
 		this.head.render(scale);
 		this.left_leg.render(scale);
