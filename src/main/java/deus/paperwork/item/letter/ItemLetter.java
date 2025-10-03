@@ -26,6 +26,18 @@ public class ItemLetter extends Item {
 
 			CompoundTag newTag = new CompoundTag();
 			newTag.putString("text", text);
+			newTag.putBoolean("editable", false);
+
+			CompoundTag oldTag = itemstack.getData();
+			if (oldTag.containsKey("tox")) {
+				newTag.putInt("tox", oldTag.getInteger("tox"));
+			}
+			if (oldTag.containsKey("toy")) {
+				newTag.putInt("toy", oldTag.getInteger("toy"));
+			}
+			if (oldTag.containsKey("toz")) {
+				newTag.putInt("toz", oldTag.getInteger("toz"));
+			}
 
 			ItemStack closedLetter = new ItemStack(PaperworkItems.CLOSED_LETTER, 1);
 			closedLetter.setData(newTag);

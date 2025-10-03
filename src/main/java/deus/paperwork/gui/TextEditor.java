@@ -114,12 +114,16 @@ public class TextEditor extends Gui {
 	// ? Functions
 	protected void paste() {
 		if (!clipboard.isEmpty()) {
-			$onTextChanged.emit(characters);
+			$onTextChanged.emit(new ArrayList<>(this.characters));
 
 			characters.addAll(currentCharPos, clipboard.get(clipboard.size()-1));
 			currentCharPos = characters.size();
 
 		}
+	}
+
+	public void resetCharPos() {
+		currentCharPos = 0;
 	}
 
 	protected void copy(int start, int end) {
@@ -130,7 +134,7 @@ public class TextEditor extends Gui {
 	}
 
 	protected void cut(int start, int end) {
-		$onTextChanged.emit(characters);
+		$onTextChanged.emit(new ArrayList<>(this.characters));
 
 		copy(start, end);
 		int from = Math.min(start, end);
@@ -162,7 +166,7 @@ public class TextEditor extends Gui {
 	}
 
 	protected void deleteSequence(int start, int end) {
-		$onTextChanged.emit(characters);
+		$onTextChanged.emit(new ArrayList<>(this.characters));
 
 		int from = Math.min(start, end);
 		int to = Math.max(start, end);
@@ -173,7 +177,7 @@ public class TextEditor extends Gui {
 	}
 
 	private void deleteWord() {
-		$onTextChanged.emit(characters);
+		$onTextChanged.emit(new ArrayList<>(this.characters));
 		while (!isAtEnd() && !isSpace(peek()) && !wordDeleteIgnore(peek())) {
 			deleteCharacter();
 		}
@@ -231,7 +235,8 @@ public class TextEditor extends Gui {
 
 			char c = characters.get(i);
 
-			if (c == '\n' || lineCharCount >= maxTextLength && cursorLine < maxLines + 1) {
+			// Evitar salto de línea automático si maxLines es 1
+			if (c == '\n' || (lineCharCount >= maxTextLength && cursorLine < maxLines && maxLines > 1)) {
 				this.drawStringNoShadow(this.mc.font, lineBuffer.toString(), this.x + textOffsetX, drawY, textColor);
 				drawY += lineHeight;
 				lineBuffer.setLength(0);
@@ -244,7 +249,7 @@ public class TextEditor extends Gui {
 					pixelX += this.mc.font.getCharWidth(c);
 					lineCharCount++;
 				}
-			} else if (cursorLine < maxLines + 1){
+			} else if (cursorLine < maxLines) {
 				lineBuffer.append(c);
 				pixelX += this.mc.font.getCharWidth(c);
 				lineCharCount++;
@@ -437,7 +442,7 @@ public class TextEditor extends Gui {
 
 				} else if (key == Keyboard.KEY_ESCAPE) {
 					focused = false;
-					$onLostFocus.emit(this.characters);
+					$onLostFocus.emit(new ArrayList<>(this.characters));
 
 				} else if (key == Keyboard.KEY_RETURN) {
 					jumpLine();
@@ -511,19 +516,16 @@ public class TextEditor extends Gui {
 
 	// ? Utility
 	private void addCharacter(char character) {
-
-		if (currentLine <= maxLines + 1) {
-			$onTextChanged.emit(characters);
-
+		if (currentLine <= maxLines && (maxLines > 1 || currentLineCharCount < maxTextLength)) {
+			$onTextChanged.emit(new ArrayList<>(this.characters));
 			characters.add(currentCharPos, character);
 			currentCharPos++;
 		}
 	}
-
 	private void deleteCharacter() {
 		if (focused) {
 			if (currentCharPos > 0) {
-				$onTextChanged.emit(characters);
+				$onTextChanged.emit(new ArrayList<>(this.characters));
 
 				characters.remove(currentCharPos-1);
 				currentCharPos--;
@@ -534,7 +536,7 @@ public class TextEditor extends Gui {
 
 	private void jumpLine() {
 		if (currentLine-1 >= maxLines) return; // Allow jumping up to maxLines
-		$onTextChanged.emit(characters);
+		$onTextChanged.emit(new ArrayList<>(this.characters));
 		characters.add(currentCharPos, '\n');
 		currentCharPos++;
 	}
@@ -678,6 +680,7 @@ public class TextEditor extends Gui {
 
 	public void onPushOut() {
 		focused = false;
+		$onLostFocus.emit(new ArrayList<>(this.characters));
 	}
 
 	public void onRelease() {

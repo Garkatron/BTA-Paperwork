@@ -6,6 +6,7 @@ import deus.paperwork.entities.big_paperplane.EntityBigPaperPlane;
 import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
 import deus.paperwork.entities.gift_box.EntityGiftBox;
 import deus.paperwork.entities.paperplane.EntityPaperPlane;
+import deus.paperwork.entities.pigeon.EntityPigeon;
 import net.minecraft.core.util.collection.NamespaceID;
 import turniplabs.halplibe.helper.EntityHelper;
 
@@ -18,5 +19,6 @@ public class PaperworkEntities {
 		EntityHelper.createEntity(EntityBigPaperPlane.class, NamespaceID.getPermanent(MOD_ID, "entity_big_paper_plane"), "entity_big_paper_plane");
 		EntityHelper.createEntity(EntityCardboardBox.class, NamespaceID.getPermanent(MOD_ID, "entity_cardboard_box"), "entity_cardboard_box");
 		EntityHelper.createEntity(EntityGiftBox.class, NamespaceID.getPermanent(MOD_ID, "entity_gift_box"), "entity_gift_box");
+		EntityHelper.createEntity(EntityPigeon.class, NamespaceID.getPermanent(MOD_ID, "entity_pigeon"), "entity_pigeon");
 	}
 }

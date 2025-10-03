@@ -17,13 +17,25 @@ public class ItemClosedLetter extends Item {
 	@Override
 	public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
 		if (entityplayer.isSneaking()) {
-			CompoundTag tag = itemstack.getData();
 
+			CompoundTag oldTag = itemstack.getData();
 			CompoundTag newTag = new CompoundTag();
-			newTag.putString("text", tag.getString("text"));
+			newTag.putString("text", oldTag.getString("text"));
+			newTag.putBoolean("editable", false);
 
 			ItemStack letter = new ItemStack(PaperworkItems.LETTER, 1);
 			letter.setData(newTag);
+
+			if (oldTag.containsKey("tox")) {
+				newTag.putInt("tox", oldTag.getInteger("tox"));
+			}
+			if (oldTag.containsKey("toy")) {
+				newTag.putInt("toy", oldTag.getInteger("toy"));
+			}
+			if (oldTag.containsKey("toz")) {
+				newTag.putInt("toz", oldTag.getInteger("toz"));
+			}
+
 
 			itemstack.consumeItem(entityplayer);
 			return letter;
