@@ -1,5 +1,6 @@
 package deus.paperwork.entry_points;
 
+import deus.paperwork.Paperwork;
 import deus.paperwork.block.file_cabinet.TileEntityFileCabinet;
 import deus.paperwork.block.printer.TileEntityPrinter;
 import deus.paperwork.entities.big_paperplane.EntityBigPaperPlane;
@@ -9,20 +10,37 @@ import deus.paperwork.entities.gift_box.EntityGiftBox;
 import deus.paperwork.entities.paperplane.EntityPaperPlane;
 import deus.paperwork.entities.pigeon.EntityPigeon;
 import deus.paperwork.entities.stepler_projectile.SteplerProjectile;
+import deus.utils.RegisterEntity;
+import net.minecraft.core.block.entity.TileEntity;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.collection.NamespaceID;
+import org.reflections.Reflections;
 import turniplabs.halplibe.helper.EntityHelper;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
 public class PaperworkEntities {
 	public static void initialize() {
-		EntityHelper.createTileEntity(TileEntityPrinter.class, NamespaceID.getPermanent(MOD_ID, "printer"));
-		EntityHelper.createTileEntity(TileEntityFileCabinet.class, NamespaceID.getPermanent(MOD_ID, "entity_file_cabinet"));EntityHelper.createEntity(EntityPaperPlane.class, NamespaceID.getPermanent(MOD_ID, "entity_paper_plane"), "entity_paper_plane");
-		EntityHelper.createEntity(EntityBigPaperPlane.class, NamespaceID.getPermanent(MOD_ID, "entity_big_paper_plane"), "entity_big_paper_plane");
-		EntityHelper.createEntity(EntityCardboardBox.class, NamespaceID.getPermanent(MOD_ID, "entity_cardboard_box"), "entity_cardboard_box");
-		EntityHelper.createEntity(EntityGiftBox.class, NamespaceID.getPermanent(MOD_ID, "entity_gift_box"), "entity_gift_box");
-		EntityHelper.createEntity(EntityPigeon.class, NamespaceID.getPermanent(MOD_ID, "entity_pigeon"), "entity_pigeon");
-		EntityHelper.createEntity(SteplerProjectile.class, NamespaceID.getPermanent(MOD_ID, "entity_stepler_projectile"), "entity_stepler_projectile");
-		EntityHelper.createEntity(MobClippy.class, NamespaceID.getPermanent(MOD_ID, "entity_clippy"), "entity_clippy");
+		// EntityHelper.createTileEntity(TileEntityPrinter.class, NamespaceID.getPermanent(MOD_ID, "printer"));
+		// EntityHelper.createTileEntity(TileEntityFileCabinet.class, NamespaceID.getPermanent(MOD_ID, "entity_file_cabinet"));EntityHelper.createEntity(EntityPaperPlane.class, NamespaceID.getPermanent(MOD_ID, "entity_paper_plane"), "entity_paper_plane");
+		// EntityHelper.createEntity(EntityBigPaperPlane.class, NamespaceID.getPermanent(MOD_ID, "entity_big_paper_plane"), "entity_big_paper_plane");
+		// EntityHelper.createEntity(EntityCardboardBox.class, NamespaceID.getPermanent(MOD_ID, "entity_cardboard_box"), "entity_cardboard_box");
+		// EntityHelper.createEntity(EntityGiftBox.class, NamespaceID.getPermanent(MOD_ID, "entity_gift_box"), "entity_gift_box");
+		// EntityHelper.createEntity(EntityPigeon.class, NamespaceID.getPermanent(MOD_ID, "entity_pigeon"), "entity_pigeon");
+		// EntityHelper.createEntity(SteplerProjectile.class, NamespaceID.getPermanent(MOD_ID, "entity_stepler_projectile"), "entity_stepler_projectile");
+		// EntityHelper.createEntity(MobClippy.class, NamespaceID.getPermanent(MOD_ID, "entity_clippy"), "entity_clippy");
+
+		Reflections reflections = new Reflections("deus.paperwork");
+		for (Class<?> clazz : reflections.getTypesAnnotatedWith(RegisterEntity.class)) {
+			RegisterEntity annotation = clazz.getAnnotation(RegisterEntity.class);
+			if (annotation != null) {
+				if (TileEntity.class.isAssignableFrom(clazz)) {
+					EntityHelper.createTileEntity((Class<? extends TileEntity>) clazz, NamespaceID.getPermanent(annotation.modId(), annotation.id()));
+				} else {
+					EntityHelper.createEntity((Class<? extends Entity>) clazz, NamespaceID.getPermanent(annotation.modId(), annotation.id()), annotation.name());
+				}
+				Paperwork.LOGGER.info("Registered entity -> {}", annotation.name());
+			}
+		}
 	}
 }

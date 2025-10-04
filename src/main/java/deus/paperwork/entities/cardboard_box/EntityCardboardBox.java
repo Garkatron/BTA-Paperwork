@@ -7,6 +7,7 @@ import deus.paperwork.entities.motion.CarriedEntity;
 import deus.paperwork.interfaces.IPaperworkDisplay;
 import deus.paperwork.interfaces.IItemWeight;
 import deus.paperwork.item.PaperworkItems;
+import deus.utils.RegisterEntity;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityDispatcher;
@@ -30,6 +31,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Constructor;
 
+import static deus.paperwork.Paperwork.MOD_ID;
+
+@RegisterEntity(modId = MOD_ID, id = "entity_cardboard_box", name = "entity_cardboard_box")
 public class EntityCardboardBox extends Entity implements Container {
 
 	private final double DEFAULT_GRAVITY = 0.1F;

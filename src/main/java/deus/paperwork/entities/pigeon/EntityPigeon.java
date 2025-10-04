@@ -2,6 +2,7 @@ package deus.paperwork.entities.pigeon;
 
 import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.item.PaperworkItems;
+import deus.utils.RegisterEntity;
 import net.minecraft.core.WeightedRandomLootObject;
 
 import net.minecraft.core.entity.animal.MobAnimal;
@@ -16,6 +17,9 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import static deus.paperwork.Paperwork.MOD_ID;
+
+@RegisterEntity(modId = MOD_ID, id = "entity_pigeon", name = "entity_pigeon")
 public class EntityPigeon extends MobAnimal {
 	private static final Logger LOGGER = LogManager.getLogger(EntityPigeon.class);
 

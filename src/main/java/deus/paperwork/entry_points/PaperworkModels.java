@@ -50,6 +50,8 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.Side;
 import org.jetbrains.annotations.NotNull;
+import org.useless.DragonFly;
+import org.useless.dragonfly.models.block.BlockModelDFJava;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
 
@@ -155,6 +157,8 @@ public class PaperworkModels implements ModelEntrypoint {
 			.setTex(0, MOD_ID + ":block/file_cabinet/planks/brown/bottom", Side.BOTTOM)
 		);
 
+
+		ModelHelper.setBlockModel(BLOCK_MAILBOX, ()->new BlockModelDFJava<>(BLOCK_MAILBOX, DragonFly.loadBlockModel(MOD_ID+":block/mailbox")));
 
 	}
 
