@@ -14,6 +14,8 @@ import deus.paperwork.block.photocopier.BlockPhotocopierLogic;
 import deus.paperwork.block.printer.BlockPrinterLogic;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.BlockLogicCobble;
+import net.minecraft.core.block.BlockLogicSponge;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.sound.BlockSound;
@@ -47,6 +49,7 @@ public class PaperworkBlocks {
 	public static Block<? extends BlockLogic> BLOCK_CHALKBOARD;
 	public static Block<? extends BlockLogic> BLOCK_FILE_CABINET_BROWN_PLANKS;
 	public static Block<? extends BlockLogic> BLOCK_FILE_CABINET_IRON;
+	public static Block<? extends BlockLogic> BLOCK_MAILBOX;
 
 
 	private static int BLOCK_ID = Paperwork.CONFIG.getInt("IDs.startBlockId");;
@@ -85,6 +88,7 @@ public class PaperworkBlocks {
 
 		BLOCK_FILE_CABINET_BROWN_PLANKS = genericBlockBuilder.build("file_cabinet_browk_planks", "file_cabinet_browk_planks", newBlockID(), (b) -> new BlockLogicFileCabinet(b, Material.steel));
 		BLOCK_FILE_CABINET_IRON = genericBlockBuilder.build("file_cabinet_iron", "file_cabinet_iron", newBlockID(), (b) -> new BlockLogicFileCabinet(b, Material.steel));
+		BLOCK_MAILBOX = genericBlockBuilder.build("mailbox", "mailbox", newBlockID(), (b) -> new BlockLogicSponge(b, false));
 
 	}
 

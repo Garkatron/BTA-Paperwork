@@ -1,6 +1,7 @@
 package deus.paperwork.block.printer;
 
 import deus.paperwork.block.PaperworkBlocks;
+import deus.utils.RegisterEntity;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicFurnace;
 import net.minecraft.core.block.Blocks;
@@ -13,6 +14,9 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import static deus.paperwork.Paperwork.MOD_ID;
+
+@RegisterEntity(modId = MOD_ID, id = "TileEntityPrinter", name = "TileEntityPrinter")
 public class TileEntityPrinter extends TileEntity implements Container {
 
 	protected ItemStack[] itemStacks = new ItemStack[5];

@@ -5,8 +5,12 @@ import net.minecraft.client.render.block.model.BlockModelStandard;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.WorldSource;
+
+import static deus.paperwork.Paperwork.MOD_ID;
+
 
 public class BlockModelFileCabinet <T extends BlockLogic> extends BlockModelHorizontalRotation<T> {
 	public BlockModelFileCabinet(Block<T> block) {

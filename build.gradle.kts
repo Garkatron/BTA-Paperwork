@@ -27,6 +27,7 @@ val loader_version: String by project
 
 val halplibe_version: String by project
 val mod_menu_version: String by project
+val dragonfly_version: String by project
 
 group = mod_group
 base.archivesName.set(mod_name)
@@ -84,6 +85,7 @@ repositories {
         }
         metadataSources { artifact() }
     }
+
 }
 
 dependencies {
@@ -98,7 +100,7 @@ dependencies {
     modImplementation("turniplabs:halplibe:$halplibe_version")
 
     modImplementation("turniplabs:modmenu-bta:$mod_menu_version")
-
+	modImplementation ("org.reflections:reflections:0.10.2")
     implementation("org.slf4j:slf4j-api:1.8.0-beta4")
     implementation("org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0")
 
@@ -115,7 +117,7 @@ dependencies {
 
     modImplementation("com.github.Better-than-Adventure:legacy-lwjgl3:1.0.5")
     implementation(platform("org.lwjgl:lwjgl-bom:$lwjglVersion"))
-
+	modImplementation("useless:dragonfly:$dragonfly_version");
     runtimeOnly("org.lwjgl:lwjgl::$lwjglNatives")
     runtimeOnly("org.lwjgl:lwjgl-assimp::$lwjglNatives")
     runtimeOnly("org.lwjgl:lwjgl-glfw::$lwjglNatives")
@@ -131,13 +133,13 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_9
+    targetCompatibility = JavaVersion.VERSION_1_9
     withSourcesJar()
 }
 
 tasks.compileJava {
-    options.release.set(8)
+    options.release.set(9)
 }
 
 tasks.jar {
