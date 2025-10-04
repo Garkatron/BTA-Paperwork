@@ -1,6 +1,8 @@
 package deus.paperwork.entry_points;
 
 
+import deus.paperwork.Paperwork;
+import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.block.confetti.ModelConfetti;
 import deus.paperwork.block.file_cabinet.BlockModelFileCabinet;
 import deus.paperwork.block.paperpile.layer.painted.ModelPaperLayerPainted;
@@ -36,6 +38,7 @@ import deus.paperwork.util.StaticFieldsExtractor;
 import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
+import net.minecraft.client.render.block.model.BlockModel;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.client.render.block.model.BlockModelHorizontalRotation;
 import net.minecraft.client.render.block.model.BlockModelStandard;
@@ -45,17 +48,22 @@ import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.Side;
 import org.jetbrains.annotations.NotNull;
+import org.reflections.Reflections;
 import org.useless.DragonFly;
 import org.useless.dragonfly.models.block.BlockModelDFJava;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.function.Supplier;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 import static deus.paperwork.block.PaperworkBlocks.*;
@@ -159,6 +167,9 @@ public class PaperworkModels implements ModelEntrypoint {
 
 
 		ModelHelper.setBlockModel(BLOCK_MAILBOX, ()->new BlockModelDFJava<>(BLOCK_MAILBOX, DragonFly.loadBlockModel(MOD_ID+":block/mailbox")));
+
+
+
 
 	}
 

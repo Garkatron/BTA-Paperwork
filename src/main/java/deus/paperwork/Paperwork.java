@@ -4,6 +4,7 @@ import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entry_points.PaperworkEntities;
 import deus.paperwork.entry_points.PaperworkSounds;
 import deus.paperwork.item.PaperworkItems;
+import deus.utils.EntityInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.RecipeEntryBase;
@@ -37,7 +38,7 @@ public class Paperwork implements ModInitializer, GameStartEntrypoint {
     public void onInitialize() {
 		PaperworkBlocks.initialize();
 		PaperworkItems.initialize();
-		PaperworkEntities.initialize();
+		EntityInitializer.initialize("deus.paperwork");
 		LOGGER.info(MOD_ID+" Core Initialized.");
     }
 

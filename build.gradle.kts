@@ -133,13 +133,13 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_9
+    targetCompatibility = JavaVersion.VERSION_1_9
     withSourcesJar()
 }
 
 tasks.compileJava {
-    options.release.set(8)
+    options.release.set(9)
 }
 
 tasks.jar {
