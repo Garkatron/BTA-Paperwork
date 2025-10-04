@@ -114,7 +114,7 @@ dependencies {
 
     implementation("org.apache.commons:commons-lang3:3.12.0")
     include("org.apache.commons:commons-lang3:3.12.0")
-
+	implementation("org.reflections:reflections:0.10.2")
     modImplementation("com.github.Better-than-Adventure:legacy-lwjgl3:1.0.5")
     implementation(platform("org.lwjgl:lwjgl-bom:$lwjglVersion"))
 	modImplementation("useless:dragonfly:$dragonfly_version");

@@ -166,7 +166,11 @@ public class PaperworkModels implements ModelEntrypoint {
 		);
 
 
-		ModelHelper.setBlockModel(BLOCK_MAILBOX, ()->new BlockModelDFJava<>(BLOCK_MAILBOX, DragonFly.loadBlockModel(MOD_ID+":block/mailbox")));
+		ModelHelper.setBlockModel(BLOCK_MAILBOX,
+			()-> new BlockModelDFJava<>(BLOCK_MAILBOX,
+				DragonFly.loadBlockModel(MOD_ID+":block/mailbox")
+			)
+		);
 
 
 

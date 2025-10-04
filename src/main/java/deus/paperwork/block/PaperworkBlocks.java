@@ -6,6 +6,7 @@ import deus.paperwork.block.chalkboard.BlockChalkboardLogic;
 import deus.paperwork.block.confetti.ConfettiLogic;
 import deus.paperwork.block.corckboard.BlockCorckboardLogic;
 import deus.paperwork.block.file_cabinet.BlockLogicFileCabinet;
+import deus.paperwork.block.mailbox.BlockLogicMailbox;
 import deus.paperwork.block.paperpile.layer.painted.PaperLayerLogicPainted;
 import deus.paperwork.block.paperpile.regular.PaperPileLogic;
 import deus.paperwork.block.paperpile.painted.PaperPileLogicPainted;
@@ -88,7 +89,7 @@ public class PaperworkBlocks {
 
 		BLOCK_FILE_CABINET_BROWN_PLANKS = genericBlockBuilder.build("file_cabinet_browk_planks", "file_cabinet_browk_planks", newBlockID(), (b) -> new BlockLogicFileCabinet(b, Material.steel));
 		BLOCK_FILE_CABINET_IRON = genericBlockBuilder.build("file_cabinet_iron", "file_cabinet_iron", newBlockID(), (b) -> new BlockLogicFileCabinet(b, Material.steel));
-		BLOCK_MAILBOX = genericBlockBuilder.build("mailbox", "mailbox", newBlockID(), (b) -> new BlockLogicSponge(b, false));
+		BLOCK_MAILBOX = genericBlockBuilder.build("mailbox", "mailbox", newBlockID(), (b) -> new BlockLogicMailbox(b));
 
 	}
 
