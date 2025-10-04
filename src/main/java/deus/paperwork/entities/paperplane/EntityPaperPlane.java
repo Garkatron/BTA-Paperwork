@@ -1,7 +1,11 @@
 package deus.paperwork.entities.paperplane;
 
 import com.mojang.nbt.tags.CompoundTag;
+import deus.paperwork.entities.big_paperplane.BigPaperPlaneRenderer;
+import deus.paperwork.entities.big_paperplane.ModelBigPaperPlane;
 import deus.paperwork.item.PaperworkItems;
+import deus.utils.RegisterEntity;
+import deus.utils.RegisterEntityRenderer;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -15,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
+@RegisterEntityRenderer(renderer = PaperPlaneRenderer.class, model = ModelPaperPlane.class)
+@RegisterEntity(modId = MOD_ID, id = "paperplane", name = "paperplane")
 public class EntityPaperPlane extends Entity {
 	public enum WetState {
 		DRY(0),

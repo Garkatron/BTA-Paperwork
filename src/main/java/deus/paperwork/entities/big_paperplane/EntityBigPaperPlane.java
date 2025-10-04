@@ -2,8 +2,10 @@ package deus.paperwork.entities.big_paperplane;
 
 import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.entities.paperplane.EntityPaperPlane;
+import deus.paperwork.entities.paperplane.PaperPlaneRenderer;
 import deus.paperwork.item.PaperworkItems;
 import deus.utils.RegisterEntity;
+import deus.utils.RegisterEntityRenderer;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -18,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
+@RegisterEntityRenderer(renderer = BigPaperPlaneRenderer.class, model = ModelBigPaperPlane.class)
 @RegisterEntity(modId = MOD_ID, id = "entity_big_paper_plane", name = "entity_big_paper_plane")
 public class EntityBigPaperPlane extends EntityPaperPlane {
 

@@ -1,6 +1,7 @@
 package deus.paperwork.entities.stepler_projectile;
 
 import deus.utils.RegisterEntity;
+import deus.utils.RegisterEntityRenderer;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.item.ItemStack;
@@ -9,6 +10,7 @@ import net.minecraft.core.world.World;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
+@RegisterEntityRenderer(renderer = SteplerProjectileRenderer.class)
 @RegisterEntity(modId = MOD_ID, name = "entity_stepler_projectile", id = "entity_stepler_projectile")
 public class SteplerProjectile extends Projectile {
 	public SteplerProjectile(World world, Mob owner) {
