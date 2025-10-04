@@ -172,8 +172,17 @@ public class PaperworkModels implements ModelEntrypoint {
 			)
 		);
 
+		ModelHelper.setBlockModel(BLOCK_ORIGAMI_FLOWER_00,
+			()-> new BlockModelDFJava<>(BLOCK_ORIGAMI_FLOWER_00,
+				DragonFly.loadBlockModel(MOD_ID+":block/origami_flower_00")
+			)
+		);
 
-
+		ModelHelper.setBlockModel(BLOCK_BIN,
+			()-> new BlockModelDFJava<>(BLOCK_BIN,
+				DragonFly.loadBlockModel(MOD_ID+":block/bin")
+			)
+		);
 
 	}
 
@@ -207,7 +216,7 @@ public class PaperworkModels implements ModelEntrypoint {
 		addEntityModel(dispatcher, EntityBigPaperPlane.class, new BigPaperPlaneRenderer(new ModelBigPaperPlane()));
 		addEntityModel(dispatcher, EntityCardboardBox.class, new RendererCardboardBox());
 		addEntityModel(dispatcher, EntityGiftBox.class, new RendererGiftBox(new ModelGiftBox()));
-		addEntityModel(dispatcher, EntityPigeon.class, new PigeonRenderer(new ModelPigeon()));
+		addEntityModel(dispatcher, EntityPigeon.class, new PigeonRenderer(DragonFly.loadEntityModel("geometry."+MOD_ID+".pigeon", 0.0)));
 		addEntityModel(dispatcher, SteplerProjectile.class, new SteplerProjectileRenderer());
 		addEntityModel(dispatcher, MobClippy.class, new ClippyRenderer(new Modelclippy()));
 

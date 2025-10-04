@@ -1,21 +1,11 @@
 package deus.paperwork.entities.cardboard_box;
 
-import deus.paperwork.Paperwork;
 import deus.paperwork.entities.gift_box.ModelGiftBox;
-import deus.paperwork.entities.paperplane.ModelPaperPlane;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.EntityRenderDispatcher;
-import net.minecraft.client.render.Lighting;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
-import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.EntityDispatcher;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DyeColor;
-import net.minecraft.core.world.World;
 import org.lwjgl.opengl.GL11;
-
-import java.lang.reflect.Constructor;
 
 public class RendererCardboardBox extends EntityRenderer<EntityCardboardBox> {
 

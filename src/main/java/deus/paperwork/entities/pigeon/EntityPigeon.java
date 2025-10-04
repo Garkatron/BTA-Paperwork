@@ -9,6 +9,7 @@ import net.minecraft.core.entity.animal.MobAnimal;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pathfinder.Path;
@@ -19,10 +20,10 @@ import org.jetbrains.annotations.Nullable;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
-@RegisterEntity(modId = MOD_ID, id = "entity_pigeon", name = "entity_pigeon")
+@RegisterEntity(modId = MOD_ID, id = "pigeon", name = "pigeon")
 public class EntityPigeon extends MobAnimal {
 	private static final Logger LOGGER = LogManager.getLogger(EntityPigeon.class);
-
+// 	protected @NotNull NamespaceID textureIdentifier = NamespaceID.getPermanent(MOD_ID, "pigeon");
 	private static final int DATA_ITEM_STACK = 15;
 	private static final int DATA_DELIVERING = 16;
 	private static final int DATA_DEST_X = 17;
@@ -46,6 +47,9 @@ public class EntityPigeon extends MobAnimal {
 		this.setSize(0.6F, 0.5F); // Smaller size for a pigeon
 		this.moveSpeed = 1.0F; // Slightly faster than walking
 		this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
+		this.textureIdentifier = NamespaceID.getPermanent(MOD_ID, "pigeon");
+
+
 	}
 
 	@Override
