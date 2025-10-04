@@ -1,5 +1,6 @@
 package deus.paperwork.item;
 
+import deus.paperwork.entities.clippy.MobClippy;
 import deus.paperwork.entities.stepler_projectile.SteplerProjectile;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.ProjectileArrow;
@@ -22,6 +23,14 @@ public class Stepler extends Item {
 			world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
 			if (!world.isClientSide) {
 				world.entityJoinedWorld(new SteplerProjectile(world, entityplayer));
+
+				if (itemRand.nextInt(100000) < 1) {
+					MobClippy clippy = new MobClippy(world);
+					clippy.setPos(entityplayer.x, entityplayer.y, entityplayer.z);
+					world.entityJoinedWorld(clippy);
+
+				}
+
 			}
 		}
 
