@@ -40,6 +40,7 @@ import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.client.render.block.model.BlockModelHorizontalRotation;
 import net.minecraft.client.render.block.model.BlockModelStandard;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.item.model.ItemModelCoal;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
@@ -178,6 +179,7 @@ public class PaperworkModels implements ModelEntrypoint {
 				model.icon = TextureRegistry.getTexture(PaperworkItems.BIG_PAPERPLANE.namespaceID);
 				return model;
 			});
+
 	}
 
 	@Override
