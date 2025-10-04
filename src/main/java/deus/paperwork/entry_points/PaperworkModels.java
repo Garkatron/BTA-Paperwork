@@ -35,6 +35,7 @@ import deus.paperwork.item.custom_paper.CustomItemPaperModel;
 import deus.paperwork.item.paperplane.ItemPaperplaneModel;
 import deus.paperwork.mixin.IAEntityDispatcher;
 import deus.paperwork.util.StaticFieldsExtractor;
+import deus.utils.EntityDragonflyModelInitializer;
 import deus.utils.EntityModelInitializer;
 import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
@@ -217,10 +218,11 @@ public class PaperworkModels implements ModelEntrypoint {
 		// addEntityModel(dispatcher, EntityBigPaperPlane.class, new BigPaperPlaneRenderer(new ModelBigPaperPlane()));
 		//addEntityModel(dispatcher, EntityCardboardBox.class, new RendererCardboardBox());
 		// addEntityModel(dispatcher, EntityGiftBox.class, new RendererGiftBox(new ModelGiftBox()));
-		addEntityModel(dispatcher, EntityPigeon.class, new PigeonRenderer(DragonFly.loadEntityModel("geometry."+MOD_ID+".pigeon", 0.0)));
+		//addEntityModel(dispatcher, EntityPigeon.class, new PigeonRenderer(DragonFly.loadEntityModel("geometry."+MOD_ID+".pigeon", 0.0)));
 		// addEntityModel(dispatcher, SteplerProjectile.class, new SteplerProjectileRenderer());
 		// addEntityModel(dispatcher, MobClippy.class, new ClippyRenderer(new Modelclippy()));
 		EntityModelInitializer.initialize("deus.paperwork", dispatcher);
+		EntityDragonflyModelInitializer.initialize("deus.paperwork", dispatcher);
 
 	}
 

@@ -2,6 +2,7 @@ package deus.paperwork.entities.pigeon;
 
 import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.item.PaperworkItems;
+import deus.utils.RegisterDragonflyModel;
 import deus.utils.RegisterEntity;
 import net.minecraft.core.WeightedRandomLootObject;
 
@@ -17,9 +18,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.useless.DragonFly;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
+@RegisterDragonflyModel(id = "geometry."+MOD_ID+".pigeon", renderer = PigeonRenderer.class)
 @RegisterEntity(modId = MOD_ID, id = "pigeon", name = "pigeon")
 public class EntityPigeon extends MobAnimal {
 	private static final Logger LOGGER = LogManager.getLogger(EntityPigeon.class);
