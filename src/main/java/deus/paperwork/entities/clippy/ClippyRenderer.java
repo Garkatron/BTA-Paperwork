@@ -24,7 +24,13 @@ public class ClippyRenderer extends EntityRenderer<MobClippy> {
 		GL11.glTranslatef(0.0F, -24.0F * scale, 0.0F);
 
 
-		this.bindTexture("/assets/paperwork/textures/entity/clippy/clippy.png");
+		if (!entity.isSitting()) {
+			this.bindTexture("/assets/paperwork/textures/entity/clippy/clippy.png");
+
+		} else {
+
+			this.bindTexture("/assets/paperwork/textures/entity/clippy/sit_clippy.png");
+		}
 
 
 
