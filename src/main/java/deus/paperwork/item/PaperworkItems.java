@@ -1,6 +1,5 @@
 package deus.paperwork.item;
 
-import deus.paperwork.Paperwork;
 import deus.paperwork.armor.PaperworkArmorMaterial;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entities.cardboard_box.BoxSize;
@@ -14,15 +13,14 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLayerBase;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
-import net.minecraft.core.item.ItemFood;
 import net.minecraft.core.item.tool.ItemToolSword;
 import turniplabs.halplibe.helper.ItemBuilder;
 
+import static deus.paperwork.ConfigManager.itemGoc;
 import static deus.paperwork.Paperwork.MOD_ID;
 
 public class PaperworkItems {
 
-	private static int ITEM_ID = Paperwork.CONFIG.getInt("IDs.startItemId");
 	public static Item NEWSPRINT;
 	public static Item CARDBOARD;
 
@@ -50,47 +48,83 @@ public class PaperworkItems {
 	public static Item FOOD_COFFE_MUG;
 
 
-	public static void initialize() {
-		NEWSPRINT = new CustomLayerItem("newsprint", MOD_ID+":item/newsprint", newItemID(), (Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_NEWSPRINT_LAYER);
-		CARDBOARD = new CustomLayerItem("cardboard", MOD_ID+":item/cardboard", newItemID(), (Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_CARDBOARD_LAYER);
+		public static void initialize() {
 
-		ARMOR_BOOTS_CARDBOARD = new ItemArmor("armor_boots_cardboard",MOD_ID+":item/armor/cardboard/boots", newItemID(), PaperworkArmorMaterial.CARDBOARD, 0);
-		ARMOR_LEGGINS_CARDBOARD = new ItemArmor("armor_leggins_cardboard",MOD_ID+":item/armor/cardboard/leggins", newItemID(), PaperworkArmorMaterial.CARDBOARD, 1);
-		ARMOR_CHESTPLATE_CARDBOARD = new ItemArmor("armor_chestplate_cardboard",MOD_ID+":item/armor/cardboard/chestplate", newItemID(), PaperworkArmorMaterial.CARDBOARD, 2);
-		ARMOR_HELMET_CARDBOARD = new ItemArmor("armor_helmet_cardboard",MOD_ID+":item/armor/cardboard/helmet", newItemID(), PaperworkArmorMaterial.CARDBOARD, 3);
+			// Inicialización de items usando getOrCreateID para tomar o crear el ID en el TOML
+			NEWSPRINT = new CustomLayerItem(
+				"newsprint",
+				MOD_ID + ":item/newsprint",
+				itemGoc("NEWSPRINT"),
+				(Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_NEWSPRINT_LAYER
+			);
 
-		PAPERPLANE = new ItemPaperPlane("paperplane", MOD_ID+":item/paperplane/paperplane", newItemID());
-		BIG_PAPERPLANE = new ItemBigPaperPlane("big_paperplane", MOD_ID+":item/big_paperplane", newItemID());
+			CARDBOARD = new CustomLayerItem(
+				"cardboard",
+				MOD_ID + ":item/cardboard",
+				itemGoc("CARDBOARD"),
+				(Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_CARDBOARD_LAYER
+			);
 
-		CARDBOARD_BOX_REGULAR = new ItemCardboardBox("cardboard_box_regular", MOD_ID+":item/cardboard_box_regular", newItemID(), BoxSize.REGULAR);
-		CARDBOARD_BOX_SMALL = new ItemCardboardBox("cardboard_box_small", MOD_ID+":item/cardboard_box_small", newItemID(), BoxSize.SMALL);
-		CARDBOARD_BOX_MEDIUM = new ItemCardboardBox("cardboard_box_medium", MOD_ID+":item/cardboard_box_medium", newItemID(), BoxSize.MEDIUM);
-		CARDBOARD_BOX_LARGE = new ItemCardboardBox("cardboard_box_large", MOD_ID+":item/cardboard_box_large", newItemID(), BoxSize.LARGE);
-		CARDBOARD_TUBE = new ItemToolSword("cardboard_tube", MOD_ID+":item/cardboard_tube", newItemID(), PaperworkToolMaterial.CARDBOARD);
+			ARMOR_BOOTS_CARDBOARD = new ItemArmor(
+				"armor_boots_cardboard",
+				MOD_ID + ":item/armor/cardboard/boots",
+				itemGoc("ARMOR_BOOTS_CARDBOARD"),
+				PaperworkArmorMaterial.CARDBOARD,
+				0
+			);
 
-		LETTER = new ItemBuilder(MOD_ID).setStackSize(1).build(new ItemLetter("letter",MOD_ID+":item/letter/letter", newItemID()));
-		CLOSED_LETTER = new ItemBuilder(MOD_ID).setStackSize(1).build(new ItemClosedLetter("closed_letter",MOD_ID+":item/letter/closed_letter", newItemID()));
-		STEPLER = new ItemBuilder(MOD_ID).setStackSize(1).build(new Stepler("stepler",MOD_ID+":item/stepler", newItemID()));
-		IRON_NUGGET = new Item("iron_nugget", MOD_ID+":item/iron_nugget", newItemID());
-		PENCIL = new ItemPencil("pencil", MOD_ID+":item/pencil/default", newItemID());
+			ARMOR_LEGGINS_CARDBOARD = new ItemArmor(
+				"armor_leggins_cardboard",
+				MOD_ID + ":item/armor/cardboard/leggins",
+				itemGoc("ARMOR_LEGGINS_CARDBOARD"),
+				PaperworkArmorMaterial.CARDBOARD,
+				1
+			);
+
+			ARMOR_CHESTPLATE_CARDBOARD = new ItemArmor(
+				"armor_chestplate_cardboard",
+				MOD_ID + ":item/armor/cardboard/chestplate",
+				itemGoc("ARMOR_CHESTPLATE_CARDBOARD"),
+				PaperworkArmorMaterial.CARDBOARD,
+				2
+			);
+
+			ARMOR_HELMET_CARDBOARD = new ItemArmor(
+				"armor_helmet_cardboard",
+				MOD_ID + ":item/armor/cardboard/helmet",
+				itemGoc("ARMOR_HELMET_CARDBOARD"),
+				PaperworkArmorMaterial.CARDBOARD,
+				3
+			);
+
+			PAPERPLANE = new ItemPaperPlane("paperplane", MOD_ID + ":item/paperplane/paperplane", itemGoc("PAPERPLANE"));
+			BIG_PAPERPLANE = new ItemBigPaperPlane("big_paperplane", MOD_ID + ":item/big_paperplane", itemGoc("BIG_PAPERPLANE"));
+
+			CARDBOARD_BOX_REGULAR = new ItemCardboardBox("cardboard_box_regular", MOD_ID + ":item/cardboard_box_regular", itemGoc("CARDBOARD_BOX_REGULAR"), BoxSize.REGULAR);
+			CARDBOARD_BOX_SMALL = new ItemCardboardBox("cardboard_box_small", MOD_ID + ":item/cardboard_box_small", itemGoc("CARDBOARD_BOX_SMALL"), BoxSize.SMALL);
+			CARDBOARD_BOX_MEDIUM = new ItemCardboardBox("cardboard_box_medium", MOD_ID + ":item/cardboard_box_medium", itemGoc("CARDBOARD_BOX_MEDIUM"), BoxSize.MEDIUM);
+			CARDBOARD_BOX_LARGE = new ItemCardboardBox("cardboard_box_large", MOD_ID + ":item/cardboard_box_large", itemGoc("CARDBOARD_BOX_LARGE"), BoxSize.LARGE);
+
+			CARDBOARD_TUBE = new ItemToolSword("cardboard_tube", MOD_ID + ":item/cardboard_tube", itemGoc("CARDBOARD_TUBE"), PaperworkToolMaterial.CARDBOARD);
+
+			LETTER = new ItemBuilder(MOD_ID).setStackSize(1).build(new ItemLetter("letter", MOD_ID + ":item/letter/letter", itemGoc("LETTER")));
+			CLOSED_LETTER = new ItemBuilder(MOD_ID).setStackSize(1).build(new ItemClosedLetter("closed_letter", MOD_ID + ":item/letter/closed_letter", itemGoc("CLOSED_LETTER")));
+			STEPLER = new ItemBuilder(MOD_ID).setStackSize(1).build(new Stepler("stepler", MOD_ID + ":item/stepler", itemGoc("STEPLER")));
+			IRON_NUGGET = new Item("iron_nugget", MOD_ID + ":item/iron_nugget", itemGoc("IRON_NUGGET"));
+			PENCIL = new ItemPencil("pencil", MOD_ID + ":item/pencil/default", itemGoc("PENCIL"));
+
+			FOOD_DONUT = new ItemFoodFactory<>(PlaceableFood.class, "donut", MOD_ID + ":item/donut", itemGoc("FOOD_DONUT"))
+				.withHealAmount(3)
+				.withTicksPerHeal(4)
+				.withMaxStackSize(6)
+				.build().withEntity(EntitySingleDonut.class);
+
+			FOOD_COFFE_MUG = new ItemFoodFactory<>("coffe_mug", MOD_ID + ":item/coffe_mug", itemGoc("FOOD_COFFE_MUG"))
+				.withHealAmount(4)
+				.withTicksPerHeal(3)
+				.withMaxStackSize(3)
+				.build();
+		}
 
 
-		FOOD_DONUT = new ItemFoodFactory<>(PlaceableFood.class,"donut", MOD_ID + ":item/donut", newItemID())
-			.withHealAmount(3)
-			.withTicksPerHeal(4)
-			.withMaxStackSize(6)
-			.build().withEntity(EntitySingleDonut.class);
-
-		FOOD_COFFE_MUG = new ItemFoodFactory<>("coffe_mug", MOD_ID + ":item/coffe_mug", newItemID())
-			.withHealAmount(4)
-			.withTicksPerHeal(3)
-			.withMaxStackSize(3)
-			.build();
-
-	}
-
-	public static int newItemID() {
-		ITEM_ID = ITEM_ID + 1;
-		return ITEM_ID;
-	}
 }

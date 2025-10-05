@@ -1,7 +1,7 @@
 package deus.paperwork.block;
 
 
-import deus.paperwork.Paperwork;
+import deus.paperwork.ConfigManager;
 import deus.paperwork.block.chalkboard.BlockChalkboardLogic;
 import deus.paperwork.block.confetti.ConfettiLogic;
 import deus.paperwork.block.corckboard.BlockCorckboardLogic;
@@ -53,7 +53,6 @@ public class PaperworkBlocks {
 	public static Block<? extends BlockLogic> BLOCK_BIN;
 
 
-	private static int BLOCK_ID = Paperwork.CONFIG.getInt("IDs.startBlockId");;
 
 	static BlockBuilder GENERIC_BLOCK_BUILDER = new BlockBuilder(MOD_ID)
 		.setBlockSound(BlockSounds.STONE)
@@ -66,37 +65,134 @@ public class PaperworkBlocks {
 
 
 	public static void initialize() {
-		BLOCK_PRINTER = GENERIC_BLOCK_BUILDER.build("printer", "printer", newBlockID(), (b) -> new BlockPrinterLogic(b, Material.steel));
-		BLOCK_PHOTOCOPIER = GENERIC_BLOCK_BUILDER.build("photocopier", "photocopier", newBlockID(), (b) -> new BlockPhotocopierLogic(b, Material.steel));
 
-		BLOCK_PAPER_PILE = PAPER_BLOCK_BUILDER.build("paper_pile", "paper_pile", newBlockID(), (b) -> new PaperPileLogic(b, "minecraft:item/paper"));
-		BLOCK_PAPER_PILE_PAINTED = PAPER_BLOCK_BUILDER.build("paper_pile_painted", "paper_pile_painted", newBlockID(), (b) -> new PaperPileLogicPainted(b, "minecraft:item/paper"));
+		BLOCK_PRINTER = GENERIC_BLOCK_BUILDER.build(
+			"printer",
+			"printer",
+			ConfigManager.blockGoc("BLOCK_PRINTER"),
+			(b) -> new BlockPrinterLogic(b, Material.steel)
+		);
 
-		BLOCK_PAPER_LAYER = PAPER_BLOCK_BUILDER.build("paper_layer", "paper_layer", newBlockID(), (b) -> new PaperLayerLogic(b, BLOCK_PAPER_PILE,"minecraft:item/paper"));
-		BLOCK_PAPER_LAYER_PAINTED = PAPER_BLOCK_BUILDER.build("paper_layer_painted", "paper_layer_painted", newBlockID(), (b) -> new PaperLayerLogicPainted(b, BLOCK_PAPER_PILE_PAINTED,"minecraft:item/paper"));
+		BLOCK_PHOTOCOPIER = GENERIC_BLOCK_BUILDER.build(
+			"photocopier",
+			"photocopier",
+			ConfigManager.blockGoc("BLOCK_PHOTOCOPIER"),
+			(b) -> new BlockPhotocopierLogic(b, Material.steel)
+		);
 
-		BLOCK_NEWSPRINT_PILE = PAPER_BLOCK_BUILDER.build("newsprint_pile", "newsprint_pile", newBlockID(), (b) -> new PaperPileLogic(b, MOD_ID+":item/newsprint"));
-		BLOCK_NEWSPRINT_LAYER = PAPER_BLOCK_BUILDER.build("newsprint_layer", "newsprint_layer", newBlockID(), (b) -> new PaperLayerLogic(b, BLOCK_NEWSPRINT_PILE,MOD_ID+":item/newsprint"));
+		BLOCK_PAPER_PILE = PAPER_BLOCK_BUILDER.build(
+			"paper_pile",
+			"paper_pile",
+			ConfigManager.blockGoc("BLOCK_PAPER_PILE"),
+			(b) -> new PaperPileLogic(b, "minecraft:item/paper")
+		);
 
-		BLOCK_CARDBOARD_PILE = PAPER_BLOCK_BUILDER.build("cardboard_pile", "cardboard_pile", newBlockID(), (b) -> new PaperPileLogic(b, MOD_ID+":item/cardboard"));
-		BLOCK_CARDBOARD_LAYER = PAPER_BLOCK_BUILDER.build("cardboard_layer", "cardboard_layer", newBlockID(), (b) -> new PaperLayerLogic(b, BLOCK_CARDBOARD_PILE,MOD_ID+":item/cardboard"));
+		BLOCK_PAPER_PILE_PAINTED = PAPER_BLOCK_BUILDER.build(
+			"paper_pile_painted",
+			"paper_pile_painted",
+			ConfigManager.blockGoc("BLOCK_PAPER_PILE_PAINTED"),
+			(b) -> new PaperPileLogicPainted(b, "minecraft:item/paper")
+		);
 
-		BLOCK_CONFETTI = PAPER_BLOCK_BUILDER.build("confetti", "confetti", newBlockID(), (b) -> new ConfettiLogic(b));
+		BLOCK_PAPER_LAYER = PAPER_BLOCK_BUILDER.build(
+			"paper_layer",
+			"paper_layer",
+			ConfigManager.blockGoc("BLOCK_PAPER_LAYER"),
+			(b) -> new PaperLayerLogic(b, BLOCK_PAPER_PILE, "minecraft:item/paper")
+		);
 
+		BLOCK_PAPER_LAYER_PAINTED = PAPER_BLOCK_BUILDER.build(
+			"paper_layer_painted",
+			"paper_layer_painted",
+			ConfigManager.blockGoc("BLOCK_PAPER_LAYER_PAINTED"),
+			(b) -> new PaperLayerLogicPainted(b, BLOCK_PAPER_PILE_PAINTED, "minecraft:item/paper")
+		);
 
-		BLOCK_CORCKBOARD = GENERIC_BLOCK_BUILDER.build("corckboard", "corckboard", newBlockID(), (b) -> new BlockCorckboardLogic(b, Material.granite));
-		BLOCK_CHALKBOARD = GENERIC_BLOCK_BUILDER.build("chalkboard", "chalkboard", newBlockID(), (b) -> new BlockChalkboardLogic(b, Material.granite));
+		BLOCK_NEWSPRINT_PILE = PAPER_BLOCK_BUILDER.build(
+			"newsprint_pile",
+			"newsprint_pile",
+			ConfigManager.blockGoc("BLOCK_NEWSPRINT_PILE"),
+			(b) -> new PaperPileLogic(b, MOD_ID + ":item/newsprint")
+		);
 
-		BLOCK_FILE_CABINET_BROWN_PLANKS = GENERIC_BLOCK_BUILDER.build("file_cabinet_browk_planks", "file_cabinet_browk_planks", newBlockID(), (b) -> new BlockLogicFileCabinet(b, Material.steel));
-		BLOCK_FILE_CABINET_IRON = GENERIC_BLOCK_BUILDER.build("file_cabinet_iron", "file_cabinet_iron", newBlockID(), (b) -> new BlockLogicFileCabinet(b, Material.steel));
-		BLOCK_MAILBOX = GENERIC_BLOCK_BUILDER.build("mailbox", "mailbox", newBlockID(), (b) -> new BlockLogicMailbox(b));
+		BLOCK_NEWSPRINT_LAYER = PAPER_BLOCK_BUILDER.build(
+			"newsprint_layer",
+			"newsprint_layer",
+			ConfigManager.blockGoc("BLOCK_NEWSPRINT_LAYER"),
+			(b) -> new PaperLayerLogic(b, BLOCK_NEWSPRINT_PILE, MOD_ID + ":item/newsprint")
+		);
 
-		BLOCK_ORIGAMI_FLOWER_00 = PAPER_BLOCK_BUILDER.build("origami_flower_00", "origami_flower_00", newBlockID(), (b) -> new PaperBlock(b));
-		BLOCK_BIN = GENERIC_BLOCK_BUILDER.build("bin", "bin", newBlockID(), (b) -> new DecorativeTransparentBlock(b, Material.metal));
+		BLOCK_CARDBOARD_PILE = PAPER_BLOCK_BUILDER.build(
+			"cardboard_pile",
+			"cardboard_pile",
+			ConfigManager.blockGoc("BLOCK_CARDBOARD_PILE"),
+			(b) -> new PaperPileLogic(b, MOD_ID + ":item/cardboard")
+		);
+
+		BLOCK_CARDBOARD_LAYER = PAPER_BLOCK_BUILDER.build(
+			"cardboard_layer",
+			"cardboard_layer",
+			ConfigManager.blockGoc("BLOCK_CARDBOARD_LAYER"),
+			(b) -> new PaperLayerLogic(b, BLOCK_CARDBOARD_PILE, MOD_ID + ":item/cardboard")
+		);
+
+		BLOCK_CONFETTI = PAPER_BLOCK_BUILDER.build(
+			"confetti",
+			"confetti",
+			ConfigManager.blockGoc("BLOCK_CONFETTI"),
+			(b) -> new ConfettiLogic(b)
+		);
+
+		BLOCK_CORCKBOARD = GENERIC_BLOCK_BUILDER.build(
+			"corckboard",
+			"corckboard",
+			ConfigManager.blockGoc("BLOCK_CORCKBOARD"),
+			(b) -> new BlockCorckboardLogic(b, Material.granite)
+		);
+
+		BLOCK_CHALKBOARD = GENERIC_BLOCK_BUILDER.build(
+			"chalkboard",
+			"chalkboard",
+			ConfigManager.blockGoc("BLOCK_CHALKBOARD"),
+			(b) -> new BlockChalkboardLogic(b, Material.granite)
+		);
+
+		BLOCK_FILE_CABINET_BROWN_PLANKS = GENERIC_BLOCK_BUILDER.build(
+			"file_cabinet_brown_planks",
+			"file_cabinet_brown_planks",
+			ConfigManager.blockGoc("BLOCK_FILE_CABINET_BROWN_PLANKS"),
+			(b) -> new BlockLogicFileCabinet(b, Material.steel)
+		);
+
+		BLOCK_FILE_CABINET_IRON = GENERIC_BLOCK_BUILDER.build(
+			"file_cabinet_iron",
+			"file_cabinet_iron",
+			ConfigManager.blockGoc("BLOCK_FILE_CABINET_IRON"),
+			(b) -> new BlockLogicFileCabinet(b, Material.steel)
+		);
+
+		BLOCK_MAILBOX = GENERIC_BLOCK_BUILDER.build(
+			"mailbox",
+			"mailbox",
+			ConfigManager.blockGoc("BLOCK_MAILBOX"),
+			(b) -> new BlockLogicMailbox(b)
+		);
+
+		BLOCK_ORIGAMI_FLOWER_00 = PAPER_BLOCK_BUILDER.build(
+			"origami_flower_00",
+			"origami_flower_00",
+			ConfigManager.blockGoc("BLOCK_ORIGAMI_FLOWER_00"),
+			(b) -> new PaperBlock(b)
+		);
+
+		BLOCK_BIN = GENERIC_BLOCK_BUILDER.build(
+			"bin",
+			"bin",
+			ConfigManager.blockGoc("BLOCK_BIN"),
+			(b) -> new DecorativeTransparentBlock(b, Material.metal)
+		);
 	}
 
-	public static int newBlockID() {
-		BLOCK_ID = BLOCK_ID + 1;
-		return BLOCK_ID;
-	}
+
+
 }
