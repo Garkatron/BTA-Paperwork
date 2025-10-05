@@ -214,22 +214,12 @@ public class PaperworkModels implements ModelEntrypoint {
 
 	@Override
 	public void initEntityModels(EntityRenderDispatcher dispatcher) {
-		// addEntityModel(dispatcher, EntityPaperPlane.class, new PaperPlaneRenderer(new ModelPaperPlane()));
-		// addEntityModel(dispatcher, EntityBigPaperPlane.class, new BigPaperPlaneRenderer(new ModelBigPaperPlane()));
-		//addEntityModel(dispatcher, EntityCardboardBox.class, new RendererCardboardBox());
-		// addEntityModel(dispatcher, EntityGiftBox.class, new RendererGiftBox(new ModelGiftBox()));
-		//addEntityModel(dispatcher, EntityPigeon.class, new PigeonRenderer(DragonFly.loadEntityModel("geometry."+MOD_ID+".pigeon", 0.0)));
-		// addEntityModel(dispatcher, SteplerProjectile.class, new SteplerProjectileRenderer());
-		// addEntityModel(dispatcher, MobClippy.class, new ClippyRenderer(new Modelclippy()));
+
 		EntityModelInitializer.initialize("deus.paperwork", dispatcher);
 		EntityDragonflyModelInitializer.initialize("deus.paperwork", dispatcher);
 
 	}
 
-	public void addEntityModel(EntityRenderDispatcher dispatcher, @NotNull Class<? extends Entity> clazz, EntityRenderer<?> renderer){
-		renderer.init(dispatcher);
-		((IAEntityDispatcher)dispatcher).getRenderers().put(clazz, renderer);
-	}
 
 	@Override
 	public void initTileEntityModels(TileEntityRenderDispatcher tileEntityRenderDispatcher) {

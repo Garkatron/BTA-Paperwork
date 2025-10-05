@@ -14,5 +14,4 @@ public class MobClippy extends MobPet {
 	public MobClippy(World world) {
 		super(world, PaperworkItems.IRON_NUGGET);
 	}
-
 }
