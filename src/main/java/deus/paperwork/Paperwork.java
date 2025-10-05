@@ -1,19 +1,13 @@
 package deus.paperwork;
 
 import deus.paperwork.block.PaperworkBlocks;
-import deus.paperwork.entry_points.PaperworkEntities;
 import deus.paperwork.entry_points.PaperworkSounds;
 import deus.paperwork.item.PaperworkItems;
-import deus.utils.EntityInitializer;
+import deus.utils.initializers.EntityInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
-import net.minecraft.core.data.registry.Registries;
-import net.minecraft.core.data.registry.recipe.RecipeEntryBase;
-import net.minecraft.core.data.registry.recipe.RecipeGroup;
-import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import turniplabs.halplibe.HalpLibe;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.TomlConfigHandler;
 import turniplabs.halplibe.util.toml.Toml;

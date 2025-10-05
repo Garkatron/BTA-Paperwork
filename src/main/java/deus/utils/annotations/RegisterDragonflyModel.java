@@ -1,10 +1,8 @@
-package deus.utils;
+package deus.utils.annotations;
 
 import org.jetbrains.annotations.NotNull;
-import org.useless.dragonfly.models.entity.StaticEntityModel;
 import org.useless.dragonfly.renderer.EntityRenderer;
 
-import javax.annotation.Nullable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 

@@ -4,14 +4,17 @@ import deus.paperwork.Paperwork;
 import deus.paperwork.armor.PaperworkArmorMaterial;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entities.cardboard_box.BoxSize;
+import deus.paperwork.entities.singledonut.EntitySingleDonut;
 import deus.paperwork.item.big_paperplane.ItemBigPaperPlane;
 import deus.paperwork.item.letter.ItemClosedLetter;
 import deus.paperwork.item.letter.ItemLetter;
 import deus.paperwork.item.paperplane.ItemPaperPlane;
+import deus.utils.item.ItemFoodFactory;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLayerBase;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
+import net.minecraft.core.item.ItemFood;
 import net.minecraft.core.item.tool.ItemToolSword;
 import turniplabs.halplibe.helper.ItemBuilder;
 
@@ -43,6 +46,8 @@ public class PaperworkItems {
 	public static Item STEPLER;
 	public static Item IRON_NUGGET;
 	public static Item PENCIL;
+	public static Item FOOD_DONUT;
+	public static Item FOOD_COFFE_MUG;
 
 
 	public static void initialize() {
@@ -68,6 +73,19 @@ public class PaperworkItems {
 		STEPLER = new ItemBuilder(MOD_ID).setStackSize(1).build(new Stepler("stepler",MOD_ID+":item/stepler", newItemID()));
 		IRON_NUGGET = new Item("iron_nugget", MOD_ID+":item/iron_nugget", newItemID());
 		PENCIL = new ItemPencil("pencil", MOD_ID+":item/pencil/default", newItemID());
+
+
+		FOOD_DONUT = new ItemFoodFactory<>(PlaceableFood.class,"donut", MOD_ID + ":item/donut", newItemID())
+			.withHealAmount(3)
+			.withTicksPerHeal(4)
+			.withMaxStackSize(6)
+			.build().withEntity(EntitySingleDonut.class);
+
+		FOOD_COFFE_MUG = new ItemFoodFactory<>("coffe_mug", MOD_ID + ":item/coffe_mug", newItemID())
+			.withHealAmount(4)
+			.withTicksPerHeal(3)
+			.withMaxStackSize(3)
+			.build();
 
 	}
 

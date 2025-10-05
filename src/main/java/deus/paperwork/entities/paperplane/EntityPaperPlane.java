@@ -1,11 +1,9 @@
 package deus.paperwork.entities.paperplane;
 
 import com.mojang.nbt.tags.CompoundTag;
-import deus.paperwork.entities.big_paperplane.BigPaperPlaneRenderer;
-import deus.paperwork.entities.big_paperplane.ModelBigPaperPlane;
 import deus.paperwork.item.PaperworkItems;
-import deus.utils.RegisterEntity;
-import deus.utils.RegisterEntityRenderer;
+import deus.utils.annotations.RegisterEntity;
+import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;

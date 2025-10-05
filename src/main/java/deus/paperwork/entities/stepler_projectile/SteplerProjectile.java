@@ -1,11 +1,9 @@
 package deus.paperwork.entities.stepler_projectile;
 
-import deus.utils.RegisterEntity;
-import deus.utils.RegisterEntityRenderer;
+import deus.utils.annotations.RegisterEntity;
+import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.Projectile;
-import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
 
 import static deus.paperwork.Paperwork.MOD_ID;

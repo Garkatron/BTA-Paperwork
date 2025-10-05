@@ -1,4 +1,4 @@
-package deus.utils;
+package deus.utils.annotations;
 
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.model.ModelBase;

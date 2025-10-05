@@ -37,6 +37,10 @@ item.paperwork.closed_letter.name=Closed Letter
 item.paperwork.letter.name=Letter
 item.paperwork.stepler.name=Stepler
 item.iron_nugget.name=Iron Nugget
+item.donut.name=Donut
+item.pencil.name=Pencil
+tile.paperwork.origami_flower_00.name=Origami Flower 0
+tile.paperwork.mailbox.name=Mailbox Pigeon Nest
 # Subtitles
 subtitles.material.paper.put = Paper put
 subtitles.material.paper.jiggle = Paper jiggle

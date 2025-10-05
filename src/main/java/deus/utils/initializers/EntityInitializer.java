@@ -1,6 +1,7 @@
-package deus.utils;
+package deus.utils.initializers;
 
 import deus.paperwork.Paperwork;
+import deus.utils.annotations.RegisterEntity;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.collection.NamespaceID;

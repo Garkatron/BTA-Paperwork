@@ -2,8 +2,8 @@ package deus.paperwork.entities.pigeon;
 
 import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.item.PaperworkItems;
-import deus.utils.RegisterDragonflyModel;
-import deus.utils.RegisterEntity;
+import deus.utils.annotations.RegisterDragonflyModel;
+import deus.utils.annotations.RegisterEntity;
 import net.minecraft.core.WeightedRandomLootObject;
 
 import net.minecraft.core.entity.animal.MobAnimal;
@@ -13,12 +13,10 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.pathfinder.Path;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.useless.DragonFly;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 

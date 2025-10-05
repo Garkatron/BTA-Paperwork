@@ -1,21 +1,16 @@
-package deus.utils;
+package deus.utils.initializers;
 
 import deus.paperwork.Paperwork;
-import deus.paperwork.entities.pigeon.EntityPigeon;
-import deus.paperwork.entities.pigeon.PigeonRenderer;
 import deus.paperwork.mixin.IAEntityDispatcher;
+import deus.utils.annotations.RegisterDragonflyModel;
 import net.minecraft.client.render.EntityRenderDispatcher;
-import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.core.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 import org.reflections.Reflections;
 import org.useless.DragonFly;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
 import org.useless.dragonfly.renderer.EntityRenderer;
 
 import java.lang.reflect.InvocationTargetException;
-
-import static deus.paperwork.Paperwork.MOD_ID;
 
 public class EntityDragonflyModelInitializer {
 

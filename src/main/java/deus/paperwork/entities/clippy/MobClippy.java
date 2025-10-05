@@ -2,8 +2,8 @@ package deus.paperwork.entities.clippy;
 
 import deus.paperwork.entities.MobPet;
 import deus.paperwork.item.PaperworkItems;
-import deus.utils.RegisterEntity;
-import deus.utils.RegisterEntityRenderer;
+import deus.utils.annotations.RegisterEntity;
+import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.core.world.World;
 
 import static deus.paperwork.Paperwork.MOD_ID;

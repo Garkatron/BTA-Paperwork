@@ -1,6 +1,6 @@
 package deus.paperwork.block.file_cabinet;
 
-import deus.utils.RegisterEntity;
+import deus.utils.annotations.RegisterEntity;
 import net.minecraft.core.block.entity.TileEntityChest;
 
 import static deus.paperwork.Paperwork.MOD_ID;

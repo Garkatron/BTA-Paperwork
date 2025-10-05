@@ -1,21 +1,13 @@
 package deus.paperwork.entities.big_paperplane;
 
-import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.entities.paperplane.EntityPaperPlane;
-import deus.paperwork.entities.paperplane.PaperPlaneRenderer;
 import deus.paperwork.item.PaperworkItems;
-import deus.utils.RegisterEntity;
-import deus.utils.RegisterEntityRenderer;
-import net.minecraft.core.block.Blocks;
+import deus.utils.annotations.RegisterEntity;
+import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.util.helper.DamageType;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.weather.Weather;
-import net.minecraft.core.world.weather.WeatherClear;
-import net.minecraft.core.world.weather.Weathers;
 import org.jetbrains.annotations.NotNull;
 
 import static deus.paperwork.Paperwork.MOD_ID;

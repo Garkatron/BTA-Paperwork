@@ -1,7 +1,8 @@
-package deus.utils;
+package deus.utils.initializers;
 
 import deus.paperwork.Paperwork;
 import deus.paperwork.mixin.IAEntityDispatcher;
+import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.model.ModelBase;

@@ -1,15 +1,11 @@
 package deus.paperwork.block.printer;
 
 import deus.paperwork.block.PaperworkBlocks;
-import deus.utils.RegisterEntity;
+import deus.utils.annotations.RegisterEntity;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicFurnace;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
