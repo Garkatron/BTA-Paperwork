@@ -1,47 +1,67 @@
+# ==============================
 # Paperwork Mod Language Entries
+# ==============================
 
-# Blocks (tiles)
+# ------------------------------
+# Blocks (Tiles)
+# ------------------------------
 tile.paperwork.paper_pile.name=Paper Pile
+tile.paperwork.paperpile.name=Paper Pile
+tile.paperwork.paper_layer.name=Paper Layer
+tile.paperwork.paper_pile_painted.name=Painted Paper Pile
+tile.paperwork.paper_layer_painted.name=Painted Paper Layer
 tile.paperwork.newsprint_pile.name=Newsprint Pile
 tile.paperwork.newsprint_layer.name=Newsprint Layer
 tile.paperwork.cardboard_pile.name=Cardboard Pile
 tile.paperwork.cardboard_layer.name=Cardboard Layer
+tile.paperwork.cardboard_box.name=Cardboard Box
 tile.paperwork.printer.name=Printer
 tile.paperwork.photocopier.name=Photocopier
-tile.paperwork.cardboard_box.name=Cardboard Box
-tile.paperwork.paperpile.name=Paper Pile
-tile.paperwork.paper_layer.name=Paper Layer
 tile.paperwork.corckboard.name=Cork Board
 tile.paperwork.chalkboard.name=Chalk Board
 tile.paperwork.file_cabinet_browk_planks.name=Brown Planks File Cabinet
 tile.paperwork.file_cabinet_iron.name=Iron File Cabinet
-tile.paperwork.paper_pile_painted.name=Painted Paper Pile
-tile.paperwork.paper_layer_painted.name=Painted Paper Layer
 tile.paperwork.confetti.name=Confetti
+tile.paperwork.origami_flower_00.name=Origami Flower 0
+tile.paperwork.mailbox.name=Mailbox Pigeon Nest
 
+# ------------------------------
 # Items
+# ------------------------------
 item.newsprint.name=Newsprint
 item.cardboard.name=Cardboard
-item.armor_boots_cardboard.name=Cardboard Boots
-item.armor_leggins_cardboard.name=Cardboard Leggings
-item.armor_chestplate_cardboard.name=Cardboard Chestplate
+item.cardboard_tube.name=Cardboard Tube
+
+# Cardboard Armor
 item.armor_helmet_cardboard.name=Cardboard Helmet
+item.armor_chestplate_cardboard.name=Cardboard Chestplate
+item.armor_leggins_cardboard.name=Cardboard Leggings
+item.armor_boots_cardboard.name=Cardboard Boots
+
+# Paper Items
 item.paperplane.name=Paper Plane
 item.big_paperplane.name=Big Paper Plane
-item.cardboard_box_regular.name=Regular Cardboard Box
+
+# Cardboard Boxes
 item.cardboard_box_small.name=Small Cardboard Box
 item.cardboard_box_medium.name=Medium Cardboard Box
 item.cardboard_box_large.name=Large Cardboard Box
-item.cardboard_tube.name=Cardboard Tube
+item.cardboard_box_regular.name=Regular Cardboard Box
+
+# Misc Items
 item.paperwork.closed_letter.name=Closed Letter
 item.paperwork.letter.name=Letter
 item.paperwork.stepler.name=Stepler
 item.iron_nugget.name=Iron Nugget
-item.donut.name=Donut
 item.pencil.name=Pencil
-tile.paperwork.origami_flower_00.name=Origami Flower 0
-tile.paperwork.mailbox.name=Mailbox Pigeon Nest
+
+# Donut (with Homer reference)
+item.donut.name=Donut
+item.donut.desc="Mmm... donut! – Homer Simpson"
+
+# ------------------------------
 # Subtitles
-subtitles.material.paper.put = Paper put
-subtitles.material.paper.jiggle = Paper jiggle
-subtitles.material.paper.soft = Soft paper
+# ------------------------------
+subtitles.material.paper.put=Paper put
+subtitles.material.paper.jiggle=Paper jiggle
+subtitles.material.paper.soft=Soft paper

@@ -23,7 +23,9 @@ public class GenericEntityRenderer extends EntityRenderer<TexturedEntity> {
 		GL11.glTranslated(x, y, z);
 		GL11.glRotatef(-yaw, 0f, 1f, 0f);
 		GL11.glScalef(0.0625F, 0.0625F, -0.0625F);
-		this.bindTexture(texturedEntity.texturePath);
+
+
+		this.bindTexture(texturedEntity.getEntityTexture());
 
 		this.model.render(tessellator);
 

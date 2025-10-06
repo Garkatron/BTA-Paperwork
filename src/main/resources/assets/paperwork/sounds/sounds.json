@@ -22,5 +22,11 @@
     "sounds": [
       "material/paper/soft.wav"
     ]
+  },
+  "entity.donut.eaten": {
+    "subtitle": "subtitles.entity.donut.eaten",
+    "sounds": [
+      "entity/donut/donut_eaten.ogg"
+    ]
   }
 }

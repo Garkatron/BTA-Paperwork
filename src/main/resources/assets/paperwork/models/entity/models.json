@@ -2,6 +2,6 @@
   "model_paths": [
     "/assets/paperwork/models/pigeon.geo.json",
     "/assets/paperwork/models/office_chair.geo.json",
-    "/assets/paperwork/models/singledonut.geo.json"
+    "/assets/paperwork/models/donut.geo.json"
   ]
 }

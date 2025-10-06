@@ -3,7 +3,7 @@ package deus.paperwork.item;
 import deus.paperwork.armor.PaperworkArmorMaterial;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entities.cardboard_box.BoxSize;
-import deus.paperwork.entities.singledonut.EntitySingleDonut;
+import deus.paperwork.entities.singledonut.EntityDonut;
 import deus.paperwork.item.big_paperplane.ItemBigPaperPlane;
 import deus.paperwork.item.letter.ItemClosedLetter;
 import deus.paperwork.item.letter.ItemLetter;
@@ -117,7 +117,7 @@ public class PaperworkItems {
 				.withHealAmount(3)
 				.withTicksPerHeal(4)
 				.withMaxStackSize(6)
-				.build().withEntity(EntitySingleDonut.class);
+				.build().withEntity(EntityDonut.class);
 
 			FOOD_COFFE_MUG = new ItemFoodFactory<>("coffe_mug", MOD_ID + ":item/coffe_mug", itemGoc("FOOD_COFFE_MUG"))
 				.withHealAmount(4)

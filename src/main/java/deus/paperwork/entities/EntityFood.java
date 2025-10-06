@@ -9,7 +9,12 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
+
+import static deus.paperwork.Paperwork.MOD_ID;
+
 public abstract class EntityFood extends TexturedEntity {
+	protected String sound = "";
 	public EntityFood(@Nullable World world) {
 		super(world);
 	}
@@ -48,8 +53,12 @@ public abstract class EntityFood extends TexturedEntity {
 
 	@Override
 	public boolean interact(@NotNull Player player) {
+		Random random = new Random();
+		float pitch = 0.8F + random.nextFloat() * 0.4F;
+		if (!sound.isEmpty()) world.playSoundAtEntity(null, player, sound, 1.0F, pitch);
 		player.eatFood((ItemFood) PaperworkItems.FOOD_DONUT);
 		this.removed = true;
+
 		return true;
 	}
 
