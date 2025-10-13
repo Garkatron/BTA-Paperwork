@@ -39,7 +39,10 @@ public class PlaceableFood extends ItemFood implements IPlaceable {
 
 	@Override
 	public boolean onUseItemOnBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-		return placeAt(world, itemstack, entityplayer, blockX, blockY, blockZ);
+		if (entityplayer.isSneaking()) {
+			return placeAt(world, itemstack, entityplayer, blockX, blockY, blockZ);
+		}
+		return false;
 	}
 
 	@Override

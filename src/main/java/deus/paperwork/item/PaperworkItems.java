@@ -3,6 +3,7 @@ package deus.paperwork.item;
 import deus.paperwork.armor.PaperworkArmorMaterial;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entities.cardboard_box.BoxSize;
+import deus.paperwork.entities.office_chair.OfficeChair;
 import deus.paperwork.entities.singledonut.EntityDonut;
 import deus.paperwork.item.big_paperplane.ItemBigPaperPlane;
 import deus.paperwork.item.letter.ItemClosedLetter;
@@ -13,6 +14,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLayerBase;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
+import net.minecraft.core.item.ItemPlaceable;
 import net.minecraft.core.item.tool.ItemToolSword;
 import turniplabs.halplibe.helper.ItemBuilder;
 
@@ -46,6 +48,7 @@ public class PaperworkItems {
 	public static Item PENCIL;
 	public static Item FOOD_DONUT;
 	public static Item FOOD_COFFE_MUG;
+	public static Item OFFICE_CHAIR;
 
 
 		public static void initialize() {
@@ -124,6 +127,10 @@ public class PaperworkItems {
 				.withTicksPerHeal(3)
 				.withMaxStackSize(3)
 				.build();
+
+			OFFICE_CHAIR = new ItemSpawner("office_chair",MOD_ID+":item/office_chair",itemGoc("OFFICE_CHAIR")).withEntity(
+				OfficeChair.class
+			);
 		}
 
 

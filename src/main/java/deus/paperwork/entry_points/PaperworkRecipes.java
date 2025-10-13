@@ -185,6 +185,17 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 			.addInput('S', Items.STICK)
 			.create(MOD_ID+":pencil", PaperworkItems.PENCIL);
 
+
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape(
+				"IWI",
+				"SWS",
+				"I I")
+			.addInput('I', Items.INGOT_IRON)
+			.addInput('S', Items.STICK)
+			.addInput('W', Blocks.WOOL)
+			.create(MOD_ID+":pencil", PaperworkItems.OFFICE_CHAIR);
+
 //
 //		RecipeGroup group = PAPERWORK_RECIPE_NAMESPACE.getItem("printer");
 //		if (group == null) {

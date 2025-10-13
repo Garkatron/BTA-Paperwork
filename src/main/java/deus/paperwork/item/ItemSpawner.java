@@ -1,82 +1,72 @@
 package deus.paperwork.item;
 
+import deus.paperwork.interfaces.IPlaceable;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.EntityDispatcher;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class ItemSpawner extends Item {
 
-	protected Class<? extends net.minecraft.core.entity.Entity> entityClass;
+public class ItemSpawner extends Item implements IPlaceable {
+	protected int amount = 1;
+	protected Class<? extends Entity> entity = null;
+	protected float speed = 0.55f;
+	public ItemSpawner(String name, String namespaceId, int id) {
+		super(name, namespaceId, id);
+	}
 
-	public ItemSpawner(String translationKey, String namespaceId, int id, Class<? extends net.minecraft.core.entity.Entity> entityClass) {
-		super(translationKey, namespaceId, id);
-		this.entityClass = entityClass;
+	public ItemSpawner withEntity(Class<? extends Entity>  entity) {
+		this.entity = entity;
+		return this;
+	}
+
+	public ItemSpawner placeWithAmount(int amount){
+		this.amount = amount;
+		return this;
+	}
+
+	public ItemSpawner withSpeed(int speed) {
+		this.speed = speed;
+		return this;
 	}
 
 	@Override
-	public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
+	public boolean onUseItemOnBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+		if (entityplayer.isSneaking()) {
+			return placeAt(world, itemstack, entityplayer, blockX, blockY, blockZ);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean placeAt(World world, ItemStack itemStack, Player player, double x, double y, double z) {
+
+		Entity spawnedEntity = null;
 		try {
-			Entity spawnedEntity =
-				entityClass.getConstructor(World.class).newInstance(world);
-
-
-
-
-				double reachDistance = (double)player.getGamemode().getBlockReachDistance();
-				HitResult rayTraceResult = player.rayTrace(reachDistance, 1.0F, false, false);
-				if (rayTraceResult != null) {
-					if (!world.isClientSide) {
-						spawnedEntity.spawnInit();
-						spawnedEntity.moveTo(rayTraceResult.location.x, rayTraceResult.location.y, rayTraceResult.location.z,0, 0);
-						world.entityJoinedWorld(spawnedEntity);
-						itemstack.consumeItem(player);
-					}
-
-					return itemstack;
-				}
-
-
-
+			spawnedEntity = entity
+				.getDeclaredConstructor(World.class)
+				.newInstance(world);
 		} catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 			throw new RuntimeException(e);
 		}
 
-		return super.onUseItem(itemstack, world, player);
-	}
+		float yaw = player.yRot * 0.017453292F;
+		float pitch = player.xRot * 0.017453292F;
+		float speed = this.speed;
 
-	public void spawnEntity(ItemStack itemStack, World world, double x, double y, double z) {
-		Entity entity = EntityDispatcher.createEntityInWorld(this.getEntityId(itemStack), world);
-		if (entity != null) {
-			entity.setPos(x, y, z);
-			entity.spawnInit();
-			if (itemStack.hasCustomName() && entity instanceof Mob) {
-				if (itemStack.hasCustomColor()) {
-					((Mob)entity).chatColor = itemStack.getCustomColor();
-				}
+		spawnedEntity.moveTo(player.x, player.y, player.z, player.yRot, 0);
 
-				((Mob)entity).setNickname(itemStack.getCustomName());
-			}
+		spawnedEntity.xd = -MathHelper.sin(yaw) * MathHelper.cos(pitch) * speed;
+		spawnedEntity.yd = -MathHelper.sin(pitch) * (speed / 1.5);
+		spawnedEntity.zd = MathHelper.cos(yaw) * MathHelper.cos(pitch) * speed;
 
-			world.entityJoinedWorld(entity);
-		}
-
-	}
-
-	private String getEntityId(ItemStack itemStack) {
-		String id = itemStack.getData().getString("monster");
-		if (id == null || id.isEmpty()) {
-			id = "Pig";
-		}
-
-		return id;
+		world.entityJoinedWorld(spawnedEntity);
+		itemStack.consumeItem(player);
+		return true;
 	}
 }
