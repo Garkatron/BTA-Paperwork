@@ -8,6 +8,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.useless.DragonFly;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
 
@@ -19,7 +20,6 @@ public class Paperwork implements ModInitializer, GameStartEntrypoint {
 	static {
 		ConfigManager.makeConfig();
 	}
-
 
 
 	@Override
@@ -40,6 +40,8 @@ public class Paperwork implements ModInitializer, GameStartEntrypoint {
 		} catch (Exception var2) {
 			LOGGER.warn("PainScale: Failed to fully initialize assets, some issue may occur!", var2);
 		}
+
+		Paperwork.LOGGER.info("AAAAAAA {}", DragonFly.loadEntityAnimations(MOD_ID,"pigeon").isLoop());
 		//SoundHelper.addSound(MOD_ID, "material/paper/paper.wav" );
 	}
 

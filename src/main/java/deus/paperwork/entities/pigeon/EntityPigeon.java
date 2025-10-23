@@ -20,7 +20,8 @@ import org.jetbrains.annotations.Nullable;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
-@RegisterDragonflyModel(id = "geometry."+MOD_ID+".pigeon", renderer = PigeonRenderer.class)
+@RegisterDragonflyModel(id = "geometry."+MOD_ID+".pigeon", renderer = PigeonRenderer.class,
+	animations = { "pigeon/pigeon.idle" })
 @RegisterEntity(modId = MOD_ID, id = "pigeon", name = "pigeon")
 public class EntityPigeon extends MobAnimal {
 	private static final Logger LOGGER = LogManager.getLogger(EntityPigeon.class);

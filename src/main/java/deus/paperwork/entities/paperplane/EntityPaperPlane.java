@@ -11,6 +11,7 @@ import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.weather.Weathers;
 import org.jetbrains.annotations.NotNull;
@@ -66,7 +67,7 @@ public class EntityPaperPlane extends Entity {
 	}
 
 	protected void updateWet() {
-		if (world.weatherManager.getCurrentWeather().weatherId == Weathers.OVERWORLD_RAIN.weatherId) {
+		if (world!=null && world.dimension.id != Dimension.NETHER.id && world.weatherManager.getCurrentWeather().weatherId == Weathers.OVERWORLD_RAIN.weatherId) {
 			if (currentTimeUnderRain < maxTimeUnderRain) {
 				currentTimeUnderRain++;
 			} else {

@@ -5,6 +5,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
 plugins {
     id("fabric-loom") version "1.10.0-bta"
     id("java")
+	id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 val lwjglVersion = "3.3.4"
@@ -100,7 +101,7 @@ dependencies {
     modImplementation("turniplabs:halplibe:$halplibe_version")
 
     modImplementation("turniplabs:modmenu-bta:$mod_menu_version")
-	modImplementation ("org.reflections:reflections:0.10.2")
+	implementation("org.reflections:reflections:0.10.2")
     implementation("org.slf4j:slf4j-api:1.8.0-beta4")
     implementation("org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0")
 
@@ -137,6 +138,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_9
     withSourcesJar()
 }
+
 
 tasks.compileJava {
     options.release.set(9)

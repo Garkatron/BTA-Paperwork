@@ -11,5 +11,5 @@ public @interface RegisterDragonflyModel {
 	@NotNull Class<? extends EntityRenderer> renderer() default EntityRenderer.class;
 	@NotNull String id();
 	double inflation() default 0.0;
-	boolean animated() default false;
+	@NotNull String[] animations() default {};
 }

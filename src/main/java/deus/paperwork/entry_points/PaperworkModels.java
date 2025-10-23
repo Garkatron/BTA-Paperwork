@@ -184,6 +184,7 @@ public class PaperworkModels implements ModelEntrypoint {
 
 		EntityModelInitializer.initialize("deus.paperwork", dispatcher);
 		EntityDragonflyModelInitializer.initialize("deus.paperwork", dispatcher);
+		// DragonFly.loadEntityAnimations(MOD_ID, "animation.pigeon");
 
 	}
 
