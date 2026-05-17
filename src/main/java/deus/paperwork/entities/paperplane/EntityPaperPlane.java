@@ -8,6 +8,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.gamemode.Gamemode;
+import net.minecraft.core.player.gamemode.Gamemodes;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
@@ -18,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
-@RegisterEntityRenderer(renderer = PaperPlaneRenderer.class, model = ModelPaperPlane.class)
 @RegisterEntity(modId = MOD_ID, id = "paperplane", name = "paperplane")
 public class EntityPaperPlane extends Entity {
 	public enum WetState {
@@ -67,7 +67,7 @@ public class EntityPaperPlane extends Entity {
 	}
 
 	protected void updateWet() {
-		if (world!=null && world.dimension.id != Dimension.NETHER.id && world.weatherManager.getCurrentWeather().weatherId == Weathers.OVERWORLD_RAIN.weatherId) {
+		if (world.dimension.id != Dimension.NETHER.id && world.getWeatherManager().getCurrentWeather() == Weathers.OVERWORLD_RAIN) {
 			if (currentTimeUnderRain < maxTimeUnderRain) {
 				currentTimeUnderRain++;
 			} else {
@@ -172,7 +172,7 @@ public class EntityPaperPlane extends Entity {
 				world.playSoundAtEntity(null, entity, MOD_ID+":material.paper.jiggle0",  1.5F, 1.5f);
 			}
 
-			if (entity instanceof Player && ((Player)entity).getGamemode() == Gamemode.creative) {
+			if (entity instanceof Player && ((Player)entity).getGamemode() == Gamemodes.CREATIVE) {
 				this.remove();
 			} else {
 				dropOnHurt();

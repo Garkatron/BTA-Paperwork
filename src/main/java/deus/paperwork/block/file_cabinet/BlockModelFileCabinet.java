@@ -8,6 +8,10 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
+import org.joml.primitives.AABBdc;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
@@ -18,13 +22,12 @@ public class BlockModelFileCabinet <T extends BlockLogic> extends BlockModelHori
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(WorldSource blockAccess, AABB bounds, int x, int y, int z, int side) {
+	public boolean shouldSideBeRendered(@NotNull WorldSource source, @NotNull AABBdc bounds, @NotNull TilePosc tilePos, @NotNull Side side) {
 		return true;
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(WorldSource blockAccess, AABB bounds, int x, int y, int z, int side, int meta) {
+	public boolean shouldSideBeRendered(@NotNull WorldSource source, @NotNull AABBdc bounds, @NotNull TilePos tilePos, @NotNull Side side, int meta) {
 		return true;
 	}
-
 }

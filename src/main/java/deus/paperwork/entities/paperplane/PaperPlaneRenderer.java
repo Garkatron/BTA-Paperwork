@@ -2,20 +2,19 @@ package deus.paperwork.entities.paperplane;
 
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.util.helper.DyeColor;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 
 public class PaperPlaneRenderer extends EntityRenderer<EntityPaperPlane> {
 
-	ModelPaperPlane modelPaperPlane;
+
 	private final String DEFAULT_TEXTURE = "/assets/paperwork/textures/entity/paperplane/paperplane.png";
 
-	public PaperPlaneRenderer(ModelPaperPlane model) {
-		this.modelPaperPlane = model;
-	}
-
 	@Override
-	public void render(Tessellator tessellator, EntityPaperPlane entity, double x, double y, double z, float yaw, float partialTick) {
+	public void render(@NotNull TessellatorGeneral tessellatorGeneral, @NonNull EntityPaperPlane entity, double x, double y, double z, float yaw, float partialTick) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) x, (float) y, (float) z);
 		GL11.glRotatef(180.0F - yaw, 0.0F, 1.0F, 0.0F);
@@ -26,7 +25,7 @@ public class PaperPlaneRenderer extends EntityRenderer<EntityPaperPlane> {
 		String currentTexture = DEFAULT_TEXTURE;
 
 		DyeColor color = entity.getColor();
-		if (color!=null) {
+		if (color != null) {
 			currentTexture = "/assets/paperwork/textures/entity/paperplane/" + entity.getColor().colorID + ".png";
 		}
 
@@ -47,10 +46,12 @@ public class PaperPlaneRenderer extends EntityRenderer<EntityPaperPlane> {
 		GL11.glEnable(32826);
 		GL11.glEnable(3008);
 
-		this.modelPaperPlane.render(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, scale);
+		// this.modelPaperPlane.render(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, scale);
 
 		GL11.glDisable(32826);
 		GL11.glColor3f(1.0F, 1.0F, 1.0F);
 		GL11.glPopMatrix();
 	}
-}
+	}
+
+

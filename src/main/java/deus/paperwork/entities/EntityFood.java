@@ -4,6 +4,7 @@ import deus.paperwork.item.PaperworkItems;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemFood;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -56,7 +57,7 @@ public abstract class EntityFood extends TexturedEntity {
 		Random random = new Random();
 		float pitch = 0.8F + random.nextFloat() * 0.4F;
 		if (!sound.isEmpty()) world.playSoundAtEntity(null, player, sound, 1.0F, pitch);
-		player.eatFood((ItemFood) PaperworkItems.FOOD_DONUT);
+		player.eatFood(new ItemStack(PaperworkItems.FOOD_DONUT));
 		this.removed = true;
 
 		return true;

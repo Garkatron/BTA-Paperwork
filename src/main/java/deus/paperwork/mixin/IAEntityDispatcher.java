@@ -1,13 +1,13 @@
 package deus.paperwork.mixin;
 
-import net.minecraft.client.render.EntityRenderDispatcher;
+import net.minecraft.client.render.EntityRendererDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.Map;
 
-@Mixin(value = EntityRenderDispatcher.class, remap = false)
+@Mixin(value = EntityRendererDispatcher.class, remap = false)
 public interface IAEntityDispatcher {
 
 	@Accessor("renderers")

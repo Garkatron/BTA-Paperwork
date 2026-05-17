@@ -3,13 +3,10 @@ package deus.paperwork.item;
 import deus.paperwork.entities.clippy.MobClippy;
 import deus.paperwork.entities.stepler_projectile.SteplerProjectile;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.entity.projectile.ProjectileArrow;
-import net.minecraft.core.entity.projectile.ProjectileArrowGolden;
-import net.minecraft.core.entity.projectile.ProjectileArrowPurple;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.NonNull;
 
 public class Stepler extends Item {
 	public Stepler(String translationKey, String namespaceId, int id) {
@@ -17,7 +14,7 @@ public class Stepler extends Item {
 	}
 
 	@Override
-	public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
+	public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, Player entityplayer) {
 		if (entityplayer.inventory.consumeInventoryItem(PaperworkItems.IRON_NUGGET.id)) {
 			itemstack.damageItem(1, entityplayer);
 			world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));

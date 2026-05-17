@@ -1,23 +1,21 @@
 package deus.paperwork.item;
 
 import com.mojang.nbt.tags.CompoundTag;
-import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entities.cardboard_box.BoxSize;
-import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
-import deus.paperwork.entities.gift_box.EntityGiftBox;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 public class ItemCardboardBox extends Item {
 
@@ -29,7 +27,7 @@ public class ItemCardboardBox extends Item {
 	}
 
 	@Override
-	public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
+	public ItemStack onUse(@NonNull ItemStack itemstack, @NonNull World world, Player player) {
 
 		if(!player.isSneaking()) {
 			EntityCardboardBox spawnedEntity = new EntityCardboardBox(world);
@@ -58,12 +56,12 @@ public class ItemCardboardBox extends Item {
 			itemstack.consumeItem(player);
 		}
 
-		return super.onUseItem(itemstack, world, player);
+		return super.onUse(itemstack, world, player);
 	}
 
 	@Override
-	public boolean onUseItemOnBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-//		if (world.getBlockId(blockX,blockY,blockZ)==PaperworkBlocks.BLOCK_CARDBOARD_BOX_TRAP.id()) return false;
+	public boolean onUseOnBlock(@NotNull ItemStack selfStack, @NotNull World world, @Nullable Player player, @NotNull TilePosc blockPos, @NotNull Side side, double xHit, double yHit) {
+		//		if (world.getBlockId(blockX,blockY,blockZ)==PaperworkBlocks.BLOCK_CARDBOARD_BOX_TRAP.id()) return false;
 //		if (entityplayer.isSneaking()) {
 //			int id = world.getBlockId(blockX, blockY, blockZ);
 //			int meta = world.getBlockMetadata(blockX, blockY, blockZ);
@@ -98,13 +96,14 @@ public class ItemCardboardBox extends Item {
 //			return false;
 //		}
 
-		if (entityplayer.isSneaking()) {
+		assert player != null;
+		if (player.isSneaking()) {
 			EntityCardboardBox entityCardboardBox = new EntityCardboardBox(world);
-			int id = world.getBlockId(blockX, blockY, blockZ);
-			int meta = world.getBlockMetadata(blockX, blockY, blockZ);
+			int id = world.getBlockId(blockPos.x(), blockPos.y(), blockPos.z());
+			int meta = world.getBlockMetadata(blockPos.x(), blockPos.y(), blockPos.z());
 			entityCardboardBox.setSavedBlockId(id);
 			entityCardboardBox.setSavedBlockMeta(meta);
-			TileEntity tileEntity = world.getTileEntity(blockX, blockY, blockZ);
+			TileEntity tileEntity = world.getTileEntity(blockPos.x(), blockPos.y(), blockPos.z());
 			if (tileEntity != null) {
 				try {
 					Constructor<? extends TileEntity> constructor = tileEntity.getClass().getDeclaredConstructor();
@@ -115,7 +114,7 @@ public class ItemCardboardBox extends Item {
 					tileEntity.writeToNBT(compoundTag);
 					t.readFromNBT(compoundTag);
 					entityCardboardBox.setTileEntity(t);
-					world.removeBlockTileEntity(blockX, blockY, blockZ);
+					world.removeBlockTileEntity(blockPos.x(), blockPos.y(), blockPos.z());
 				} catch (Exception e) {
 					e.printStackTrace();
 					return false;
@@ -123,8 +122,8 @@ public class ItemCardboardBox extends Item {
 			}
 
 			entityCardboardBox.setBoxSize(this.boxSize);
-			world.setBlockWithNotify(blockX,blockY,blockZ,0);
-			entityCardboardBox.moveTo(blockX, blockY, blockZ, 0, 0);
+			world.setBlockWithNotify(blockPos.x(), blockPos.y(), blockPos.z(),0);
+			entityCardboardBox.moveTo(blockPos.x(), blockPos.y(), blockPos.z(), 0, 0);
 			entityCardboardBox.spawnInit();
 			world.entityJoinedWorld(entityCardboardBox);
 		}
@@ -133,7 +132,7 @@ public class ItemCardboardBox extends Item {
 	}
 
 	@Override
-	public boolean useItemOnEntity(ItemStack itemstack, Mob mob, Player player) {
+	public boolean useOnEntity(@NotNull ItemStack selfStack, @NotNull Player player, @NotNull Mob mob) {
 		if (player.isSneaking() && this.boxSize.compareTo(BoxSize.REGULAR) > 0) {
 			EntityCardboardBox cardboardBox = new EntityCardboardBox(player.world);
 			cardboardBox.setBoxSize(this.boxSize);
@@ -145,7 +144,6 @@ public class ItemCardboardBox extends Item {
 			player.world.entityJoinedWorld(cardboardBox);
 		}
 
-		return super.useItemOnEntity(itemstack, mob, player);
+		return super.useOnEntity(selfStack, player, mob);
 	}
-
 }

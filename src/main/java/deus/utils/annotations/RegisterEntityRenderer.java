@@ -1,8 +1,8 @@
 package deus.utils.annotations;
 
 import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.model.ModelBase;
 import org.jetbrains.annotations.NotNull;
+import org.useless.dragonfly.models.entity.StaticEntityModel;
 
 import javax.annotation.Nullable;
 import java.lang.annotation.ElementType;
@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface RegisterEntityRenderer {
-	@NotNull Class<? extends EntityRenderer> renderer();
-	@Nullable Class<? extends ModelBase> model() default ModelBase.class;
+	@NotNull Class<? extends EntityRenderer<?>> renderer();
+	@Nullable Class<? extends StaticEntityModel> model() default StaticEntityModel.class;
 }

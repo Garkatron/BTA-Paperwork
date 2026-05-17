@@ -1,23 +1,23 @@
 package deus.paperwork.entities.cardboard_box;
 
-import deus.paperwork.entities.gift_box.ModelGiftBox;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.core.util.helper.DyeColor;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 
 public class RendererCardboardBox extends EntityRenderer<EntityCardboardBox> {
 
 	private final Minecraft mc = Minecraft.getMinecraft();
-	ModelCardboardBox modelCardboardBox = new ModelCardboardBox();
-	ModelGiftBox modelGiftBox = new ModelGiftBox();
 
 	public RendererCardboardBox() {
 	}
 
 	@Override
-	public void render(Tessellator tessellator, EntityCardboardBox entity, double x, double y, double z, float yaw, float partialTick) {
+	public void render(@NotNull TessellatorGeneral tessellatorGeneral, @NonNull EntityCardboardBox entity, double x, double y, double z, float yaw, float partialTick) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) x, (float) y, (float) z);
 		GL11.glRotatef(180.0F - yaw, 0.0F, 1.0F, 0.0F);
@@ -45,15 +45,16 @@ public class RendererCardboardBox extends EntityRenderer<EntityCardboardBox> {
 		GL11.glEnable(32826);
 		GL11.glEnable(3008);
 
-		if (color == null) {
-			this.modelCardboardBox.render(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F);
-		} else {
-			this.modelGiftBox.render(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F);
-		}
+//		if (color == null) {
+//			this.modelCardboardBox.render(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F);
+//		} else {
+//			this.modelGiftBox.render(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F);
+//		}
 
 		GL11.glDisable(32826);
 		GL11.glColor3f(1.0F, 1.0F, 1.0F);
 		GL11.glPopMatrix();
+
 	}
 
 

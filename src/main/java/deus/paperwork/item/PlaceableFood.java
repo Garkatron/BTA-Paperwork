@@ -1,7 +1,6 @@
 package deus.paperwork.item;
 
-import com.mojang.nbt.tags.CompoundTag;
-import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
+
 import deus.paperwork.interfaces.IPlaceable;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -10,6 +9,9 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -38,12 +40,14 @@ public class PlaceableFood extends ItemFood implements IPlaceable {
 	}
 
 	@Override
-	public boolean onUseItemOnBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-		if (entityplayer.isSneaking()) {
-			return placeAt(world, itemstack, entityplayer, blockX, blockY, blockZ);
+	public boolean onUseOnBlock(@NotNull ItemStack selfStack, @NotNull World world, @Nullable Player player, @NotNull TilePosc blockPos, @NotNull Side side, double xHit, double yHit) {
+		assert player != null;
+		if (player.isSneaking()) {
+			return placeAt(world, selfStack, player, blockPos.x(), blockPos.y(), blockPos.z());
 		}
-		return false;
-	}
+		return false;	}
+
+
 
 	@Override
 	public boolean placeAt(World world, ItemStack itemStack, Player player, double x, double y, double z) {

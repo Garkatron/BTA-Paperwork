@@ -9,6 +9,8 @@ import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
@@ -19,29 +21,27 @@ public class ItemPaperPlane extends ItemColored {
 	}
 
 	@Override
-	public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
+	public @Nullable ItemStack onUse(@NotNull ItemStack selfStack, @NotNull World world, @NotNull Player player) {
 		EntityPaperPlane paperPlane = new EntityPaperPlane(world);
-		world.playSoundAtEntity(null, entityplayer, MOD_ID+":material.paper.soft",  1.0F, 1.0f);
+		world.playSoundAtEntity(null, player, MOD_ID+":material.paper.soft",  1.0F, 1.0f);
 
-		DyeColor newColor = ItemPaintBrush.getColor(itemstack);
+		DyeColor newColor = ItemPaintBrush.getColor(selfStack);
 		paperPlane.setColor(newColor);
 		paperPlane.spawnInit();
 
 		// Throw it
-		float yaw = entityplayer.yRot * 0.017453292F;
-		float pitch = entityplayer.xRot * 0.017453292F;
+		float yaw = player.yRot * 0.017453292F;
+		float pitch = player.xRot * 0.017453292F;
 		float speed = 0.95F;
 
-		paperPlane.moveTo(entityplayer.x, entityplayer.y, entityplayer.z, entityplayer.yRot, 0);
+		paperPlane.moveTo(player.x, player.y, player.z, player.yRot, 0);
 
 		paperPlane.xd = -MathHelper.sin(yaw) * MathHelper.cos(pitch) * speed;
 		paperPlane.yd = -MathHelper.sin(pitch) * (speed/1.5);
 		paperPlane.zd = MathHelper.cos(yaw) * MathHelper.cos(pitch) * speed;
 
 		world.entityJoinedWorld(paperPlane);
-		itemstack.consumeItem(entityplayer);
-		return super.onUseItem(itemstack, world, entityplayer);
+		selfStack.consumeItem(player);
+		return super.onUseItem(selfStack, world, player);
 	}
-
-
 }

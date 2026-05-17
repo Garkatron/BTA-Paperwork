@@ -36,7 +36,7 @@ public class CarriedEntity implements ICarriable {
 		}
 		this.cachedEntityData = new CompoundTag();
 		this.carried.addAdditionalSaveData(this.cachedEntityData);
-		savedEntityNamespaceId = EntityDispatcher.idForClass(carried.getClass());
+		// savedEntityNamespaceId = EntityDispatcher.idForClass(carried.getClass());
 		savedEntityNamespaceId.makePermanent();
 	}
 
@@ -62,9 +62,9 @@ public class CarriedEntity implements ICarriable {
 
 		Entity newEntity = recreateEntity();
 		if (newEntity != null) {
-			double px = blockX + side.getOffsetX() + 0.5;
-			double py = blockY + side.getOffsetY();
-			double pz = blockZ + side.getOffsetZ() + 0.5;
+			double px = blockX + side.offsetX() + 0.5;
+			double py = blockY + side.offsetY();
+			double pz = blockZ + side.offsetZ() + 0.5;
 
 			newEntity.moveTo(px, py, pz, holder.yRot, holder.xRot);
 			newEntity.spawnInit();
@@ -107,15 +107,8 @@ public class CarriedEntity implements ICarriable {
 		}
 	}
 
-	@Override
-	public boolean canBeCarried(World world, Entity potentialHolder) {
-		return true;
-	}
 
-	@Override
-	public ICarriable pickup(World world, Entity holder) {
-		return this;
-	}
+
 
 	@Override
 	public void writeToNBT(CompoundTag tag) {
@@ -172,17 +165,18 @@ public class CarriedEntity implements ICarriable {
 
 	@Nullable
 	private Entity recreateEntity() {
-		try {
-			Constructor<? extends Entity> constructor = EntityDispatcher.classForId(savedEntityNamespaceId).getDeclaredConstructor(World.class);
-			constructor.setAccessible(true);
-			Entity newEntity = constructor.newInstance(world);
-			newEntity.readAdditionalSaveData(this.cachedEntityData);
-			return newEntity;
-
-		} catch (ReflectiveOperationException e) {
-			Paperwork.LOGGER.error("[" + getClass().getSimpleName() + "] Error instancing entity...");
-			return null;
-		}
+//		try {
+//			Constructor<? extends Entity> constructor = EntityDispatcher.classForId(savedEntityNamespaceId).getDeclaredConstructor(World.class);
+//			constructor.setAccessible(true);
+//			Entity newEntity = constructor.newInstance(world);
+//			newEntity.readAdditionalSaveData(this.cachedEntityData);
+//			return newEntity;
+//
+//		} catch (ReflectiveOperationException e) {
+//			Paperwork.LOGGER.error("[" + getClass().getSimpleName() + "] Error instancing entity...");
+//			return null;
+//		}
+		return  null;
 	}
 
 

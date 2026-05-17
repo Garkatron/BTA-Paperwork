@@ -2,13 +2,18 @@ package deus.paperwork.entities.stepler_projectile;
 
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 
 
 public class SteplerProjectileRenderer extends EntityRenderer<SteplerProjectile> {
 
+
+
 	@Override
-	public void render(Tessellator tessellator, SteplerProjectile entity, double x, double y, double z, float yaw, float partialTick) {
+	public void render(@NotNull TessellatorGeneral tessellatorGeneral, @NonNull SteplerProjectile entity,  double x, double y, double z, float yaw, float partialTick) {
 		this.bindTexture("/assets/paperwork/textures/entity/iron_nugget.png");
 
 		GL11.glPushMatrix();
@@ -28,12 +33,12 @@ public class SteplerProjectileRenderer extends EntityRenderer<SteplerProjectile>
 		float u1 = 1.0F;
 		float v1 = 1.0F;
 
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(-0.5, -0.5, 0.0, u0, v1);
-		tessellator.addVertexWithUV( 0.5, -0.5, 0.0, u1, v1);
-		tessellator.addVertexWithUV( 0.5,  0.5, 0.0, u1, v0);
-		tessellator.addVertexWithUV(-0.5,  0.5, 0.0, u0, v0);
-		tessellator.draw();
+//		tessellator.startDrawingQuads();
+//		tessellator.addVertexWithUV(-0.5, -0.5, 0.0, u0, v1);
+//		tessellator.addVertexWithUV( 0.5, -0.5, 0.0, u1, v1);
+//		tessellator.addVertexWithUV( 0.5,  0.5, 0.0, u1, v0);
+//		tessellator.addVertexWithUV(-0.5,  0.5, 0.0, u0, v0);
+//		tessellator.draw();
 
 		GL11.glEnable(GL11.GL_CULL_FACE);
 

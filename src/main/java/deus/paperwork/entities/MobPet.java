@@ -15,6 +15,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pathfinder.Path;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.primitives.AABBdc;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -61,7 +62,7 @@ public class MobPet extends MobAnimal {
 			double motionX = this.random.nextGaussian() * 0.02;
 			double motionY = this.random.nextGaussian() * 0.02;
 			double motionZ = this.random.nextGaussian() * 0.02;
-			this.world.spawnParticle(s, this.x + (double)(this.random.nextFloat() * this.bbWidth * 2.0F) - (double)this.bbWidth, this.y + 0.5 + (double)(this.random.nextFloat() * this.bbHeight), this.z + (double)(this.random.nextFloat() * this.bbWidth * 2.0F) - (double)this.bbWidth, motionX, motionY, motionZ, 0);
+			// this.world.spawnParticle(s, this.x + (double)(this.random.nextFloat() * this.bbWidth * 2.0F) - (double)this.bbWidth, this.y + 0.5 + (double)(this.random.nextFloat() * this.bbHeight), this.z + (double)(this.random.nextFloat() * this.bbWidth * 2.0F) - (double)this.bbWidth, motionX, motionY, motionZ, 0);
 		}
 
 	}
@@ -102,7 +103,7 @@ public class MobPet extends MobAnimal {
 				if (itemstack != null && itemstack.itemID == tamingItem.id) {
 					itemstack.consumeItem(player);
 					if (itemstack.stackSize <= 0) {
-						player.inventory.setItem(player.inventory.getCurrentItemIndex(), (ItemStack) null);
+						player.inventory.setItem(player.inventory.getCurrentSlot(), (ItemStack) null);
 					}
 
 					if (!this.world.isClientSide) {
@@ -128,14 +129,14 @@ public class MobPet extends MobAnimal {
 				if (itemstack != null && Item.itemsList[itemstack.itemID] instanceof ItemFood) {
 					ItemFood itemfood = (ItemFood)Item.itemsList[itemstack.itemID];
 					if (itemfood.getIsWolfsFavoriteMeat() && this.getHealth() < this.getMaxHealth()) {
-						if (player.getGamemode().consumeBlocks()) {
+						if (player.getGamemode().hasBlockConsumption()) {
 							--itemstack.stackSize;
 							if (itemstack.stackSize <= 0) {
-								player.inventory.setItem(player.inventory.getCurrentItemIndex(), (ItemStack)null);
+								player.inventory.setItem(player.inventory.getCurrentSlot(), (ItemStack)null);
 							}
 						}
 
-						this.heal(itemfood.getHealAmount());
+						this.heal(itemfood.getHealAmount(itemstack));
 						return true;
 					}
 				}
@@ -188,18 +189,29 @@ public class MobPet extends MobAnimal {
 				this.setSitting(false);
 			}
 		} else if (this.getTarget() == null && !this.hasPath() && !this.isTamed() && this.world.rand.nextInt(100) == 0) {
-			List<MobSheep> nearbySheep = this.world.getEntitiesWithinAABB(MobSheep.class, AABB.getTemporaryBB(this.x, this.y, this.z, this.x + 1.0, this.y + 1.0, this.z + 1.0).grow(16.0, 4.0, 16.0));
+			List<MobSheep> nearbySheep = this.world.getEntitiesWithinAABB(MobSheep.class, (AABBdc) AABB.fromPool(this.x, this.y, this.z, this.x + 1.0, this.y + 1.0, this.z + 1.0).grow(16.0, 4.0, 16.0));
 			if (!nearbySheep.isEmpty()) {
 				this.setTarget((Entity)nearbySheep.get(this.world.rand.nextInt(nearbySheep.size())));
 			}
 		}
 
 		if (this.getTarget() == null) {
-			ItemStack heldItemSlot = this.getHeldItem();
+			ItemStack heldItemSlot = closestPlayer.getHeldItem();
 			if (heldItemSlot == null || heldItemSlot.itemID <= 0) {
-				List<EntityItem> triedItems = new ArrayList();
-				List<EntityItem> nearbyItems = this.world.getEntitiesWithinAABB(EntityItem.class, AABB.getTemporaryBB(this.x, this.y, this.z, this.x + 1.0, this.y + 1.0, this.z + 1.0).grow(16.0, 4.0, 16.0));
-				if (!nearbyItems.isEmpty()) {
+				List<EntityItem> triedItems = new ArrayList<>();
+
+				org.joml.primitives.AABBf searchBox = new org.joml.primitives.AABBf(
+					(float)this.x,
+					(float)this.y,
+					(float)this.z,
+					(float)this.x + 1.0F,
+					(float)this.y + 1.0F,
+					(float)this.z + 1.0F
+				);
+				List<EntityItem> nearbyItems = this.world.getEntitiesWithinAABB(
+					EntityItem.class,
+					(AABBdc) searchBox
+				);				if (!nearbyItems.isEmpty()) {
 					while(triedItems.size() != nearbyItems.size()) {
 						EntityItem item = (EntityItem)nearbyItems.get(this.world.rand.nextInt(nearbyItems.size()));
 						if (!triedItems.contains(item)) {
@@ -225,17 +237,17 @@ public class MobPet extends MobAnimal {
 	}
 
 	public void addAdditionalSaveData(@NotNull CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		tag.putBoolean("Sitting", this.isSitting());
-		CompoundTag armorTag;
-		if (this.getHeldItem() != null) {
-			armorTag = new CompoundTag();
-			this.getHeldItem().writeToNBT(armorTag);
-			tag.putCompound("HeldItem", armorTag);
-		}
-
-
-		UUIDHelper.writeToTag(tag, this.getOwner(), "OwnerUUID");
+//		super.addAdditionalSaveData(tag);
+//		tag.putBoolean("Sitting", this.isSitting());
+//		CompoundTag armorTag;
+//		if (this.getHeldItem() != null) {
+//			armorTag = new CompoundTag();
+//			this.getHeldItem().writeToNBT(armorTag);
+//			tag.putCompound("HeldItem", armorTag);
+//		}
+//
+//
+//		UUIDHelper.writeToTag(tag, this.getOwner(), "OwnerUUID");
 	}
 
 	public void readAdditionalSaveData(@NotNull CompoundTag tag) {

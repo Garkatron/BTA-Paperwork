@@ -2,7 +2,6 @@ package deus.paperwork.entities.pigeon;
 
 import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.item.PaperworkItems;
-import deus.utils.annotations.RegisterDragonflyModel;
 import deus.utils.annotations.RegisterEntity;
 import net.minecraft.core.WeightedRandomLootObject;
 
@@ -20,11 +19,9 @@ import org.jetbrains.annotations.Nullable;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
-@RegisterDragonflyModel(id = "geometry."+MOD_ID+".pigeon", renderer = PigeonRenderer.class,
-	animations = { "pigeon/pigeon.idle" })
 @RegisterEntity(modId = MOD_ID, id = "pigeon", name = "pigeon")
-public class EntityPigeon extends MobAnimal {
-	private static final Logger LOGGER = LogManager.getLogger(EntityPigeon.class);
+public class MobPigeon extends MobAnimal {
+	private static final Logger LOGGER = LogManager.getLogger(MobPigeon.class);
 // 	protected @NotNull NamespaceID textureIdentifier = NamespaceID.getPermanent(MOD_ID, "pigeon");
 	private static final int DATA_ITEM_STACK = 15;
 	private static final int DATA_DELIVERING = 16;
@@ -44,7 +41,7 @@ public class EntityPigeon extends MobAnimal {
 	public float oFlap;
 	public float flapping = 1.0F;
 
-	public EntityPigeon(@Nullable World world) {
+	public MobPigeon(@Nullable World world) {
 		super(world);
 		this.setSize(0.6F, 0.5F); // Smaller size for a pigeon
 		this.moveSpeed = 1.0F; // Slightly faster than walking
@@ -143,9 +140,9 @@ public class EntityPigeon extends MobAnimal {
 
 		// Show flying particles if delivering
 		if (this.isDelivering && this.random.nextInt(10) == 0) {
-			this.world.spawnParticle("smoke", this.x + (this.random.nextFloat() - 0.5F) * this.bbWidth,
-				this.y + this.random.nextFloat() * this.bbHeight,
-				this.z + (this.random.nextFloat() - 0.5F) * this.bbWidth, 0.0, 0.0, 0.0, 0);
+//			this.world.spawnParticle("smoke", this.x + (this.random.nextFloat() - 0.5F) * this.bbWidth,
+//				this.y + this.random.nextFloat() * this.bbHeight,
+//				this.z + (this.random.nextFloat() - 0.5F) * this.bbWidth);
 		}
 	}
 
@@ -289,10 +286,10 @@ public class EntityPigeon extends MobAnimal {
 			double motionX = this.random.nextGaussian() * 0.02;
 			double motionY = this.random.nextGaussian() * 0.02;
 			double motionZ = this.random.nextGaussian() * 0.02;
-			this.world.spawnParticle(particle, this.x + (this.random.nextFloat() * this.bbWidth * 2.0F) - this.bbWidth,
-				this.y + 0.5 + (this.random.nextFloat() * this.bbHeight),
-				this.z + (this.random.nextFloat() * this.bbWidth * 2.0F) - this.bbWidth,
-				motionX, motionY, motionZ, 0);
+//			this.world.spawnParticle(particle, this.x + (this.random.nextFloat() * this.bbWidth * 2.0F) - this.bbWidth,
+//				this.y + 0.5 + (this.random.nextFloat() * this.bbHeight),
+//				this.z + (this.random.nextFloat() * this.bbWidth * 2.0F) - this.bbWidth,
+//				motionX, motionY, motionZ, 0);
 		}
 	}
 

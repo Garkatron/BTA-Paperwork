@@ -1,11 +1,8 @@
 package deus.paperwork.item.custom_paper;
 
-import deus.paperwork.block.PaperworkBlocks;
-import deus.paperwork.block.paperpile.layer.PaperLayerLogic;
-import deus.paperwork.item.CustomLayerItem;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemDye;
 import net.minecraft.core.item.ItemPaintBrush;
 import net.minecraft.core.item.ItemStack;
@@ -13,11 +10,11 @@ import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 
-public class CustomItemPaper extends CustomLayerItem {
+public class CustomItemPaper extends Item {
 
 	private boolean shouldDye = false;
 	public CustomItemPaper(String translationKey, String namespaceId, int id) {
-		super(translationKey, namespaceId, id, (Block<PaperLayerLogic>) PaperworkBlocks.BLOCK_PAPER_LAYER);
+		super(translationKey, namespaceId, id);
 	}
 
 	@Override

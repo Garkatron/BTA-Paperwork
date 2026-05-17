@@ -29,6 +29,7 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.primitives.AABBdc;
 
 import java.lang.reflect.Constructor;
 
@@ -342,9 +343,9 @@ public class EntityCardboardBox extends Entity implements Container {
 				}
 			} else if(savedEntityNamespaceId != null) {
 				try {
-					Constructor<? extends Entity> constructor = EntityDispatcher.classForId(savedEntityNamespaceId).getDeclaredConstructor(World.class);
-					constructor.setAccessible(true);
-					Entity newEntity = constructor.newInstance(world);
+					// Constructor<? extends Entity> constructor = EntityDispatcher.classForId(savedEntityNamespaceId).getDeclaredConstructor(World.class);
+					//constructor.setAccessible(true);
+					// Entity newEntity = constructor.newInstance(world);
 
 					newEntity.readAdditionalSaveData(this.entityCompoundTag);
 					newEntity.moveTo(x + 0.5, y, z + 0.5, 0, 0);
@@ -405,6 +406,16 @@ public class EntityCardboardBox extends Entity implements Container {
 	}
 
 	@Override
+	public void sort() {
+
+	}
+
+	@Override
+	public boolean locked(int slot) {
+		return Container.super.locked(slot);
+	}
+
+	@Override
 	public void setChanged() {
 		updateWeightStatus();
 	}
@@ -430,16 +441,7 @@ public class EntityCardboardBox extends Entity implements Container {
 	}
 
 	@Override
-	public AABB getBb() {
+	public @Nullable AABBdc getCollisionAABB() {
 		return bb;
-//		return AABB.getPermanentBB(
-//			this.x - this.bbWidth / 2,
-//			this.y,
-//			this.z - this.bbWidth / 2,
-//			this.x + this.bbWidth / 2,
-//			this.y + this.bbHeight + 0.1,
-//			this.z + this.bbWidth / 2
-//		);
 	}
-
 }

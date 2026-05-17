@@ -8,6 +8,8 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class ItemClosedLetter extends Item {
 	public ItemClosedLetter(String translationKey, String namespaceId, int id) {
@@ -15,10 +17,10 @@ public class ItemClosedLetter extends Item {
 	}
 
 	@Override
-	public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
-		if (entityplayer.isSneaking()) {
+	public @Nullable ItemStack onUse(@NotNull ItemStack selfStack, @NotNull World world, @NotNull Player player) {
+		if (player.isSneaking()) {
 
-			CompoundTag oldTag = itemstack.getData();
+			CompoundTag oldTag = selfStack.getData();
 			CompoundTag newTag = new CompoundTag();
 			newTag.putString("text", oldTag.getString("text"));
 			newTag.putBoolean("editable", false);
@@ -37,10 +39,9 @@ public class ItemClosedLetter extends Item {
 			}
 
 
-			itemstack.consumeItem(entityplayer);
+			selfStack.consumeItem(player);
 			return letter;
 		}
-		return itemstack;
+		return selfStack;
 	}
-
 }

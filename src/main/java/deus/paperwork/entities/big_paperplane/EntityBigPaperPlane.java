@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
-@RegisterEntityRenderer(renderer = BigPaperPlaneRenderer.class, model = ModelBigPaperPlane.class)
 @RegisterEntity(modId = MOD_ID, id = "entity_big_paper_plane", name = "entity_big_paper_plane")
 public class EntityBigPaperPlane extends EntityPaperPlane {
 

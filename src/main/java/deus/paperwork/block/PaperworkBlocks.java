@@ -7,15 +7,11 @@ import deus.paperwork.block.confetti.ConfettiLogic;
 import deus.paperwork.block.corckboard.BlockCorckboardLogic;
 import deus.paperwork.block.file_cabinet.BlockLogicFileCabinet;
 import deus.paperwork.block.mailbox.BlockLogicMailbox;
-import deus.paperwork.block.paperpile.layer.painted.PaperLayerLogicPainted;
-import deus.paperwork.block.paperpile.regular.PaperPileLogic;
-import deus.paperwork.block.paperpile.painted.PaperPileLogicPainted;
-import deus.paperwork.block.paperpile.layer.PaperLayerLogic;
 import deus.paperwork.block.photocopier.BlockPhotocopierLogic;
 import deus.paperwork.block.printer.BlockPrinterLogic;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
-import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.sound.BlockSound;
 import net.minecraft.core.sound.BlockSounds;
@@ -31,11 +27,11 @@ public class PaperworkBlocks {
 
 	public static Block<? extends BlockLogic> BLOCK_CORCKBOARD;
 
-	public static Block<? extends BlockLogic> BLOCK_PAPER_PILE;
-	public static Block<? extends BlockLogic> BLOCK_PAPER_PILE_PAINTED;
+	// public static Block<? extends BlockLogic> BLOCK_PAPER_PILE;
+	// public static Block<? extends BlockLogic> BLOCK_PAPER_PILE_PAINTED;
 
-	public static Block<? extends BlockLogic> BLOCK_PAPER_LAYER;
-	public static Block<? extends BlockLogic> BLOCK_PAPER_LAYER_PAINTED;
+	// public static Block<? extends BlockLogic> BLOCK_PAPER_LAYER;
+	// public static Block<? extends BlockLogic> BLOCK_PAPER_LAYER_PAINTED;
 
 	public static Block<? extends BlockLogic> BLOCK_NEWSPRINT_PILE;
 	public static Block<? extends BlockLogic> BLOCK_NEWSPRINT_LAYER;
@@ -70,71 +66,16 @@ public class PaperworkBlocks {
 			"printer",
 			"printer",
 			ConfigManager.blockGoc("BLOCK_PRINTER"),
-			(b) -> new BlockPrinterLogic(b, Material.steel)
+			(b) -> new BlockPrinterLogic(b, Materials.METAL)
 		);
 
 		BLOCK_PHOTOCOPIER = GENERIC_BLOCK_BUILDER.build(
 			"photocopier",
 			"photocopier",
 			ConfigManager.blockGoc("BLOCK_PHOTOCOPIER"),
-			(b) -> new BlockPhotocopierLogic(b, Material.steel)
+			(b) -> new BlockPhotocopierLogic(b, Materials.METAL)
 		);
 
-		BLOCK_PAPER_PILE = PAPER_BLOCK_BUILDER.build(
-			"paper_pile",
-			"paper_pile",
-			ConfigManager.blockGoc("BLOCK_PAPER_PILE"),
-			(b) -> new PaperPileLogic(b, "minecraft:item/paper")
-		);
-
-		BLOCK_PAPER_PILE_PAINTED = PAPER_BLOCK_BUILDER.build(
-			"paper_pile_painted",
-			"paper_pile_painted",
-			ConfigManager.blockGoc("BLOCK_PAPER_PILE_PAINTED"),
-			(b) -> new PaperPileLogicPainted(b, "minecraft:item/paper")
-		);
-
-		BLOCK_PAPER_LAYER = PAPER_BLOCK_BUILDER.build(
-			"paper_layer",
-			"paper_layer",
-			ConfigManager.blockGoc("BLOCK_PAPER_LAYER"),
-			(b) -> new PaperLayerLogic(b, BLOCK_PAPER_PILE, "minecraft:item/paper")
-		);
-
-		BLOCK_PAPER_LAYER_PAINTED = PAPER_BLOCK_BUILDER.build(
-			"paper_layer_painted",
-			"paper_layer_painted",
-			ConfigManager.blockGoc("BLOCK_PAPER_LAYER_PAINTED"),
-			(b) -> new PaperLayerLogicPainted(b, BLOCK_PAPER_PILE_PAINTED, "minecraft:item/paper")
-		);
-
-		BLOCK_NEWSPRINT_PILE = PAPER_BLOCK_BUILDER.build(
-			"newsprint_pile",
-			"newsprint_pile",
-			ConfigManager.blockGoc("BLOCK_NEWSPRINT_PILE"),
-			(b) -> new PaperPileLogic(b, MOD_ID + ":item/newsprint")
-		);
-
-		BLOCK_NEWSPRINT_LAYER = PAPER_BLOCK_BUILDER.build(
-			"newsprint_layer",
-			"newsprint_layer",
-			ConfigManager.blockGoc("BLOCK_NEWSPRINT_LAYER"),
-			(b) -> new PaperLayerLogic(b, BLOCK_NEWSPRINT_PILE, MOD_ID + ":item/newsprint")
-		);
-
-		BLOCK_CARDBOARD_PILE = PAPER_BLOCK_BUILDER.build(
-			"cardboard_pile",
-			"cardboard_pile",
-			ConfigManager.blockGoc("BLOCK_CARDBOARD_PILE"),
-			(b) -> new PaperPileLogic(b, MOD_ID + ":item/cardboard")
-		);
-
-		BLOCK_CARDBOARD_LAYER = PAPER_BLOCK_BUILDER.build(
-			"cardboard_layer",
-			"cardboard_layer",
-			ConfigManager.blockGoc("BLOCK_CARDBOARD_LAYER"),
-			(b) -> new PaperLayerLogic(b, BLOCK_CARDBOARD_PILE, MOD_ID + ":item/cardboard")
-		);
 
 		BLOCK_CONFETTI = PAPER_BLOCK_BUILDER.build(
 			"confetti",
@@ -147,28 +88,28 @@ public class PaperworkBlocks {
 			"corckboard",
 			"corckboard",
 			ConfigManager.blockGoc("BLOCK_CORCKBOARD"),
-			(b) -> new BlockCorckboardLogic(b, Material.granite)
+			(b) -> new BlockCorckboardLogic(b, Materials.GRANITE)
 		);
 
 		BLOCK_CHALKBOARD = GENERIC_BLOCK_BUILDER.build(
 			"chalkboard",
 			"chalkboard",
 			ConfigManager.blockGoc("BLOCK_CHALKBOARD"),
-			(b) -> new BlockChalkboardLogic(b, Material.granite)
+			(b) -> new BlockChalkboardLogic(b, Materials.GRANITE)
 		);
 
 		BLOCK_FILE_CABINET_BROWN_PLANKS = GENERIC_BLOCK_BUILDER.build(
 			"file_cabinet_brown_planks",
 			"file_cabinet_brown_planks",
 			ConfigManager.blockGoc("BLOCK_FILE_CABINET_BROWN_PLANKS"),
-			(b) -> new BlockLogicFileCabinet(b, Material.steel)
+			(b) -> new BlockLogicFileCabinet(b, Materials.METAL)
 		);
 
 		BLOCK_FILE_CABINET_IRON = GENERIC_BLOCK_BUILDER.build(
 			"file_cabinet_iron",
 			"file_cabinet_iron",
 			ConfigManager.blockGoc("BLOCK_FILE_CABINET_IRON"),
-			(b) -> new BlockLogicFileCabinet(b, Material.steel)
+			(b) -> new BlockLogicFileCabinet(b, Materials.METAL)
 		);
 
 		BLOCK_MAILBOX = GENERIC_BLOCK_BUILDER.build(
@@ -189,7 +130,7 @@ public class PaperworkBlocks {
 			"bin",
 			"bin",
 			ConfigManager.blockGoc("BLOCK_BIN"),
-			(b) -> new DecorativeTransparentBlock(b, Material.metal)
+			(b) -> new DecorativeTransparentBlock(b, Materials.METAL)
 		);
 	}
 

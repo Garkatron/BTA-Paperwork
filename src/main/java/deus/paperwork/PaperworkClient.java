@@ -13,15 +13,15 @@ import static deus.paperwork.Paperwork.MOD_ID;
 public class PaperworkClient implements ClientStartEntrypoint, ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		SoundRepository.registerNamespace(MOD_ID);
+		// SoundRepository.registerNamespace(MOD_ID);
 		LOGGER.info(MOD_ID+" Client Initialized");
 	}
 
 	@Override
 	public void beforeClientStart() {
 		try {
-			TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.guiSpriteAtlas, true);
-			TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.particleAtlas, true);
+			// TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.guiSpriteAtlas, true);
+			// TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.particleAtlas, true);
 		} catch (Exception var2) {
 			LOGGER.warn(MOD_ID+": Failed to fully initialize assets, some issue may occur!", var2);
 		}

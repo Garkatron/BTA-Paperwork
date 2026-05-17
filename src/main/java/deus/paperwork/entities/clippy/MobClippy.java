@@ -8,7 +8,6 @@ import net.minecraft.core.world.World;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
-@RegisterEntityRenderer(model = Modelclippy.class, renderer = ClippyRenderer.class)
 @RegisterEntity(modId = MOD_ID, id = "clippy", name = "clippy")
 public class MobClippy extends MobPet {
 	public MobClippy(World world) {

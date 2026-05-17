@@ -3,7 +3,7 @@ package deus.paperwork.item;
 import deus.paperwork.armor.PaperworkArmorMaterial;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entities.cardboard_box.BoxSize;
-import deus.paperwork.entities.office_chair.OfficeChair;
+import deus.paperwork.entities.office_chair.EntityOfficeChair;
 import deus.paperwork.entities.singledonut.EntityDonut;
 import deus.paperwork.item.big_paperplane.ItemBigPaperPlane;
 import deus.paperwork.item.letter.ItemClosedLetter;
@@ -12,9 +12,9 @@ import deus.paperwork.item.paperplane.ItemPaperPlane;
 import deus.utils.item.ItemFoodFactory;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLayerBase;
+import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
-import net.minecraft.core.item.ItemPlaceable;
 import net.minecraft.core.item.tool.ItemToolSword;
 import turniplabs.halplibe.helper.ItemBuilder;
 
@@ -53,7 +53,6 @@ public class PaperworkItems {
 
 		public static void initialize() {
 
-			// Inicialización de items usando getOrCreateID para tomar o crear el ID en el TOML
 			NEWSPRINT = new CustomLayerItem(
 				"newsprint",
 				MOD_ID + ":item/newsprint",
@@ -68,45 +67,45 @@ public class PaperworkItems {
 				(Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_CARDBOARD_LAYER
 			);
 
-			ARMOR_BOOTS_CARDBOARD = new ItemArmor(
+			ARMOR_BOOTS_CARDBOARD = new ItemArmor<HumanArmorShape>(
 				"armor_boots_cardboard",
 				MOD_ID + ":item/armor/cardboard/boots",
 				itemGoc("ARMOR_BOOTS_CARDBOARD"),
 				PaperworkArmorMaterial.CARDBOARD,
-				0
+				HumanArmorShape.BOOTS
 			);
 
-			ARMOR_LEGGINS_CARDBOARD = new ItemArmor(
+			ARMOR_LEGGINS_CARDBOARD = new ItemArmor<HumanArmorShape>(
 				"armor_leggins_cardboard",
 				MOD_ID + ":item/armor/cardboard/leggins",
 				itemGoc("ARMOR_LEGGINS_CARDBOARD"),
 				PaperworkArmorMaterial.CARDBOARD,
-				1
+				HumanArmorShape.LEGS
 			);
 
-			ARMOR_CHESTPLATE_CARDBOARD = new ItemArmor(
+			ARMOR_CHESTPLATE_CARDBOARD = new ItemArmor<HumanArmorShape>(
 				"armor_chestplate_cardboard",
 				MOD_ID + ":item/armor/cardboard/chestplate",
 				itemGoc("ARMOR_CHESTPLATE_CARDBOARD"),
 				PaperworkArmorMaterial.CARDBOARD,
-				2
+				HumanArmorShape.CHEST
 			);
 
-			ARMOR_HELMET_CARDBOARD = new ItemArmor(
+			ARMOR_HELMET_CARDBOARD = new ItemArmor<HumanArmorShape>(
 				"armor_helmet_cardboard",
 				MOD_ID + ":item/armor/cardboard/helmet",
 				itemGoc("ARMOR_HELMET_CARDBOARD"),
 				PaperworkArmorMaterial.CARDBOARD,
-				3
+				HumanArmorShape.HEAD
 			);
 
 			PAPERPLANE = new ItemPaperPlane("paperplane", MOD_ID + ":item/paperplane/paperplane", itemGoc("PAPERPLANE"));
 			BIG_PAPERPLANE = new ItemBigPaperPlane("big_paperplane", MOD_ID + ":item/big_paperplane", itemGoc("BIG_PAPERPLANE"));
 
-			CARDBOARD_BOX_REGULAR = new ItemCardboardBox("cardboard_box_regular", MOD_ID + ":item/cardboard_box_regular", itemGoc("CARDBOARD_BOX_REGULAR"), BoxSize.REGULAR);
-			CARDBOARD_BOX_SMALL = new ItemCardboardBox("cardboard_box_small", MOD_ID + ":item/cardboard_box_small", itemGoc("CARDBOARD_BOX_SMALL"), BoxSize.SMALL);
-			CARDBOARD_BOX_MEDIUM = new ItemCardboardBox("cardboard_box_medium", MOD_ID + ":item/cardboard_box_medium", itemGoc("CARDBOARD_BOX_MEDIUM"), BoxSize.MEDIUM);
-			CARDBOARD_BOX_LARGE = new ItemCardboardBox("cardboard_box_large", MOD_ID + ":item/cardboard_box_large", itemGoc("CARDBOARD_BOX_LARGE"), BoxSize.LARGE);
+//			CARDBOARD_BOX_REGULAR = new ItemCardboardBox("cardboard_box_regular", MOD_ID + ":item/cardboard_box_regular", itemGoc("CARDBOARD_BOX_REGULAR"), BoxSize.REGULAR);
+//			CARDBOARD_BOX_SMALL = new ItemCardboardBox("cardboard_box_small", MOD_ID + ":item/cardboard_box_small", itemGoc("CARDBOARD_BOX_SMALL"), BoxSize.SMALL);
+//			CARDBOARD_BOX_MEDIUM = new ItemCardboardBox("cardboard_box_medium", MOD_ID + ":item/cardboard_box_medium", itemGoc("CARDBOARD_BOX_MEDIUM"), BoxSize.MEDIUM);
+//			CARDBOARD_BOX_LARGE = new ItemCardboardBox("cardboard_box_large", MOD_ID + ":item/cardboard_box_large", itemGoc("CARDBOARD_BOX_LARGE"), BoxSize.LARGE);
 
 			CARDBOARD_TUBE = new ItemToolSword("cardboard_tube", MOD_ID + ":item/cardboard_tube", itemGoc("CARDBOARD_TUBE"), PaperworkToolMaterial.CARDBOARD);
 
@@ -129,7 +128,7 @@ public class PaperworkItems {
 				.build();
 
 			OFFICE_CHAIR = new ItemSpawner("office_chair",MOD_ID+":item/office_chair",itemGoc("OFFICE_CHAIR")).withEntity(
-				OfficeChair.class
+				EntityOfficeChair.class
 			);
 		}
 

@@ -1,5 +1,6 @@
 package deus.paperwork.block.printer;
 
+import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.utils.annotations.RegisterEntity;
 import net.minecraft.core.block.Block;
@@ -8,7 +9,9 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
@@ -22,9 +25,6 @@ public class TileEntityPrinter extends TileEntity implements Container {
 
 	public TileEntityPrinter() {
 		this.itemStacks = new ItemStack[12];
-		this.maxPrintTime = 200;
-		this.currentPrintTime = 200;
-		this.activated = true;
 	}
 
 	public void tick() {
@@ -35,27 +35,35 @@ public class TileEntityPrinter extends TileEntity implements Container {
 		}
 	}
 
-	public boolean removeLayer(World world, Block<?> block, int blockX, int blockY, int blockZ) {
-		Block<?> targetBlock = world.getBlock(blockX, blockY, blockZ);
+	@Override
+	public void readAdditionalData(@NotNull CompoundTag compoundTag) {
+
+	}
+
+	@Override
+	public void writeAdditionalData(@NotNull CompoundTag compoundTag) {
+
+	}
+
+	public void removeLayer(World world, Block<?> block, int blockX, int blockY, int blockZ) {
+		Block<?> targetBlock = world.getBlockType(tilePos);
 		int meta = world.getBlockMetadata(blockX, blockY, blockZ);
 
 		if (targetBlock == block && meta > 0) {
 			world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, block.id(), meta - 1);
 			//world.playBlockSoundEffect(player, (double)((float)blockX + 0.5F), (double)((float)blockY + 0.5F), (double)((float)blockZ + 0.5F), block, EnumBlockSoundEffectType.BREAK);
-			return true;
 		} else if (targetBlock == block && meta == 0) {
 			world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, 0, 0);
 			//world.playBlockSoundEffect(player, (double)((float)blockX + 0.5F), (double)((float)blockY + 0.5F), (double)((float)blockZ + 0.5F), block, EnumBlockSoundEffectType.BREAK);
-			return true;
 		}
 
-		return false;
 	}
 
 	protected void print() {
-		if (worldObj.getBlockId(x, y, z) == PaperworkBlocks.BLOCK_PAPER_PILE.id()) {
-			removeLayer(worldObj, PaperworkBlocks.BLOCK_PAPER_PILE, x, y, z);
-		}
+		assert worldObj != null;
+//		if (worldObj.getBlockType(tilePos).id() == PaperworkBlocks.BLOCK_PAPER_PILE.id()) {
+//			removeLayer(worldObj, PaperworkBlocks.BLOCK_PAPER_PILE, tilePos.x(), tilePos.y(),tilePos.z());
+//		}
 		activated = false;
 	}
 
@@ -75,7 +83,7 @@ public class TileEntityPrinter extends TileEntity implements Container {
 				itemstack1 = this.itemStacks[index];
 				this.itemStacks[index] = null;
 				if (this.worldObj != null && index == 2) {
-					this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+					this.worldObj.markBlockNeedsUpdate(tilePos);
 				}
 
 				return itemstack1;
@@ -84,7 +92,7 @@ public class TileEntityPrinter extends TileEntity implements Container {
 				if (this.itemStacks[index].stackSize <= 0) {
 					this.itemStacks[index] = null;
 					if (this.worldObj != null && index == 2) {
-						this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+						this.worldObj.markBlockNeedsUpdate(tilePos);
 					}
 				}
 
@@ -102,12 +110,12 @@ public class TileEntityPrinter extends TileEntity implements Container {
 		}
 
 		if (this.worldObj != null && index == 2 && itemstack == null) {
-			this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+			this.worldObj.markBlockNeedsUpdate(tilePos);
 		}
 
 	}
 
-	@Override public String getNameTranslationKey() {
+	@Override public @NonNull String getNameTranslationKey() {
 		return "container.furnace.name";
 	}
 
@@ -116,14 +124,18 @@ public class TileEntityPrinter extends TileEntity implements Container {
 		return 64;
 	}
 
-	public boolean stillValid(Player entityplayer) {
-		if (this.worldObj != null && this.worldObj.getTileEntity(this.x, this.y, this.z) == this) {
-			return entityplayer.distanceToSqr((double)this.x + 0.5, (double)this.y + 0.5, (double)this.z + 0.5) <= 64.0;
+	public boolean stillValid(@NonNull Player player) {
+		if (this.worldObj != null && this.worldObj.getTileEntity(tilePos) == this) {
+			return player.distanceToSqr((double)this.tilePos.x() + 0.5, (double)this.tilePos.y() + 0.5, (double)this.tilePos.z() + 0.5) <= 64.0;
 		} else {
 			return false;
 		}
 	}
 
-	@Override public void sortContainer() {
+	@Override
+	public void sort() {
+
 	}
+
+
 }

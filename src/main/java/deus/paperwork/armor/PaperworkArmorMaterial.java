@@ -16,6 +16,6 @@ public class PaperworkArmorMaterial extends ArmorMaterial {
 	}
 
 	static {
-		CARDBOARD = register((new ArmorMaterial(NamespaceID.getPermanent(MOD_ID, "cardboard"), 180)).withProtectionPercentage(DamageType.FALL, 20.0F).withProtectionPercentage(DamageType.FIRE, -20.0F));
+		CARDBOARD = register((new ArmorMaterial(NamespaceID.fromPool(MOD_ID, "cardboard"), 180)).withProtectionPercentage(DamageType.FALL, 20.0F).withProtectionPercentage(DamageType.FIRE, -20.0F));
 	}
 }

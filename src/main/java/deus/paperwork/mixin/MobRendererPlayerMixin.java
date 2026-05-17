@@ -2,10 +2,12 @@ package deus.paperwork.mixin;
 
 import deus.paperwork.entities.motion.CarriedEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.EntityRenderDispatcher;
+
+import net.minecraft.client.render.EntityRendererDispatcher;
 import net.minecraft.client.render.Lighting;
 import net.minecraft.client.render.entity.MobRendererPlayer;
-import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -21,20 +23,19 @@ public class MobRendererPlayerMixin {
 	public void test(Player player, float partialTick, CallbackInfo ci) {
 		Object held = player.getHeldObject();
 
-		if (held instanceof CarriedEntity) {
-			CarriedEntity carriedBlock = (CarriedEntity) held;
+		if (held instanceof CarriedEntity carriedBlock) {
 
-			Tessellator tessellator = Tessellator.instance;
+			TessellatorGeneral tessellator = GLRenderer.getTessellator();
 			tessellator.setTranslation(0.0, 0.0, 0.0);
 
 			Minecraft mc = Minecraft.getMinecraft();
-			TextureRegistry.blockAtlas.bind();
+			TextureRegistry.worldAtlas.bind();
 			Lighting.disable();
 			GL11.glPushMatrix();
 			GL11.glBlendFunc(770, 771);
 			GL11.glEnable(3042);
 			GL11.glDisable(2884);
-			if (mc.isAmbientOcclusionEnabled()) {
+			if (mc.isFullbrightEnabled()) {
 				GL11.glShadeModel(7425);
 			} else {
 				GL11.glShadeModel(7424);
@@ -45,7 +46,7 @@ public class MobRendererPlayerMixin {
 
 			Entity carried = carriedBlock.getCarried();
 			if (carried != null) {
-				EntityRenderDispatcher.instance.getRenderer(carried)
+				EntityRendererDispatcher.instance.getRenderer(carried)
 					.render(tessellator, carriedBlock.getCarried(), 0.0, 0.0, 0.0, 0.0f, partialTick);
 			}
 

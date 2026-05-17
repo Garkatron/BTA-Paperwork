@@ -8,6 +8,10 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.joml.primitives.AABBdc;
 
 public class PaperBlock extends BlockLogic {
 	public PaperBlock(Block<?> block) {
@@ -18,7 +22,9 @@ public class PaperBlock extends BlockLogic {
 	public boolean isCubeShaped() {
 		return false;
 	}
-	public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
+
+	@Override
+	public @Nullable AABBdc getCollisionAABB(@NotNull WorldSource source, @NotNull TilePosc tilePos) {
 		return null;
 	}
 

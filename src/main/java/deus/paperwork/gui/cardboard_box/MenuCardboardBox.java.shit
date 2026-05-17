@@ -1,6 +1,7 @@
 package deus.paperwork.gui.cardboard_box;
 
 import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.Container;
@@ -8,6 +9,7 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.menu.MenuContainer;
 import net.minecraft.core.player.inventory.slot.Slot;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,16 +48,13 @@ public class MenuCardboardBox extends MenuAbstract {
 
 	}
 
-	public boolean stillValid(Player entityplayer) {
-		return this.container.stillValid(entityplayer);
-	}
-
-	public List<Integer> getMoveSlots(InventoryAction action, Slot slot, int target, Player player) {
+	@Override
+	public IntList getMoveSlots(@NotNull InventoryAction inventoryAction, @NotNull Slot slot, int i, Player player) {
 		int chestSize = this.numberOfRows * 9;
 		if (slot.index >= 0 && slot.index < chestSize) {
 			return this.getSlots(0, chestSize, false);
 		} else {
-			if (action == InventoryAction.MOVE_ALL) {
+			if (inventoryAction == InventoryAction.MOVE_ALL) {
 				if (slot.index >= chestSize && slot.index < chestSize + 27) {
 					return this.getSlots(chestSize, 27, false);
 				}
@@ -71,8 +70,16 @@ public class MenuCardboardBox extends MenuAbstract {
 		}
 	}
 
-	public List<Integer> getTargetSlots(InventoryAction action, Slot slot, int target, Player player) {
+	@Override
+	public IntList getTargetSlots(@NotNull InventoryAction inventoryAction, @NotNull Slot slot, int i, Player player) {
 		int chestSize = this.numberOfRows * 9;
 		return slot.index < chestSize ? this.getSlots(chestSize, 36, true) : this.getSlots(0, chestSize, false);
 	}
+
+	public boolean stillValid(Player entityplayer) {
+		return this.container.stillValid(entityplayer);
+	}
+
+
+
 }

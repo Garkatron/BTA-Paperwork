@@ -212,7 +212,7 @@ public class TextEditor extends Gui {
 
 	protected void drawText() {
 		int textColor = focused ? focusTextColor : this.textColor;
-		int lineHeight = this.mc.font.fontHeight;
+		int lineHeight = this.mc.font.getFont().fontHeight();
 		int textStartY = this.y + 4;
 
 		StringBuilder lineBuffer = new StringBuilder();
@@ -246,12 +246,12 @@ public class TextEditor extends Gui {
 
 				if (c != '\n') {
 					lineBuffer.append(c);
-					pixelX += this.mc.font.getCharWidth(c);
+					pixelX += mc.font.getFont().charWidth(c);
 					lineCharCount++;
 				}
 			} else if (cursorLine < maxLines) {
 				lineBuffer.append(c);
-				pixelX += this.mc.font.getCharWidth(c);
+				pixelX +=  mc.font.getFont().charWidth(c);
 				lineCharCount++;
 			}
 
@@ -271,7 +271,7 @@ public class TextEditor extends Gui {
 
 		if (drawLineCount) {
 			for (int i = 0; i < cursorLine + 1; i++) {
-				this.drawStringNoShadow(this.mc.font, i+"", this.x, this.y + 4 + (i * mc.font.fontHeight), lineCountColor);
+				this.drawStringNoShadow(this.mc.font, i+"", this.x, this.y + 4 + (i * mc.font.getFont().fontHeight()), lineCountColor);
 			}
 		}
 		if (lineBuffer.length() > 0) {
@@ -293,7 +293,7 @@ public class TextEditor extends Gui {
 		String lineCharCount = String.valueOf(currentLineCharCount);
 
 		// this.drawString(this.mc.font, line, this.x, this.y + cursorY - mc.font.fontHeight*2, 0xb2b3b3);
-		this.drawStringNoShadow(this.mc.font, lineCharCount, this.x + cursorX, this.y + cursorY + mc.font.fontHeight, lineCountColor);
+		this.drawStringNoShadow(this.mc.font, lineCharCount, this.x + cursorX, this.y + cursorY + mc.font.getFont().fontHeight(), lineCountColor);
 	}
 
 	public void render() {
@@ -360,7 +360,7 @@ public class TextEditor extends Gui {
 		isShift = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
 
 		if (drawLineCount) {
-			textOffsetX = Math.max(minTextOffsetx, mc.font.getStringWidth(currentLine+"")+1);
+			textOffsetX = Math.max(minTextOffsetx, mc.font.stringWidth(currentLine+"")+1);
 		}
 
 		if (!focused) return;

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class TexturedEntity extends Entity {
 
-	protected @NotNull NamespaceID textureIdentifier = NamespaceID.getPermanent("minecraft", "char");
+	protected @NotNull NamespaceID textureIdentifier = NamespaceID.fromPool("minecraft", "char");
 
 	public TexturedEntity(@Nullable World world) {
 		super(world);

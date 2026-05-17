@@ -176,7 +176,7 @@ public class LetterUI extends Screen {
 		// Position input fields and labels in a column to the right of textEditor
 		int inputWidth = xInput.width; // All inputs have the same width (50)
 		int inputHeight = xInput.height; // All inputs have the same height (15)
-		int labelHeight = this.mc.font.fontHeight; // Height of the font (approx. 9 pixels)
+		int labelHeight = this.mc.font.getFont().fontHeight(); // Height of the font (approx. 9 pixels)
 		int gap = 5; // Vertical gap between label-input pairs
 		int labelOffsetY = 2; // Vertical offset between label and input
 		int rightEdge = textEditor.x + textEditor.width + 3; // Directly adjacent to textEditor’s right edge
