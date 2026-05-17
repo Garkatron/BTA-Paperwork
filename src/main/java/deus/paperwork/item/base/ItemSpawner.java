@@ -1,4 +1,4 @@
-package deus.paperwork.item;
+package deus.paperwork.item.base;
 
 import deus.paperwork.interfaces.IPlaceable;
 import net.minecraft.core.entity.Entity;

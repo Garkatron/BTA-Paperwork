@@ -1,5 +1,6 @@
 package deus.paperwork.entities.pigeon;
 
+import deus.paperwork.Paperwork;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
@@ -12,23 +13,26 @@ import org.useless.dragonfly.models.entity.StaticEntityModel;
 @Environment(EnvType.CLIENT)
 public class MobPigeonRenderer extends MobRenderer<MobPigeon> {
 
-	public MobPigeonRenderer(float shadowSize) {
-		super(shadowSize);
+	public MobPigeonRenderer() {
+		super(0.2f);
 	}
 
 	@Override
 	protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NotNull MobPigeon entity, float brightness, float partialTick, int layer) {
 		StaticEntityModel model = this.getModel("main");
+		
+		this.bindTexture("/assets/paperwork/textures/entity/pigeon/" + entity.getTextureReference() + ".png");
+
 		model.resetBones();
 
 		float limbSwing = this.getLimbSwing(entity, partialTick);
 		float limbYaw = this.getLimbYaw(entity, partialTick);
 		float limbPitch = this.getLimbPitch(entity, partialTick);
 
-		BoneTransform leg0 = model.getTransform("leg0");
-		BoneTransform leg1 = model.getTransform("leg1");
-		BoneTransform wing0 = model.getTransform("wing0");
-		BoneTransform wing1 = model.getTransform("wing1");
+		BoneTransform leg0 = model.getTransform("left_leg");
+		BoneTransform leg1 = model.getTransform("right_leg");
+		BoneTransform wing0 = model.getTransform("left_swing");
+		BoneTransform wing1 = model.getTransform("left_swing2");
 
 		if (leg0 != null) {
 			leg0.rotX = (double)(MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbYaw);

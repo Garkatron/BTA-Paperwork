@@ -1,4 +1,4 @@
-package deus.paperwork.entities;
+package deus.paperwork.entities.base;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
@@ -7,7 +7,6 @@ import net.minecraft.core.entity.animal.MobAnimal;
 import net.minecraft.core.entity.animal.MobSheep;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.*;
-import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.UUIDHelper;
 import net.minecraft.core.util.phys.AABB;
@@ -18,7 +17,6 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.primitives.AABBdc;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 

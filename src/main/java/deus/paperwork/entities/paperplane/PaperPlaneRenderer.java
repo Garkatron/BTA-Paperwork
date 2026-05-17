@@ -11,6 +11,8 @@ import org.lwjgl.opengl.GL11;
 public class PaperPlaneRenderer extends EntityRenderer<EntityPaperPlane> {
 
 
+
+
 	private final String DEFAULT_TEXTURE = "/assets/paperwork/textures/entity/paperplane/paperplane.png";
 
 	@Override

@@ -3,7 +3,6 @@ package deus.paperwork.entities.big_paperplane;
 import deus.paperwork.entities.paperplane.EntityPaperPlane;
 import deus.paperwork.item.PaperworkItems;
 import deus.utils.annotations.RegisterEntity;
-import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;

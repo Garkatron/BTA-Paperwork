@@ -1,4 +1,4 @@
-package deus.paperwork.item;
+package deus.paperwork.item.base;
 
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;

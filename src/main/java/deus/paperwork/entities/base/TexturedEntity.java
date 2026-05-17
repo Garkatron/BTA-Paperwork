@@ -1,4 +1,4 @@
-package deus.paperwork.entities;
+package deus.paperwork.entities.base;
 
 import net.minecraft.core.Global;
 import net.minecraft.core.entity.Entity;

@@ -1,11 +1,10 @@
 package deus.paperwork.item.paperplane;
 
 import deus.paperwork.entities.paperplane.EntityPaperPlane;
-import deus.paperwork.item.ItemColored;
+import deus.paperwork.item.base.ItemColored;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemPaintBrush;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;

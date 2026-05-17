@@ -1,8 +1,6 @@
-package deus.paperwork.item;
+package deus.paperwork.item.base;
 
-import deus.paperwork.entities.clippy.MobClippy;
 import net.minecraft.core.entity.Mob;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;

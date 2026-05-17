@@ -1,9 +1,7 @@
 package deus.paperwork.item.letter;
 
 import com.mojang.nbt.tags.CompoundTag;
-import deus.paperwork.gui.LetterUI;
 import deus.paperwork.item.PaperworkItems;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;

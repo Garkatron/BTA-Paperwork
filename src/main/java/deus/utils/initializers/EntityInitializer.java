@@ -29,7 +29,7 @@ public class EntityInitializer {
 	private static <T extends Entity> void registerEntity(Class<T> entityClass, RegisterEntity annotation) {
 		EntityFactory<T> factory = (w) -> {
 			try {
-				return entityClass.getDeclaredConstructor().newInstance();
+				return entityClass.getDeclaredConstructor(net.minecraft.core.world.World.class).newInstance(w);
 			} catch (Exception e) {
 				throw new RuntimeException("Can't create entity: " + entityClass.getName(), e);
 			}

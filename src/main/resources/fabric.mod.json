@@ -37,9 +37,10 @@
 			"deus.paperwork.PaperworkClient"
 		],
 		"initModels": [
+			"deus.paperwork.PaperworkModelEntrypoint"
 		],
 		"recipesReady": [
-			"deus.paperwork.entry_points.PaperworkRecipes"
+			"deus.paperwork.PaperworkRecipes"
 		],
 		"server": [
 			"deus.paperwork.PaperworkServer"

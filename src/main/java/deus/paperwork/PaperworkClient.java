@@ -20,8 +20,8 @@ public class PaperworkClient implements ClientStartEntrypoint, ClientModInitiali
 	@Override
 	public void beforeClientStart() {
 		try {
-			// TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.guiSpriteAtlas, true);
-			// TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.particleAtlas, true);
+			TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.guiSpriteAtlas, true);
+			TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.worldAtlas, true);
 		} catch (Exception var2) {
 			LOGGER.warn(MOD_ID+": Failed to fully initialize assets, some issue may occur!", var2);
 		}

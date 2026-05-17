@@ -6,9 +6,12 @@ import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.client.render.EntityRendererDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityDispatcher;
 import org.jetbrains.annotations.NotNull;
 import org.reflections.Reflections;
+import org.useless.dragonfly.data.entity.mojang.EntityGeometryMojangData;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
+import turniplabs.halplibe.helper.ModelHelper;
 
 public class EntityModelInitializer {
 
@@ -23,17 +26,15 @@ public class EntityModelInitializer {
 				try {
 					EntityRenderer<?> rendererInstance;
 
-					if (annotation.model() != StaticEntityModel.class) {
-						StaticEntityModel modelInstance = annotation.model().getDeclaredConstructor().newInstance();
-						rendererInstance = annotation.renderer()
-							.getDeclaredConstructor(annotation.model())
-							.newInstance(modelInstance);
-					} else {
-						rendererInstance = annotation.renderer()
-							.getDeclaredConstructor()
-							.newInstance();
-					}
-					addEntityModel(dispatcher, (Class<? extends Entity>) clazz, rendererInstance);
+					rendererInstance = annotation.renderer()
+						.getDeclaredConstructor()
+						.newInstance();
+
+					dispatcher.assignRenderer((Class)clazz, (EntityRenderer) rendererInstance);
+
+					EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForClass((Class) clazz);
+
+					Paperwork.LOGGER.info("Entity entry for {}: {}", clazz.getSimpleName(), entry != null ? entry.namespaceID : "NULL");
 
 					Paperwork.LOGGER.info("@Registered Renderer & Model for entity -> {}", clazz.getName());
 				} catch (Exception e) {
@@ -43,8 +44,5 @@ public class EntityModelInitializer {
 		}
 	}
 
-	public static void addEntityModel(EntityRendererDispatcher dispatcher, @NotNull Class<? extends Entity> clazz, EntityRenderer<?> renderer) {
-//		renderer.init(dispatcher);
-//		((IAEntityDispatcher) dispatcher).getRenderers().put(clazz, renderer);
-	}
+
 }

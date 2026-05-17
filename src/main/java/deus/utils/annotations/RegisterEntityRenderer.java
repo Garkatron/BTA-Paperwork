@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface RegisterEntityRenderer {
 	@NotNull Class<? extends EntityRenderer<?>> renderer();
-	@Nullable Class<? extends StaticEntityModel> model() default StaticEntityModel.class;
+	// @Nullable Class<? extends StaticEntityModel> model() default StaticEntityModel.class;
 }

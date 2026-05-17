@@ -1,5 +1,6 @@
-package deus.paperwork;
+package deus.paperwork.util;
 
+import deus.paperwork.Paperwork;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.item.PaperworkItems;
 import net.minecraft.core.block.Block;
@@ -11,7 +12,7 @@ import turniplabs.halplibe.util.toml.Toml;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-public class ConfigManager {
+public class PaperworkConfig {
 
 	public static TomlConfigHandler CONFIG;
 	public static final Toml TOML = new Toml("Settings :)");

@@ -1,14 +1,18 @@
 package deus.paperwork.item;
 
-import deus.paperwork.armor.PaperworkArmorMaterial;
+import deus.paperwork.item.base.CustomLayerItem;
+import deus.paperwork.item.base.ItemPencil;
+import deus.paperwork.item.base.ItemSpawner;
+import deus.paperwork.item.base.PlaceableFood;
+import deus.paperwork.other.PaperworkArmorMaterials;
 import deus.paperwork.block.PaperworkBlocks;
-import deus.paperwork.entities.cardboard_box.BoxSize;
 import deus.paperwork.entities.office_chair.EntityOfficeChair;
 import deus.paperwork.entities.singledonut.EntityDonut;
 import deus.paperwork.item.big_paperplane.ItemBigPaperPlane;
 import deus.paperwork.item.letter.ItemClosedLetter;
 import deus.paperwork.item.letter.ItemLetter;
 import deus.paperwork.item.paperplane.ItemPaperPlane;
+import deus.paperwork.other.PaperworkToolMaterials;
 import deus.utils.item.ItemFoodFactory;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLayerBase;
@@ -18,7 +22,7 @@ import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.tool.ItemToolSword;
 import turniplabs.halplibe.helper.ItemBuilder;
 
-import static deus.paperwork.ConfigManager.itemGoc;
+import static deus.paperwork.util.PaperworkConfig.itemGoc;
 import static deus.paperwork.Paperwork.MOD_ID;
 
 public class PaperworkItems {
@@ -53,25 +57,25 @@ public class PaperworkItems {
 
 		public static void initialize() {
 
-			NEWSPRINT = new CustomLayerItem(
-				"newsprint",
-				MOD_ID + ":item/newsprint",
-				itemGoc("NEWSPRINT"),
-				(Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_NEWSPRINT_LAYER
-			);
-
-			CARDBOARD = new CustomLayerItem(
-				"cardboard",
-				MOD_ID + ":item/cardboard",
-				itemGoc("CARDBOARD"),
-				(Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_CARDBOARD_LAYER
-			);
+//			NEWSPRINT = new CustomLayerItem(
+//				"newsprint",
+//				MOD_ID + ":item/newsprint",
+//				itemGoc("NEWSPRINT"),
+//				(Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_NEWSPRINT_LAYER
+//			);
+//
+//			CARDBOARD = new CustomLayerItem(
+//				"cardboard",
+//				MOD_ID + ":item/cardboard",
+//				itemGoc("CARDBOARD"),
+//				(Block<? extends BlockLogicLayerBase>) PaperworkBlocks.BLOCK_CARDBOARD_LAYER
+//			);
 
 			ARMOR_BOOTS_CARDBOARD = new ItemArmor<HumanArmorShape>(
 				"armor_boots_cardboard",
 				MOD_ID + ":item/armor/cardboard/boots",
 				itemGoc("ARMOR_BOOTS_CARDBOARD"),
-				PaperworkArmorMaterial.CARDBOARD,
+				PaperworkArmorMaterials.CARDBOARD,
 				HumanArmorShape.BOOTS
 			);
 
@@ -79,7 +83,7 @@ public class PaperworkItems {
 				"armor_leggins_cardboard",
 				MOD_ID + ":item/armor/cardboard/leggins",
 				itemGoc("ARMOR_LEGGINS_CARDBOARD"),
-				PaperworkArmorMaterial.CARDBOARD,
+				PaperworkArmorMaterials.CARDBOARD,
 				HumanArmorShape.LEGS
 			);
 
@@ -87,7 +91,7 @@ public class PaperworkItems {
 				"armor_chestplate_cardboard",
 				MOD_ID + ":item/armor/cardboard/chestplate",
 				itemGoc("ARMOR_CHESTPLATE_CARDBOARD"),
-				PaperworkArmorMaterial.CARDBOARD,
+				PaperworkArmorMaterials.CARDBOARD,
 				HumanArmorShape.CHEST
 			);
 
@@ -95,7 +99,7 @@ public class PaperworkItems {
 				"armor_helmet_cardboard",
 				MOD_ID + ":item/armor/cardboard/helmet",
 				itemGoc("ARMOR_HELMET_CARDBOARD"),
-				PaperworkArmorMaterial.CARDBOARD,
+				PaperworkArmorMaterials.CARDBOARD,
 				HumanArmorShape.HEAD
 			);
 
@@ -107,7 +111,7 @@ public class PaperworkItems {
 //			CARDBOARD_BOX_MEDIUM = new ItemCardboardBox("cardboard_box_medium", MOD_ID + ":item/cardboard_box_medium", itemGoc("CARDBOARD_BOX_MEDIUM"), BoxSize.MEDIUM);
 //			CARDBOARD_BOX_LARGE = new ItemCardboardBox("cardboard_box_large", MOD_ID + ":item/cardboard_box_large", itemGoc("CARDBOARD_BOX_LARGE"), BoxSize.LARGE);
 
-			CARDBOARD_TUBE = new ItemToolSword("cardboard_tube", MOD_ID + ":item/cardboard_tube", itemGoc("CARDBOARD_TUBE"), PaperworkToolMaterial.CARDBOARD);
+			CARDBOARD_TUBE = new ItemToolSword("cardboard_tube", MOD_ID + ":item/cardboard_tube", itemGoc("CARDBOARD_TUBE"), PaperworkToolMaterials.CARDBOARD);
 
 			LETTER = new ItemBuilder(MOD_ID).setStackSize(1).build(new ItemLetter("letter", MOD_ID + ":item/letter/letter", itemGoc("LETTER")));
 			CLOSED_LETTER = new ItemBuilder(MOD_ID).setStackSize(1).build(new ItemClosedLetter("closed_letter", MOD_ID + ":item/letter/closed_letter", itemGoc("CLOSED_LETTER")));

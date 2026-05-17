@@ -1,7 +1,6 @@
 package deus.paperwork.block.printer;
 
 import com.mojang.nbt.tags.CompoundTag;
-import deus.paperwork.block.PaperworkBlocks;
 import deus.utils.annotations.RegisterEntity;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntity;

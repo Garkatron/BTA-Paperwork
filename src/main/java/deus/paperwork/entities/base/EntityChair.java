@@ -1,10 +1,9 @@
-package deus.paperwork.entities;
+package deus.paperwork.entities.base;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.player.gamemode.Gamemodes;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -13,8 +12,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
-
-import static deus.paperwork.Paperwork.MOD_ID;
 
 public class EntityChair extends Entity {
 	public EntityChair(@Nullable World world) {

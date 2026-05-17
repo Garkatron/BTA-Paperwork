@@ -5,15 +5,10 @@
       "material/paper/put.ogg"
     ]
   },
-  "material.paper.jiggle0": {
+  "material.paper.jiggle": {
     "subtitle": "subtitles.material.paper.jiggle",
     "sounds": [
-      "material/paper/jiggle0.wav"
-    ]
-  },
-  "material.paper.jiggle1": {
-    "subtitle": "subtitles.material.paper.jiggle",
-    "sounds": [
+      "material/paper/jiggle0.wav",
       "material/paper/jiggle1.wav"
     ]
   },

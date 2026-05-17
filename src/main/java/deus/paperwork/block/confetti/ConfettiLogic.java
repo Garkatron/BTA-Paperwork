@@ -1,6 +1,6 @@
 package deus.paperwork.block.confetti;
 
-import deus.paperwork.block.PaperworkMaterial;
+import deus.paperwork.other.PaperworkMaterials;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.entity.TileEntity;
@@ -10,7 +10,7 @@ import net.minecraft.core.world.World;
 
 public class ConfettiLogic extends BlockLogic {
 	public ConfettiLogic(Block<?> block) {
-		super(block, PaperworkMaterial.paper);
+		super(block, PaperworkMaterials.PAPER);
 		setBlockBounds(0,0.0,0f,1,0,1);
 
 	}

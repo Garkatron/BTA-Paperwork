@@ -1,7 +1,7 @@
 package deus.paperwork.item.big_paperplane;
 
 import deus.paperwork.entities.big_paperplane.EntityBigPaperPlane;
-import deus.paperwork.item.ItemColored;
+import deus.paperwork.item.base.ItemColored;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemPaintBrush;
 import net.minecraft.core.item.ItemStack;

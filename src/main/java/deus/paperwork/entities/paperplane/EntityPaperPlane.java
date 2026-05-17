@@ -7,7 +7,6 @@ import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.player.gamemode.Gamemodes;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.DyeColor;
@@ -19,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
+@RegisterEntityRenderer(renderer = PaperPlaneRenderer.class)
 @RegisterEntity(modId = MOD_ID, id = "paperplane", name = "paperplane")
 public class EntityPaperPlane extends Entity {
 	public enum WetState {
@@ -169,7 +169,7 @@ public class EntityPaperPlane extends Entity {
 			this.markHurt();
 
 			if (entity!=null) {
-				world.playSoundAtEntity(null, entity, MOD_ID+":material.paper.jiggle0",  1.5F, 1.5f);
+				world.playSoundAtEntity(null, entity, MOD_ID+":material.paper.jiggle",  1.5F, 1.5f);
 			}
 
 			if (entity instanceof Player && ((Player)entity).getGamemode() == Gamemodes.CREATIVE) {

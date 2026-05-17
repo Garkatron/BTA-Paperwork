@@ -1,9 +1,8 @@
-package deus.paperwork.entities;
+package deus.paperwork.entities.base;
 
 import deus.paperwork.item.PaperworkItems;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.ItemFood;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -11,8 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
-
-import static deus.paperwork.Paperwork.MOD_ID;
 
 public abstract class EntityFood extends TexturedEntity {
 	protected String sound = "";

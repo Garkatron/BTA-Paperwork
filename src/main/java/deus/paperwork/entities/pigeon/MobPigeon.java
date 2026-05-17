@@ -1,8 +1,10 @@
 package deus.paperwork.entities.pigeon;
 
 import com.mojang.nbt.tags.CompoundTag;
+import deus.paperwork.entities.paperplane.PaperPlaneRenderer;
 import deus.paperwork.item.PaperworkItems;
 import deus.utils.annotations.RegisterEntity;
+import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.core.WeightedRandomLootObject;
 
 import net.minecraft.core.entity.animal.MobAnimal;
@@ -19,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
+@RegisterEntityRenderer(renderer = MobPigeonRenderer.class)
 @RegisterEntity(modId = MOD_ID, id = "pigeon", name = "pigeon")
 public class MobPigeon extends MobAnimal {
 	private static final Logger LOGGER = LogManager.getLogger(MobPigeon.class);

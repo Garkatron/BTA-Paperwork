@@ -1,24 +1,16 @@
-package deus.paperwork.entry_points;
+package deus.paperwork;
 
-import deus.paperwork.block.PaperworkBlocks;
-import deus.paperwork.item.PaperworkItems;
-import deus.paperwork.recipe.RecipeEntryPrinter;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.RecipeNamespace;
-import net.minecraft.core.data.registry.recipe.RecipeGroup;
-import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
-import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static deus.paperwork.Paperwork.MOD_ID;
-import static net.minecraft.core.data.registry.Registries.stackListOf;
 
 public class PaperworkRecipes implements RecipeEntrypoint {
 
@@ -28,7 +20,7 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 	public void initNamespaces() {
 		Registries.RECIPES.register(MOD_ID, PAPERWORK_RECIPE_NAMESPACE);
 
-		Registries.RECIPE_TYPES.register(MOD_ID + ":printer", RecipeEntryPrinter.class);
+		// Registries.RECIPE_TYPES.register(MOD_ID + ":printer", RecipeEntryPrinter.class);
 
 		List<ItemStack> dyeList = new ArrayList<>();
 
@@ -40,7 +32,7 @@ public class PaperworkRecipes implements RecipeEntrypoint {
 		}
 		Registries.ITEM_GROUPS.register(MOD_ID+":dyes", dyeList);
 
-		PAPERWORK_RECIPE_NAMESPACE.register("printer", new RecipeGroup<RecipeEntryPrinter>(new RecipeSymbol(MOD_ID+":dyes")));
+		// PAPERWORK_RECIPE_NAMESPACE.register("printer", new RecipeGroup<RecipeEntryPrinter>(new RecipeSymbol(MOD_ID+":dyes")));
 	}
 
 	@Override

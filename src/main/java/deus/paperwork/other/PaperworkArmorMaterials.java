@@ -1,4 +1,4 @@
-package deus.paperwork.armor;
+package deus.paperwork.other;
 
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -6,12 +6,12 @@ import net.minecraft.core.util.helper.DamageType;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
-public class PaperworkArmorMaterial extends ArmorMaterial {
+public class PaperworkArmorMaterials extends ArmorMaterial {
 
 	public static final ArmorMaterial CARDBOARD;
 
 
-	public PaperworkArmorMaterial(NamespaceID identifier, int durability) {
+	public PaperworkArmorMaterials(NamespaceID identifier, int durability) {
 		super(identifier, durability);
 	}
 

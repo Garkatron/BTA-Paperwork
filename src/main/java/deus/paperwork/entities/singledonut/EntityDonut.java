@@ -1,7 +1,7 @@
 package deus.paperwork.entities.singledonut;
 
 import com.mojang.nbt.tags.CompoundTag;
-import deus.paperwork.entities.EntityFood;
+import deus.paperwork.entities.base.EntityFood;
 import deus.utils.annotations.RegisterEntity;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;

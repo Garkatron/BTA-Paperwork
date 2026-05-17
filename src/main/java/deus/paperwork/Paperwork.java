@@ -1,11 +1,12 @@
 package deus.paperwork;
 
 import deus.paperwork.block.PaperworkBlocks;
-import deus.paperwork.entry_points.PaperworkSounds;
 import deus.paperwork.item.PaperworkItems;
+import deus.paperwork.util.PaperworkConfig;
 import deus.utils.initializers.EntityInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.core.sound.SoundTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.util.GameStartEntrypoint;
@@ -17,7 +18,7 @@ public class Paperwork implements ModInitializer, GameStartEntrypoint {
 
 
 	static {
-		ConfigManager.makeConfig();
+		PaperworkConfig.makeConfig();
 	}
 
 
@@ -26,16 +27,17 @@ public class Paperwork implements ModInitializer, GameStartEntrypoint {
 		PaperworkBlocks.initialize();
 		PaperworkItems.initialize();
 		EntityInitializer.initialize("deus.paperwork");
-		LOGGER.info(MOD_ID+" Core Initialized.");
+		LOGGER.info(MOD_ID + " Core Initialized.");
     }
 
 
 	@Override
 	public void beforeGameStart() {
-		PaperworkSounds.initialize();
+		SoundTypes.loadSoundsJson(MOD_ID);
+		LOGGER.info(MOD_ID+" Sounds Initialized.");
 
 		try {
-			// TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.blockAtlas, true);
+			TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.worldAtlas, true);
 		} catch (Exception var2) {
 			LOGGER.warn("PainScale: Failed to fully initialize assets, some issue may occur!", var2);
 		}

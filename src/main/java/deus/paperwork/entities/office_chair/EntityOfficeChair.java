@@ -1,6 +1,6 @@
 package deus.paperwork.entities.office_chair;
 
-import deus.paperwork.entities.EntityChair;
+import deus.paperwork.entities.base.EntityChair;
 import deus.utils.annotations.RegisterEntity;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
