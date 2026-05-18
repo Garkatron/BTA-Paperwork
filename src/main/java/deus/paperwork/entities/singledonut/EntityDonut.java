@@ -2,7 +2,9 @@ package deus.paperwork.entities.singledonut;
 
 import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.entities.base.EntityFood;
+import deus.paperwork.entities.pigeon.MobPigeonRenderer;
 import deus.utils.annotations.RegisterEntity;
+import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -10,7 +12,8 @@ import org.jetbrains.annotations.Nullable;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
-@RegisterEntity(modId = MOD_ID, id = "donut", name = "donut")
+@RegisterEntityRenderer(renderer = EntityDonutRenderer.class)
+@RegisterEntity(id = "donut", name = "donut")
 public class EntityDonut extends EntityFood {
 	public EntityDonut(@Nullable World world) {
 		super(world);

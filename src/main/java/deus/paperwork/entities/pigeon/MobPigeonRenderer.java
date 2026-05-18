@@ -4,6 +4,7 @@ import deus.paperwork.Paperwork;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
+import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,14 +18,13 @@ public class MobPigeonRenderer extends MobRenderer<MobPigeon> {
 		super(0.2f);
 	}
 
+
 	@Override
 	protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NotNull MobPigeon entity, float brightness, float partialTick, int layer) {
 		StaticEntityModel model = this.getModel("main");
-		
 		this.bindTexture("/assets/paperwork/textures/entity/pigeon/" + entity.getTextureReference() + ".png");
 
 		model.resetBones();
-
 		float limbSwing = this.getLimbSwing(entity, partialTick);
 		float limbYaw = this.getLimbYaw(entity, partialTick);
 		float limbPitch = this.getLimbPitch(entity, partialTick);

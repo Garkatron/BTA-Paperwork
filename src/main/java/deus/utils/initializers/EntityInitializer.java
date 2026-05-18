@@ -10,6 +10,8 @@ import net.minecraft.core.entity.factories.EntityFactory;
 import net.minecraft.core.util.collection.NamespaceID;
 import org.reflections.Reflections;
 
+import static deus.paperwork.Paperwork.MOD_ID;
+
 public class EntityInitializer {
 	public static void initialize(String prefix) {
 		Reflections reflections = new Reflections(prefix);
@@ -17,7 +19,7 @@ public class EntityInitializer {
 			RegisterEntity annotation = clazz.getAnnotation(RegisterEntity.class);
 			if (annotation != null) {
 				if (TileEntity.class.isAssignableFrom(clazz)) {
-					TileEntityDispatcher.addMapping((Class<? extends TileEntity>) clazz, NamespaceID.fromPool(annotation.modId(), annotation.id()));
+					TileEntityDispatcher.addMapping((Class<? extends TileEntity>) clazz, NamespaceID.fromPool(MOD_ID, annotation.id()));
 				} else if (Entity.class.isAssignableFrom(clazz)) {
 					registerEntity((Class<? extends Entity>) clazz, annotation);
 				}
@@ -37,7 +39,7 @@ public class EntityInitializer {
 
 		EntityDispatcher.getInstance().addMapping(
 			entityClass,
-			NamespaceID.fromPool(annotation.modId(), annotation.id()),
+			NamespaceID.fromPool(MOD_ID, annotation.id()),
 			factory
 		);
 	}

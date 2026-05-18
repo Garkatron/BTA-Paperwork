@@ -6,6 +6,7 @@ import net.minecraft.client.render.TileEntityRenderDispatcher;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
+import org.useless.dragonfly.models.entity.StaticEntityModel;
 import turniplabs.halplibe.util.ModelEntrypoint;
 
 public class PaperworkModelEntrypoint implements ModelEntrypoint {
@@ -21,6 +22,8 @@ public class PaperworkModelEntrypoint implements ModelEntrypoint {
 
 	@Override
 	public void initEntityModels(EntityRendererDispatcher dispatcher) {
+	
+
 		Paperwork.LOGGER.info("Initializing models...");
 		EntityModelInitializer.initialize("deus.paperwork", dispatcher);
 

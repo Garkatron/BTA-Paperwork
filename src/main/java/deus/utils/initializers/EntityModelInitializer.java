@@ -34,8 +34,6 @@ public class EntityModelInitializer {
 
 					EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForClass((Class) clazz);
 
-					Paperwork.LOGGER.info("Entity entry for {}: {}", clazz.getSimpleName(), entry != null ? entry.namespaceID : "NULL");
-
 					Paperwork.LOGGER.info("@Registered Renderer & Model for entity -> {}", clazz.getName());
 				} catch (Exception e) {
 					Paperwork.LOGGER.error("Failed to register Renderer & Model for entity -> {}", clazz.getSimpleName(), e);

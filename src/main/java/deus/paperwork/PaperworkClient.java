@@ -3,6 +3,7 @@ package deus.paperwork;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
+import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.util.collection.NamespaceID;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;

@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 
+
 public class ClippyRenderer extends EntityRenderer<MobClippy> {
 
 

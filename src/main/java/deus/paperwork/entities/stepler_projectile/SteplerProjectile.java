@@ -9,7 +9,7 @@ import net.minecraft.core.world.World;
 import static deus.paperwork.Paperwork.MOD_ID;
 
 @RegisterEntityRenderer(renderer = SteplerProjectileRenderer.class)
-@RegisterEntity(modId = MOD_ID, name = "entity_stepler_projectile", id = "entity_stepler_projectile")
+@RegisterEntity(name = "entity_stepler_projectile", id = "entity_stepler_projectile")
 public class SteplerProjectile extends Projectile {
 	public SteplerProjectile(World world, Mob owner) {
 		super(world, owner);

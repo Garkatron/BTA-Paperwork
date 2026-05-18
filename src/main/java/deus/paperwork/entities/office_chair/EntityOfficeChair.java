@@ -6,7 +6,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import static deus.paperwork.Paperwork.MOD_ID;
 
-@RegisterEntity(modId = MOD_ID, id = "office_chair", name = "office_chair")
+@RegisterEntity(id = "office_chair", name = "office_chair")
 public class EntityOfficeChair extends EntityChair {
 	public EntityOfficeChair(@Nullable World world) {
 		super(world);

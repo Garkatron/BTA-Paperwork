@@ -1,7 +1,8 @@
 {
   "model_paths": [
     "/assets/paperwork/models/entity/pigeon.geo.json",
-    "/assets/paperwork/models/entity/donut.geo.json"
+    "/assets/paperwork/models/entity/donut.geo.json",
+    "/assets/paperwork/models/entity/paperplane.geo.json"
   ],
   "custom_player_models": {},
   "renderers": {
@@ -10,6 +11,9 @@
     },
     "paperwork:donut": {
       "main": "geometry.paperwork.donut"
+    },
+    "paperwork:paperplane": {
+      "main": "geometry.paperwork.paperplane"
     }
   }
 }

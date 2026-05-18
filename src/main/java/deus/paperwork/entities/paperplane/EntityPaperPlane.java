@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import static deus.paperwork.Paperwork.MOD_ID;
 
 @RegisterEntityRenderer(renderer = PaperPlaneRenderer.class)
-@RegisterEntity(modId = MOD_ID, id = "paperplane", name = "paperplane")
+@RegisterEntity(id = "paperplane", name = "paperplane")
 public class EntityPaperPlane extends Entity {
 	public enum WetState {
 		DRY(0),

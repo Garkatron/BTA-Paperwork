@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import static deus.paperwork.Paperwork.MOD_ID;
 
 @RegisterEntityRenderer(renderer = MobPigeonRenderer.class)
-@RegisterEntity(modId = MOD_ID, id = "pigeon", name = "pigeon")
+@RegisterEntity(id = "pigeon", name = "pigeon")
 public class MobPigeon extends MobAnimal {
 	private static final Logger LOGGER = LogManager.getLogger(MobPigeon.class);
 // 	protected @NotNull NamespaceID textureIdentifier = NamespaceID.getPermanent(MOD_ID, "pigeon");
