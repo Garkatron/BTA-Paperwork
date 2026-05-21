@@ -2,6 +2,9 @@ package deus.paperwork.item;
 
 import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.entities.cardboard_box.BoxSize;
+import deus.paperwork.entities.cardboard_box.EntityCardboardBox;
+import deus.utils.annotations.RegisterItemModel;
+import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -17,6 +20,7 @@ import org.jspecify.annotations.NonNull;
 
 import java.lang.reflect.Constructor;
 
+@RegisterItemModel(model = ItemModelStandard.class)
 public class ItemCardboardBox extends Item {
 
 	private final BoxSize boxSize;

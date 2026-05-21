@@ -1,9 +1,12 @@
 package deus.paperwork.item.base;
 
+import deus.utils.annotations.RegisterItemModel;
+import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLayerBase;
 import net.minecraft.core.item.Item;
 
+@RegisterItemModel(model = ItemModelStandard.class)
 public class CustomLayerItem extends Item {
 	private final Block<? extends BlockLogicLayerBase> block;
 

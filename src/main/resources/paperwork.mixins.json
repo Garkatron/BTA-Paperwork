@@ -11,7 +11,9 @@
   ],
   "client": [
     "IAEntityDispatcher",
-    "MobRendererPlayerMixin"
+    "MobRendererPlayerMixin",
+    "PlayerLocalMixin"
+
   ],
   "injectors": {
     "defaultRequire": 1

@@ -2,6 +2,8 @@ package deus.paperwork.item.letter;
 
 import com.mojang.nbt.tags.CompoundTag;
 import deus.paperwork.item.PaperworkItems;
+import deus.utils.annotations.RegisterItemModel;
+import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -9,6 +11,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@RegisterItemModel(model = ItemModelStandard.class)
 public class ItemClosedLetter extends Item {
 	public ItemClosedLetter(String translationKey, String namespaceId, int id) {
 		super(translationKey, namespaceId, id);

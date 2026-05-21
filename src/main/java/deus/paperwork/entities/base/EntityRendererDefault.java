@@ -19,6 +19,7 @@ public abstract class EntityRendererDefault<T extends Entity> extends EntityRend
 		GLRenderer.enableState(State.BLEND);
 		GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
 		GLRenderer.disableState(State.CULL_FACE);
+		GLRenderer.setLightmapCoord2i(15, 15);
 
 		this.loadTexture(entity);
 		this.applyTransform(entity, x, y, z, yaw, partialTick);
@@ -43,6 +44,6 @@ public abstract class EntityRendererDefault<T extends Entity> extends EntityRend
 	protected void applyTransform(T entity, double x, double y, double z, float yaw, float partialTick) {
 		GLRenderer.modelM4f().translate((float)x, (float)y, (float)z);
 		GLRenderer.modelM4f().rotateY(org.joml.Math.toRadians(yaw));
-		GLRenderer.modelM4f().scale(0.0625F, 0.0625F, 0.0625F);
+		GLRenderer.modelM4f().scale(0.0625F, 0.0625F, -0.0625F);
 	}
 }

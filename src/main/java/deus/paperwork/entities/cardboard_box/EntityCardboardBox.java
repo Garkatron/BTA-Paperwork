@@ -4,7 +4,6 @@ import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
 import deus.paperwork.Paperwork;
 import deus.paperwork.entities.motion.CarriedEntity;
-import deus.paperwork.interfaces.IPaperworkDisplay;
 import deus.paperwork.interfaces.IItemWeight;
 import deus.paperwork.item.PaperworkItems;
 import deus.utils.annotations.RegisterEntity;
@@ -32,17 +31,18 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.primitives.AABBdc;
 
 import java.lang.reflect.Constructor;
+import java.util.Objects;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
 @RegisterEntityRenderer(renderer = RendererCardboardBox.class)
-@RegisterEntity(modId = MOD_ID, id = "cardboard_box", name = "cardboard_box")
+@RegisterEntity(id = "cardboard_box", name = "cardboard_box")
 public class EntityCardboardBox extends Entity implements Container {
 
 	private final double DEFAULT_GRAVITY = 0.1F;
 
 	private ItemStack[] chestContents = new ItemStack[36];
-	private BoxSize boxSize = BoxSize.SMALL;
+	private BoxSize boxSize = BoxSize.LARGE;
 	public boolean slotsLocked = false;
 	private DyeColor color = null;
 	public boolean halloween = false;
@@ -52,7 +52,7 @@ public class EntityCardboardBox extends Entity implements Container {
 	private NamespaceID savedEntityNamespaceId = null;
 
 	public EntityCardboardBox(@Nullable World world) {
-		super(world);
+		super(Objects.requireNonNull(world));
 		this.setSize(0.8F, 0.8F);
 	}
 
@@ -304,7 +304,7 @@ public class EntityCardboardBox extends Entity implements Container {
 					itemStack.consumeItem(player);
 				}
 			} else {
-				((IPaperworkDisplay) player).paperwork$displayCardboardBoxScreen(this);
+				// ((IPaperworkDisplay) player).paperwork$displayCardboardBoxScreen(this);
 			}
 		}
 		return true;
@@ -342,18 +342,14 @@ public class EntityCardboardBox extends Entity implements Container {
 					world.setTileEntity((int) x, (int) y, (int) z, newTileEntity);
 				}
 			} else if(savedEntityNamespaceId != null) {
-				try {
-					// Constructor<? extends Entity> constructor = EntityDispatcher.classForId(savedEntityNamespaceId).getDeclaredConstructor(World.class);
-					//constructor.setAccessible(true);
-					// Entity newEntity = constructor.newInstance(world);
+				// Constructor<? extends Entity> constructor = EntityDispatcher.classForId(savedEntityNamespaceId).getDeclaredConstructor(World.class);
+				//constructor.setAccessible(true);
+				// Entity newEntity = constructor.newInstance(world);
 
-					newEntity.readAdditionalSaveData(this.entityCompoundTag);
-					newEntity.moveTo(x + 0.5, y, z + 0.5, 0, 0);
-					newEntity.spawnInit();
-					world.entityJoinedWorld(newEntity);
-				} catch (ReflectiveOperationException e) {
-					Paperwork.LOGGER.error("[" + getClass().getSimpleName() + "] Error instancing entity...");
-				}
+//					newEntity.readAdditionalSaveData(this.entityCompoundTag);
+//					newEntity.moveTo(x + 0.5, y, z + 0.5, 0, 0);
+//					newEntity.spawnInit();
+//					world.entityJoinedWorld(newEntity);
 			}
 
 			dropAdditionalContent();
@@ -434,10 +430,10 @@ public class EntityCardboardBox extends Entity implements Container {
 	}
 
 	public void setEntity(Entity entity) {
-		this.entityCompoundTag = new CompoundTag();
-		entity.addAdditionalSaveData(entityCompoundTag);
-		savedEntityNamespaceId = EntityDispatcher.idForClass(entity.getClass());
-		savedEntityNamespaceId.makePermanent();
+//		this.entityCompoundTag = new CompoundTag();
+//		entity.addAdditionalSaveData(entityCompoundTag);
+//		savedEntityNamespaceId = EntityDispatcher.idForClass(entity.getClass());
+//		savedEntityNamespaceId.makePermanent();
 	}
 
 	@Override

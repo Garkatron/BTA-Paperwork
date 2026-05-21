@@ -17,7 +17,6 @@ public class EntityDonutRenderer extends EntityRendererDefault<EntityDonut> {
 
 	@Override
 	protected StaticEntityModel getModel(EntityDonut entity, float partialTick) {
-		StaticEntityModel model = this.getModel("main");
-		return model;
+		return this.getModel("main");
 	}
 }

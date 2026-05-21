@@ -1,6 +1,7 @@
 package deus.paperwork;
 
 import deus.utils.initializers.EntityModelInitializer;
+import deus.utils.initializers.ItemModelInitializer;
 import net.minecraft.client.render.EntityRendererDispatcher;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
@@ -17,22 +18,18 @@ public class PaperworkModelEntrypoint implements ModelEntrypoint {
 
 	@Override
 	public void initItemModels(ItemModelDispatcher dispatcher) {
-
+		ItemModelInitializer.initialize("deus.paperwork.item", dispatcher);
 	}
 
 	@Override
 	public void initEntityModels(EntityRendererDispatcher dispatcher) {
-	
-
 		Paperwork.LOGGER.info("Initializing models...");
-		EntityModelInitializer.initialize("deus.paperwork", dispatcher);
+		EntityModelInitializer.initialize("deus.paperwork.entities", dispatcher);
 
 	}
 
 	@Override
-	public void initTileEntityModels(TileEntityRenderDispatcher dispatcher) {
-
-	}
+	public void initTileEntityModels(TileEntityRenderDispatcher dispatcher) {}
 
 	@Override
 	public void initBlockColors(BlockColorDispatcher dispatcher) {

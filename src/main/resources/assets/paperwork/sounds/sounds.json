@@ -8,7 +8,18 @@
   "material.paper.jiggle": {
     "subtitle": "subtitles.material.paper.jiggle",
     "sounds": [
-      "material/paper/jiggle0.wav",
+      "material/paper/jiggle0.wav"
+    ]
+  },
+  "material.paper.jiggle1": {
+    "subtitle": "subtitles.material.paper.jiggle1",
+    "sounds": [
+      "material/paper/jiggle1.wav"
+    ]
+  },
+  "material.paper.jiggle2": {
+    "subtitle": "subtitles.material.paper.jiggle2",
+    "sounds": [
       "material/paper/jiggle1.wav"
     ]
   },

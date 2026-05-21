@@ -1,13 +1,17 @@
 package deus.paperwork;
 
+import deus.brainless.ai.AI;
 import deus.paperwork.block.PaperworkBlocks;
 import deus.paperwork.entities.pigeon.MobPigeon;
 import deus.paperwork.item.PaperworkItems;
 import deus.paperwork.util.PaperworkConfig;
 import deus.utils.initializers.EntityInitializer;
+import deus.utils.react.React;
+import deus.utils.react.State;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.entity.EntityDispatcher;
+import net.minecraft.core.entity.animal.MobDeer;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
 import org.slf4j.Logger;
@@ -21,33 +25,32 @@ public class Paperwork implements ModInitializer, GameStartEntrypoint {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-
 	static {
 		PaperworkConfig.makeConfig();
 	}
 
-
 	@Override
-    public void onInitialize() {
+	public void onInitialize() {
 		PaperworkBlocks.initialize();
 		PaperworkItems.initialize();
-
-
 		EntityInitializer.initialize("deus.paperwork");
-		LOGGER.info(MOD_ID + " Core Initialized.");
+
+		LOGGER.info("{} Core Initialized.", MOD_ID);
+		
+
     }
 
 
 	@Override
 	public void beforeGameStart() {
-		SoundTypes.loadSoundsJson(MOD_ID);
-		LOGGER.info(MOD_ID+" Sounds Initialized.");
-
-		try {
-			TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.worldAtlas, true);
-		} catch (Exception var2) {
-			LOGGER.warn("PainScale: Failed to fully initialize assets, some issue may occur!", var2);
-		}
+		// SoundTypes.loadSoundsJson(MOD_ID);
+		// LOGGER.info("{} Sounds Initialized.", MOD_ID);
+//
+//		try {
+//			TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.worldAtlas, true);
+//		} catch (Exception var2) {
+//			LOGGER.warn("PainScale: Failed to fully initialize assets, some issue may occur!", var2);
+//		}
 
 		// Paperwork.LOGGER.info("AAAAAAA {}", DragonFly.loadEntityAnimations(MOD_ID,"pigeon").isLoop());
 		//SoundHelper.addSound(MOD_ID, "material/paper/paper.wav" );

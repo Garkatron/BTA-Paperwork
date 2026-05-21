@@ -39,14 +39,19 @@ gson = "2.13.2"
 commonsLang3 = "3.20.0"
 # This should match the version used by the current BTA release.
 lwjgl = "3.3.3"
-
 reflections = "0.10.2"
+brainless = "v1.1.0-pre5"
+
+
 ##########################################################################
 
 [libraries]
+
+
 loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "loader" }
 halplibe = { group = "turniplabs", name = "halplibe", version.ref = "halplibe" }
 modMenu = { group = "turniplabs", name = "modmenu-bta", version.ref = "modMenu" }
+brainless = { group = "com.github.Garkatronics-MC", name = "BTA-Brainless", version.ref = "brainless" }
 legacyLwjgl = { group = "legacy-lwjgl3", name = "legacy-lwjgl3", version.ref = "legacyLwjgl" }
 slf4jApi = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4jApi" }
 guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }

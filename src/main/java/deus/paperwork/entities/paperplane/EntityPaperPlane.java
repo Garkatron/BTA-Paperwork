@@ -66,6 +66,7 @@ public class EntityPaperPlane extends Entity {
 		this.entityData.define(DATA_WET_STATE, currentTimeUnderRain, Integer.class);
 	}
 
+
 	protected void updateWet() {
 		if (world.dimension.id != Dimension.NETHER.id && world.getWeatherManager().getCurrentWeather() == Weathers.OVERWORLD_RAIN) {
 			if (currentTimeUnderRain < maxTimeUnderRain) {

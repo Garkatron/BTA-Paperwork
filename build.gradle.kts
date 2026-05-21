@@ -22,6 +22,7 @@ repositories {
     maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
     maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
 	maven("https://maven.thesignalumproject.net/nightly") { name = "SignalumMavenNightly" }
+	maven("https://jitpack.io")
     ivy("https://github.com/Better-than-Adventure") {
         patternLayout { artifact("[organisation]/releases/download/[revision]/[module]-bta-[revision].jar") }
         metadataSources { artifact() }
@@ -51,6 +52,7 @@ dependencies {
 	// If you do not need Halplibe you can comment out or delete this line.
 	implementation(libs.halplibe)
 	implementation(libs.modMenu)
+	implementation(libs.brainless)
 
 	implementation(libs.reflections)
 
@@ -76,6 +78,8 @@ java {
 	targetCompatibility = JavaVersion.toVersion(javaVersion.get())
 	withSourcesJar()
 }
+
+
 val licenseFile = run {
 	val rootLicense = layout.projectDirectory.file("LICENSE")
 	val parentLicense = layout.projectDirectory.file("../LICENSE")

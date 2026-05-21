@@ -2,6 +2,8 @@ package deus.paperwork.item.paperplane;
 
 import deus.paperwork.entities.paperplane.EntityPaperPlane;
 import deus.paperwork.item.base.ItemColored;
+import deus.utils.annotations.RegisterItemModel;
+import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemPaintBrush;
 import net.minecraft.core.item.ItemStack;
@@ -13,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
+@RegisterItemModel(model = ItemModelStandard.class)
 public class ItemPaperPlane extends ItemColored {
 	public ItemPaperPlane(String translationKey, String namespaceId, int id) {
 		super(translationKey, namespaceId, id);
@@ -41,6 +44,6 @@ public class ItemPaperPlane extends ItemColored {
 
 		world.entityJoinedWorld(paperPlane);
 		selfStack.consumeItem(player);
-		return super.onUseItem(selfStack, world, player);
+		return super.onUse(selfStack, world, player);
 	}
 }

@@ -2,7 +2,11 @@
   "model_paths": [
     "/assets/paperwork/models/entity/pigeon.geo.json",
     "/assets/paperwork/models/entity/donut.geo.json",
-    "/assets/paperwork/models/entity/paperplane.geo.json"
+    "/assets/paperwork/models/entity/paperplane.geo.json",
+    "/assets/paperwork/models/entity/cardboard_box.geo.json",
+    "/assets/paperwork/models/entity/gift_box.geo.json",
+    "/assets/paperwork/models/entity/office_chair.geo.json",
+    "/assets/paperwork/models/entity/employee.geo.json"
   ],
   "custom_player_models": {},
   "renderers": {
@@ -12,8 +16,20 @@
     "paperwork:donut": {
       "main": "geometry.paperwork.donut"
     },
+    "paperwork:cardboard_box": {
+      "main": "geometry.paperwork.cardboard_box"
+    },
+    "paperwork:gift_box": {
+      "main": "geometry.paperwork.gift_box"
+    },
     "paperwork:paperplane": {
       "main": "geometry.paperwork.paperplane"
+    },
+    "paperwork:office_chair": {
+      "main": "geometry.paperwork.office_chair"
+    },
+    "paperwork:employee": {
+      "main": "geometry.paperwork.employee"
     }
   }
 }

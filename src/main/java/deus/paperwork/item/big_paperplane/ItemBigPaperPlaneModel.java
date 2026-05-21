@@ -1,23 +1,22 @@
 package deus.paperwork.item.big_paperplane;
 
-import net.minecraft.client.render.ItemRenderer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.item.model.ItemModelStandard;
-import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemPaintBrush;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DyeColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.opengl.GL11;
 
 import java.util.Iterator;
 
-public class ItemBigPaperplaneModel extends ItemModelStandard {
+@Environment(EnvType.CLIENT)
+public class ItemBigPaperPlaneModel extends ItemModelStandard {
 
 	public static IconCoordinate emptyIcon = TextureRegistry.getTexture("paperwork:item/big_paperplane/big_paperplane");
 	public static IconCoordinate[] paintbrushIcons = new IconCoordinate[16];
@@ -36,7 +35,7 @@ public class ItemBigPaperplaneModel extends ItemModelStandard {
 
 	}
 
-	public ItemBigPaperplaneModel(Item item, String namespace) {
+	public ItemBigPaperPlaneModel(Item item, String namespace) {
 		super(item, namespace);
 	}
 }

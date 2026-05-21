@@ -1,5 +1,7 @@
 package deus.paperwork.item.custom_paper;
 
+import deus.utils.annotations.RegisterItemModel;
+import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
@@ -10,6 +12,7 @@ import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 
+@RegisterItemModel(model = CustomItemPaperModel.class)
 public class CustomItemPaper extends Item {
 
 	private boolean shouldDye = false;

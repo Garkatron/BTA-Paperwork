@@ -2,6 +2,8 @@ package deus.paperwork.item.base;
 
 
 import deus.paperwork.interfaces.IPlaceable;
+import deus.utils.annotations.RegisterItemModel;
+import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemFood;
@@ -15,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 
-
+@RegisterItemModel(model = ItemModelStandard.class)
 public class PlaceableFood extends ItemFood implements IPlaceable {
 	protected int amount = 1;
 	protected Class<? extends Entity> entity = null;

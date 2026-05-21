@@ -1,5 +1,6 @@
 package deus.paperwork.item;
 
+import deus.paperwork.entities.cardboard_box.BoxSize;
 import deus.paperwork.item.base.CustomLayerItem;
 import deus.paperwork.item.base.ItemPencil;
 import deus.paperwork.item.base.ItemSpawner;
@@ -106,10 +107,10 @@ public class PaperworkItems {
 			PAPERPLANE = new ItemPaperPlane("paperplane", MOD_ID + ":item/paperplane/paperplane", itemGoc("PAPERPLANE"));
 			BIG_PAPERPLANE = new ItemBigPaperPlane("big_paperplane", MOD_ID + ":item/big_paperplane", itemGoc("BIG_PAPERPLANE"));
 
-//			CARDBOARD_BOX_REGULAR = new ItemCardboardBox("cardboard_box_regular", MOD_ID + ":item/cardboard_box_regular", itemGoc("CARDBOARD_BOX_REGULAR"), BoxSize.REGULAR);
-//			CARDBOARD_BOX_SMALL = new ItemCardboardBox("cardboard_box_small", MOD_ID + ":item/cardboard_box_small", itemGoc("CARDBOARD_BOX_SMALL"), BoxSize.SMALL);
-//			CARDBOARD_BOX_MEDIUM = new ItemCardboardBox("cardboard_box_medium", MOD_ID + ":item/cardboard_box_medium", itemGoc("CARDBOARD_BOX_MEDIUM"), BoxSize.MEDIUM);
-//			CARDBOARD_BOX_LARGE = new ItemCardboardBox("cardboard_box_large", MOD_ID + ":item/cardboard_box_large", itemGoc("CARDBOARD_BOX_LARGE"), BoxSize.LARGE);
+			CARDBOARD_BOX_REGULAR = new ItemCardboardBox("cardboard_box_regular", MOD_ID + ":item/cardboard_box_regular", itemGoc("CARDBOARD_BOX_REGULAR"), BoxSize.REGULAR);
+			CARDBOARD_BOX_SMALL = new ItemCardboardBox("cardboard_box_small", MOD_ID + ":item/cardboard_box_small", itemGoc("CARDBOARD_BOX_SMALL"), BoxSize.SMALL);
+			CARDBOARD_BOX_MEDIUM = new ItemCardboardBox("cardboard_box_medium", MOD_ID + ":item/cardboard_box_medium", itemGoc("CARDBOARD_BOX_MEDIUM"), BoxSize.MEDIUM);
+			CARDBOARD_BOX_LARGE = new ItemCardboardBox("cardboard_box_large", MOD_ID + ":item/cardboard_box_large", itemGoc("CARDBOARD_BOX_LARGE"), BoxSize.LARGE);
 
 			CARDBOARD_TUBE = new ItemToolSword("cardboard_tube", MOD_ID + ":item/cardboard_tube", itemGoc("CARDBOARD_TUBE"), PaperworkToolMaterials.CARDBOARD);
 

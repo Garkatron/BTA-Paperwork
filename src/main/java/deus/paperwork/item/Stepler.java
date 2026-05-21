@@ -2,12 +2,15 @@ package deus.paperwork.item;
 
 import deus.paperwork.entities.clippy.MobClippy;
 import deus.paperwork.entities.stepler_projectile.SteplerProjectile;
+import deus.utils.annotations.RegisterItemModel;
+import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 
+@RegisterItemModel(model = ItemModelStandard.class)
 public class Stepler extends Item {
 	public Stepler(String translationKey, String namespaceId, int id) {
 		super(translationKey, namespaceId, id);

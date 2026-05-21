@@ -2,6 +2,7 @@ package deus.paperwork.item.big_paperplane;
 
 import deus.paperwork.entities.big_paperplane.EntityBigPaperPlane;
 import deus.paperwork.item.base.ItemColored;
+import deus.utils.annotations.RegisterItemModel;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemPaintBrush;
 import net.minecraft.core.item.ItemStack;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static deus.paperwork.Paperwork.MOD_ID;
 
+@RegisterItemModel(model = ItemBigPaperPlaneModel.class)
 public class ItemBigPaperPlane extends ItemColored {
 	public ItemBigPaperPlane(String translationKey, String namespaceId, int id) {
 		super(translationKey, namespaceId, id);

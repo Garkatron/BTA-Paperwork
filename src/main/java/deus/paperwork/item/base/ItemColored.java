@@ -1,5 +1,7 @@
 package deus.paperwork.item.base;
 
+import deus.utils.annotations.RegisterItemModel;
+import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemDye;
@@ -8,6 +10,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.util.helper.DyeColor;
 
+@RegisterItemModel(model = ItemModelStandard.class)
 public class ItemColored extends Item {
 	public ItemColored(String translationKey, String namespaceId, int id) {
 		super(translationKey, namespaceId, id);
