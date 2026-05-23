@@ -55,6 +55,8 @@ public class PaperworkItems {
 	public static Item FOOD_COFFE_MUG;
 	public static Item OFFICE_CHAIR;
 
+	public static Item EMPLOYEE_STICK;
+
 
 		public static void initialize() {
 
@@ -135,6 +137,8 @@ public class PaperworkItems {
 			OFFICE_CHAIR = new ItemSpawner("office_chair",MOD_ID+":item/office_chair",itemGoc("OFFICE_CHAIR")).withEntity(
 				EntityOfficeChair.class
 			);
+
+			EMPLOYEE_STICK = new EmployeeStick("employee", MOD_ID+":item/employee_stick", itemGoc("EMPLOYEE_STICK"));
 		}
 
 

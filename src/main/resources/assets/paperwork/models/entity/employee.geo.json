@@ -31,21 +31,7 @@
 				{
 					"name": "cape",
 					"parent": "body",
-					"pivot": [0, 24, 2],
-					"cubes": [
-						{
-							"origin": [-4, 10, 2],
-							"size": [8, 14, 1],
-							"uv": {
-								"north": {"uv": [36, 28], "uv_size": [1, 1]},
-								"east": {"uv": [36, 28], "uv_size": [1, 1]},
-								"south": {"uv": [36, 28], "uv_size": [1, 1]},
-								"west": {"uv": [36, 28], "uv_size": [1, 1]},
-								"up": {"uv": [37, 29], "uv_size": [-1, -1]},
-								"down": {"uv": [37, 29], "uv_size": [-1, -1]}
-							}
-						}
-					]
+					"pivot": [0, 24, 2]
 				},
 				{
 					"name": "head",
