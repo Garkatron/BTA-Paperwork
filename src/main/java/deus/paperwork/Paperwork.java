@@ -9,6 +9,7 @@ import deus.utils.initializers.EntityInitializer;
 import deus.utils.react.React;
 import deus.utils.react.State;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.animal.MobDeer;
@@ -36,18 +37,21 @@ public class Paperwork implements ModInitializer, GameStartEntrypoint {
 		EntityInitializer.initialize("deus.paperwork");
 
 		LOGGER.info("{} Core Initialized.", MOD_ID);
-		
+
 
     }
 
 
 	@Override
 	public void beforeGameStart() {
+		IconCoordinate ALERT = TextureRegistry.getTexture("paperwork:gui/sprites/alert");
+
+
+		System.out.println(ALERT);
 		// SoundTypes.loadSoundsJson(MOD_ID);
 		// LOGGER.info("{} Sounds Initialized.", MOD_ID);
 //
 //		try {
-//			TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.worldAtlas, true);
 //		} catch (Exception var2) {
 //			LOGGER.warn("PainScale: Failed to fully initialize assets, some issue may occur!", var2);
 //		}

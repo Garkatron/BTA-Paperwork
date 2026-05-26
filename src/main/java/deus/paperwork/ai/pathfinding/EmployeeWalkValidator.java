@@ -1,4 +1,4 @@
-package deus.paperwork.entities.employee;
+package deus.paperwork.ai.pathfinding;
 
 import de.bsommerfeld.pathetic.api.pathing.processing.ValidationProcessor;
 import de.bsommerfeld.pathetic.api.pathing.processing.context.EvaluationContext;
@@ -14,8 +14,6 @@ public class EmployeeWalkValidator implements ValidationProcessor {
 	public EmployeeWalkValidator(World world) {
 		this.world = world;
 	}
-
-
 
 	@Override
 	public boolean isValid(EvaluationContext context) {

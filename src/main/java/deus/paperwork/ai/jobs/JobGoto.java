@@ -1,12 +1,14 @@
-package deus.paperwork.entities.employee;
+package deus.paperwork.ai.jobs;
 
 import deus.brainless.ai.interfaces.Job;
+import deus.paperwork.entities.employee.MobEmployee;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
+/// Set pathfinder target
 public class JobGoto<CTX extends MobEmployee> implements Job<CTX> {
 
 	private final String name;

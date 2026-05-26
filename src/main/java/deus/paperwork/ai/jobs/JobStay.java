@@ -1,9 +1,11 @@
-package deus.paperwork.entities.employee;
+package deus.paperwork.ai.jobs;
 
 import deus.brainless.ai.interfaces.Job;
+import deus.paperwork.entities.employee.MobEmployee;
 
 import java.util.function.Supplier;
 
+/// Wait until a higher priority task takes its place.
 public class JobStay<CTX extends MobEmployee> implements Job<CTX> {
 
 	private final String name;

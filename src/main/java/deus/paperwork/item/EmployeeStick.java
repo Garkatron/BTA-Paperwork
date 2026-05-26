@@ -72,9 +72,9 @@ public class EmployeeStick extends Item {
 		}
 
 		switch (pendingMode) {
-			case BED  -> { employee.bedCoordinates  = Optional.of(pendingPos); Brainless.LOGGER.info("[Stick] Bed assigned to employee at {}", pendingPos); }
-			case WORK -> { employee.workCoordinates = Optional.of(pendingPos); Brainless.LOGGER.info("[Stick] Work assigned to employee at {}", pendingPos); }
-			case FOOD -> { employee.foodPlace       = Optional.of(pendingPos); Brainless.LOGGER.info("[Stick] Food assigned to employee at {}", pendingPos); }
+			case BED  -> { employee.bed_place = Optional.of(pendingPos); Brainless.LOGGER.info("[Stick] Bed assigned to employee at {}", pendingPos); }
+			case WORK -> { employee.work_place = Optional.of(pendingPos); Brainless.LOGGER.info("[Stick] Work assigned to employee at {}", pendingPos); }
+			case FOOD -> { employee.food_place = Optional.of(pendingPos); Brainless.LOGGER.info("[Stick] Food assigned to employee at {}", pendingPos); }
 		}
 
 		pendingPos  = null;
