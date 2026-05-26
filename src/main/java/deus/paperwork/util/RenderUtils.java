@@ -11,34 +11,38 @@ import net.minecraft.core.entity.Entity;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 public class RenderUtils {
 
-	private static final Map<Entity, IconCoordinate> targets = new ConcurrentHashMap<>();
+	public record EmployeeRenderData(
+		IconCoordinate alert,
+		IconCoordinate state,
+		IconCoordinate emotion,
+		float progress
+	) {}
 
-	public static void setTarget(Entity mob, IconCoordinate icon) {
-		targets.put(mob, icon);
+	private static final Map<Entity, EmployeeRenderData> targets = new ConcurrentHashMap<>();
+
+	public static void setTarget(Entity mob, EmployeeRenderData data) {
+		targets.put(mob, data);
 	}
 
-	public static void clearTarget(Entity mob) {
-		targets.remove(mob);
-	}
-
-	public static void clear() {
-		targets.clear();
-	}
+	public static void clearTarget(Entity mob) { targets.remove(mob); }
+	public static void clear()                 { targets.clear(); }
 
 	public static void renderInfo(Minecraft mc, float partialTick, long systemTime) {
 		targets.entrySet().removeIf(e -> e.getKey().removed);
-
-		for (Map.Entry<Entity, IconCoordinate> entry : targets.entrySet()) {
-			renderIcon(mc, partialTick, entry.getKey(), entry.getValue());
+		for (var entry : targets.entrySet()) {
+			renderEmployee(mc, partialTick, entry.getKey(), entry.getValue());
 		}
 	}
 
-	private static void renderIcon(Minecraft mc, float partialTick, Entity entity, IconCoordinate icon) {
-		double scale = 0.4;
-		float heightOffset = entity.getHeadHeight() + 0.6F;
+	private static final double ICON_SIZE   = 0.35;
+	private static final double BAR_WIDTH   = ICON_SIZE * 3;
+	private static final double BAR_HEIGHT  = 0.025;
+	private static final double BAR_PADDING = 0.015;
+
+	private static void renderEmployee(Minecraft mc, float partialTick, Entity entity, EmployeeRenderData data) {
+		float heightOffset = entity.getHeadHeight() + 0.7F;
 
 		double ex = lerp(entity.xo, entity.x, partialTick);
 		double ey = lerp(entity.yo, entity.y, partialTick) + heightOffset;
@@ -59,25 +63,51 @@ public class RenderUtils {
 			.translate((float)(ex - cx), (float)(ey - cy), (float)(ez - cz))
 			.rotateY((float) Math.toRadians(yaw))
 			.rotateX((float) Math.toRadians(pitch))
-			.translate((float)(-scale / 2), 0, 0.001f);
+			.translate((float)(-BAR_WIDTH / 2), 0, 0.001f);
 
-		GLRenderer.setColor4f(1f, 1f, 1f, 1f);
+		renderProgressBar(data.progress());
 
-		TessellatorShader t = GLRenderer.getTessellator();
-		icon.parentAtlas.bind();
-
-		t.startDrawing(DrawMode.QUADS);
-		t.setTextureUV(icon.getIconUMin(), icon.getIconVMax());
-		t.addVertex(0,     0,     0);
-		t.setTextureUV(icon.getIconUMax(), icon.getIconVMax());
-		t.addVertex(scale, 0,     0);
-		t.setTextureUV(icon.getIconUMax(), icon.getIconVMin());
-		t.addVertex(scale, scale, 0);
-		t.setTextureUV(icon.getIconUMin(), icon.getIconVMin());
-		t.addVertex(0,     scale, 0);
-		t.draw();
+		double iconY = BAR_HEIGHT + BAR_PADDING;
+		renderIcon(data.alert(),   0,                iconY);
+		renderIcon(data.state(),   ICON_SIZE,         iconY);
+		renderIcon(data.emotion(), ICON_SIZE * 2,     iconY);
 
 		GLRenderer.popFrame();
+	}
+
+	private static void renderProgressBar(float progress) {
+
+		// bar_bg_texture.bind();
+		TessellatorShader t = GLRenderer.getTessellator();
+		GLRenderer.setColor4f(0.2f, 0.2f, 0.2f, 0.6f);
+		t.startDrawing(DrawMode.QUADS);
+		quad(t, 0, 0, BAR_WIDTH, BAR_HEIGHT);
+		t.draw();
+
+		GLRenderer.setColor4f(0.3f, 0.85f, 0.3f, 0.9f);
+		t.startDrawing(DrawMode.QUADS);
+		quad(t, 0, 0, BAR_WIDTH * progress, BAR_HEIGHT);
+		t.draw();
+	}
+
+	private static void renderIcon(IconCoordinate icon, double x, double y) {
+		if (icon == null) return;
+		GLRenderer.setColor4f(1f, 1f, 1f, 1f);
+		TessellatorShader t = GLRenderer.getTessellator();
+		icon.parentAtlas.bind();
+		t.startDrawing(DrawMode.QUADS);
+		t.setTextureUV(icon.getIconUMin(), icon.getIconVMax()); t.addVertex(x,             y,              0);
+		t.setTextureUV(icon.getIconUMax(), icon.getIconVMax()); t.addVertex(x + ICON_SIZE, y,              0);
+		t.setTextureUV(icon.getIconUMax(), icon.getIconVMin()); t.addVertex(x + ICON_SIZE, y + ICON_SIZE,  0);
+		t.setTextureUV(icon.getIconUMin(), icon.getIconVMin()); t.addVertex(x,             y + ICON_SIZE,  0);
+		t.draw();
+	}
+
+	private static void quad(TessellatorShader t, double x, double y, double w, double h) {
+		t.addVertex(x,     y,     0);
+		t.addVertex(x + w, y,     0);
+		t.addVertex(x + w, y + h, 0);
+		t.addVertex(x,     y + h, 0);
 	}
 
 	private static double lerp(double old, double curr, float partial) {

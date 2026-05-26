@@ -14,6 +14,13 @@ import deus.utils.annotations.RegisterEntity;
 import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.entity.TileEntity;
+import net.minecraft.core.block.entity.TileEntityChest;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jetbrains.annotations.NotNull;
@@ -36,18 +43,18 @@ public class MobEmployee extends MobPathfinder {
 	public Optional<TilePosc> work_place = Optional.empty();
 	public Optional<TilePosc> food_place = Optional.empty();
 
-	public double hunger = 0.4;
-	public double fatigue = 0.3;
-	public double work = 0.2;
+	public double hunger = 0.5;
+	public double fatigue = 0.1;
+	public double work = 0.4;
 	public double danger = 0.0;
-	public double social = 0.0;
+	public double social = 0.8;
 
 	private final double traitSocial;
 	private final double traitBrave;
 	private final double traitHardworking;
 	private final double traitLazy;
 
-	public EmployeeAlert currentAlert = EmployeeAlert.NO_WORKPLACE;
+	public EmployeeAlert currentAlert = EmployeeAlert.NO_FOOD_PLACE;
 	public EmployeeStateIcons currentLowState = EmployeeStateIcons.ASLEEP;
 	public EmployeeEmotions currentEmotion = EmployeeEmotions.HAPPY;
 
@@ -73,10 +80,41 @@ public class MobEmployee extends MobPathfinder {
 		);
 
 		configurePathfinding();
+	}
 
-		IconCoordinate ALERT = TextureRegistry.getTexture(EmployeeEmotions.HAPPY.path);
-		RenderUtils.setTarget(this, ALERT);
+	public boolean openChest(TilePosc posc) {
+		Block<?> block = world.getBlockType(posc);
+		if (!block.isEntityTile() || block.id() != Blocks.CHEST_PLANKS_OAK.id()) return false;
+		TileEntityChest chest = (TileEntityChest) world.getTileEntity(posc);
 
+		return true;
+	}
+
+	public Optional<ItemStack> findItem(TileEntityChest chest, int itemId) {
+		for (int i = 0; i < 27; i++) {
+			ItemStack stack = chest.getItem(i);
+			if (stack != null && stack.getItem().id == itemId) return Optional.of(stack);
+		}
+		return Optional.empty();
+	}
+
+	public boolean consumeItem(TileEntityChest chest, int itemId) {
+		return findItem(chest, itemId).map(stack -> {
+			stack.stackSize--;
+			// pending logic here (notify, close chest, update entity state, etc.)
+			return true;
+		}).orElse(false);
+	}
+
+	private void syncIcon() {
+		IconCoordinate alertIcon   = TextureRegistry.getTexture(currentAlert.path);
+		IconCoordinate stateIcon   = TextureRegistry.getTexture(currentLowState.path);
+		IconCoordinate emotionIcon = TextureRegistry.getTexture(currentEmotion.path);
+		float progressValue = (float) work;
+
+		RenderUtils.setTarget(this, new RenderUtils.EmployeeRenderData(
+			alertIcon, stateIcon, emotionIcon, progressValue
+		));
 	}
 
 	private void configurePathfinding() {
@@ -120,29 +158,35 @@ public class MobEmployee extends MobPathfinder {
 		fatigue = AI.clamp(fatigue + FATIGUE_RATE);
 		work = AI.clamp(work - WORK_RATE);
 		social = AI.clamp(social - SOCIAL_RATE);
+
 	}
 
 	@Override
 	protected void updateAI() {
-		if (this.world.isClientSide) {
-			return;
-		}
-
-
 		if (work_place.isEmpty()) {
 			currentAlert = EmployeeAlert.NO_WORKPLACE;
-		}
-
-		if (food_place.isEmpty()) {
+		} else if (food_place.isEmpty()) {
 			currentAlert = EmployeeAlert.NO_FOOD_PLACE;
-		}
-
-		if (bed_place.isEmpty()) {
+		} else if (bed_place.isEmpty()) {
 			currentAlert = EmployeeAlert.NO_REST_PLACE;
+		} else {
+			currentAlert = EmployeeAlert.GOOD;
 		}
 
-		if (hunger <= 0.4) {
+		if (danger >= 0.51) {
+			currentLowState = EmployeeStateIcons.SCARED;
+		} else if (fatigue >= 0.4) {
+			currentLowState = EmployeeStateIcons.TIRED;
+		} else if (hunger <= 0.4) {
+			currentLowState = EmployeeStateIcons.HUNGRY;
+		} else {
+			currentLowState = EmployeeStateIcons.GOOD;
+		}
 
+		syncIcon();
+
+		if (this.world.isClientSide) {
+			return;
 		}
 
 		ai.update(

@@ -1,14 +1,13 @@
 package deus.paperwork.entities.employee;
 
 public enum EmployeeStateIcons {
-	HUNGRY("paperwork:gui/icons/employe/states/tired"),
-	SCARED("paperwork:gui/icons/employe/states/tired"),
-	TIRED("paperwork:gui/icons/employe/states/tired"),
-	ASLEEP("paperwork:gui/icons/employe/states/tired"),
-	GOOD("paperwork:gui/icons/employe/states/tired"),
+	HUNGRY("paperwork:gui/icons/employee/states/hungry"),
+	SCARED("paperwork:gui/icons/employee/states/scared"),
+	TIRED("paperwork:gui/icons/employee/states/tired"),
+	ASLEEP("paperwork:gui/icons/employee/states/asleep"),
+	GOOD("paperwork:gui/icons/employee/states/good"),
+	ENERGIC("paperwork:gui/icons/employee/states/energic"),
 	;
-
 	public final String path;
 	EmployeeStateIcons(String path) { this.path = path; }
-
 }

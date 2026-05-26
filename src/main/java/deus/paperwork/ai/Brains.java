@@ -62,29 +62,29 @@ public class Brains {
 			});
 		},
 		a -> {
-			/*PersistentJobScheduler<MobEmployee> queue = a.persistentQueue();
+			PersistentJobScheduler<MobEmployee> queue = a.persistentQueue();
 
 			queue.register(
 				AI.<MobEmployee>define("Eat", a.getBrain().getNode("desire_eat"), ctx -> List.of(
-					new JobGoto<>(() -> ctx.foodPlace, "food", 2.0),
+					new JobGoto<>(() -> ctx.food_place, "food", 2.0),
 					new JobStay<>("food", () -> ctx.hunger, 0.15)
 				)).withCategory(0).withThreshold(0.15)
 			);
 
 
 			queue.register(
-				AI.<MobEmployee>define("Sleep", a.getBrain().getNode("desire_sleep"), (ctx) -> List.of(
-					new JobGoto<>(() -> ctx.bedCoordinates, "bed", 2.0),
+				AI.<MobEmployee>define("Sleep", a.getBrain().getNode("desire_rest"), (ctx) -> List.of(
+					new JobGoto<>(() -> ctx.bed_place, "bed", 2.0),
 					new JobStay<>("bed", () -> ctx.fatigue, 0.05)
 				)).withCategory(0).withThreshold(0.20)
 			);
 
 			queue.register(
 				AI.<MobEmployee>define("Work", a.getBrain().getNode("desire_work"), (ctx) -> List.of(
-					new JobGoto<>(() -> ctx.workCoordinates, "work", 2.5),
+					new JobGoto<>(() -> ctx.work_place, "work", 2.5),
 					new JobStay<>("work", () -> 1.0 - ctx.work, 0.15)
 				)).withCategory(0).withThreshold(0.10)
-			);*/
+			);
 
 
 
