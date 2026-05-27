@@ -15,15 +15,14 @@ import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityChest;
+import net.minecraft.core.entity.IItemHolding;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +30,7 @@ import java.util.Random;
 
 @RegisterEntityRenderer(renderer = MobEmployeeRenderer.class)
 @RegisterEntity(id = "employee", name = "employee")
-public class MobEmployee extends MobPathfinder {
+public class MobEmployee extends MobPathfinder implements IItemHolding {
 
 	private static final double HUNGER_RATE = 0.0002;
 	private static final double FATIGUE_RATE = 0.0001;
@@ -43,11 +42,12 @@ public class MobEmployee extends MobPathfinder {
 	public Optional<TilePosc> work_place = Optional.empty();
 	public Optional<TilePosc> food_place = Optional.empty();
 
-	public double hunger = 0.5;
+	public double hunger = 0.8;
 	public double fatigue = 0.1;
-	public double work = 0.4;
+	public double work = 0.8;
 	public double danger = 0.0;
 	public double social = 0.8;
+	public double health = 1.0;
 
 	private final double traitSocial;
 	private final double traitBrave;
@@ -91,6 +91,7 @@ public class MobEmployee extends MobPathfinder {
 	}
 
 	public Optional<ItemStack> findItem(TileEntityChest chest, int itemId) {
+		if (chest == null) return Optional.empty();
 		for (int i = 0; i < 27; i++) {
 			ItemStack stack = chest.getItem(i);
 			if (stack != null && stack.getItem().id == itemId) return Optional.of(stack);
@@ -98,10 +99,17 @@ public class MobEmployee extends MobPathfinder {
 		return Optional.empty();
 	}
 
-	public boolean consumeItem(TileEntityChest chest, int itemId) {
+	public TileEntityChest getChest(TilePosc posc) {
+		Block<?> block = world.getBlockType(posc);
+		if (!block.isEntityTile() || (block.id() != Blocks.CHEST_PLANKS_OAK.id() && block.id() != Blocks.CHEST_PLANKS_OAK_PAINTED.id())) return null;
+		return (TileEntityChest) world.getTileEntity(posc);
+	}
+
+	public boolean eatFoodInChest(TileEntityChest chest, int itemId) {
 		return findItem(chest, itemId).map(stack -> {
-			stack.stackSize--;
-			// pending logic here (notify, close chest, update entity state, etc.)
+			eatFood(stack);
+			stack.consumeItem(null);
+			hunger = AI.clamp(hunger - 0.3);
 			return true;
 		}).orElse(false);
 	}
@@ -155,9 +163,14 @@ public class MobEmployee extends MobPathfinder {
 		}
 
 		hunger = AI.clamp(hunger + HUNGER_RATE);
+		health = (double) this.getHealth() / this.getMaxHealth();
+
 		fatigue = AI.clamp(fatigue + FATIGUE_RATE);
 		work = AI.clamp(work - WORK_RATE);
 		social = AI.clamp(social - SOCIAL_RATE);
+
+		System.out.println(hunger);
+		System.out.println(health);
 
 	}
 
@@ -177,7 +190,7 @@ public class MobEmployee extends MobPathfinder {
 			currentLowState = EmployeeStateIcons.SCARED;
 		} else if (fatigue >= 0.4) {
 			currentLowState = EmployeeStateIcons.TIRED;
-		} else if (hunger <= 0.4) {
+		} else if (hunger >= 0.6) {
 			currentLowState = EmployeeStateIcons.HUNGRY;
 		} else {
 			currentLowState = EmployeeStateIcons.GOOD;
@@ -188,12 +201,14 @@ public class MobEmployee extends MobPathfinder {
 		if (this.world.isClientSide) {
 			return;
 		}
-
+		double low_health = 1.0 - health;
 		ai.update(
 			input -> input
+				.set("low_health", low_health)
 
 				// Needs
 				.set("social", social)
+				.set("health", health)
 				.set("danger", danger)
 				.set("fatigue", fatigue)
 				.set("hunger", hunger)
@@ -201,9 +216,9 @@ public class MobEmployee extends MobPathfinder {
 			this
 		);
 
-		if (food_place.isPresent() && near(food_place.get(), 2.0)) {
-			hunger = AI.clamp(hunger - 0.003);
-		}
+//		if (food_place.isPresent() && near(food_place.get(), 2.0)) {
+//			hunger = AI.clamp(hunger - 0.003);
+//		}
 		if (bed_place.isPresent() && near(bed_place.get(), 2.0)) {
 			fatigue = AI.clamp(fatigue - 0.004);
 		}
@@ -221,4 +236,19 @@ public class MobEmployee extends MobPathfinder {
 	}
 
 	public void setDanger(double danger) { this.danger = danger; }
+
+	@Override
+	public @Nullable ItemStack getHeldItem() {
+		return null;
+	}
+
+	@Override
+	public void setHeldItem(@Nullable ItemStack itemStack) {
+
+	}
+
+	@Override
+	public boolean isLeftHanded() {
+		return false;
+	}
 }

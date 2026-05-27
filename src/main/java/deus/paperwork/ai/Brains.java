@@ -2,6 +2,7 @@ package deus.paperwork.ai;
 
 import deus.brainless.ai.AI;
 import deus.brainless.ai.jobs.schedulers.PersistentJobScheduler;
+import deus.paperwork.ai.jobs.JobConsume;
 import deus.paperwork.ai.jobs.JobGoto;
 import deus.paperwork.ai.jobs.JobStay;
 import deus.paperwork.entities.employee.MobEmployee;
@@ -16,14 +17,16 @@ public class Brains {
 		brain -> {
 			brain.inputs()
 				.add("trait_social", 0.5)
-				.add("trait_brave", 0.5)
+				.add("trait_brave", 0.3)
 				.add("trait_hardworking", 0.5)
 				.add("trait_lazy", 0.5)
 
+				.add("low_health", 0.0)
 				.add("social", 0.0)
 				.add("danger", 0.0)
 				.add("fatigue", 0.0)
 				.add("hunger", 0.0)
+				.add("health", 1.0)
 				.add("work", 0.0);
 			brain.layer("desires", layer -> {
 				layer.mix("desire_talk")
@@ -35,14 +38,16 @@ public class Brains {
 
 				layer.mix("desire_scape")
 					.add("danger", 1.0)
+					.add("health", 1.0)
 					.sub("trait_brave", 0.6)
 					.sigmoid(8);
 
 				layer.mix("desire_eat")
-					.add("hunger", 1.0)
+					.add("hunger", 1.2)
+					.add("low_health", 1.5)
 					.sub("danger", 0.5)
 					.sub("fatigue", 0.2)
-					.sigmoid(6);
+					.sigmoid(7);
 
 				layer.mix("desire_rest")
 					.add("fatigue", 1.0)
@@ -54,7 +59,8 @@ public class Brains {
 				layer.mix("desire_work")
 					.add("work", 1.0)
 					.add("trait_hardworking", 0.6)
-					.sub("hunger", 0.5)
+					.add("health", 0.2)
+					.sub("hunger", 0.9)
 					.sub("fatigue", 0.4)
 					.sub("danger", 0.7)
 					.sub("social", 0.2)
@@ -67,7 +73,8 @@ public class Brains {
 			queue.register(
 				AI.<MobEmployee>define("Eat", a.getBrain().getNode("desire_eat"), ctx -> List.of(
 					new JobGoto<>(() -> ctx.food_place, "food", 2.0),
-					new JobStay<>("food", () -> ctx.hunger, 0.15)
+					// new JobStay<>("food", () -> ctx.hunger, 0.15),
+					new JobConsume<>()
 				)).withCategory(0).withThreshold(0.15)
 			);
 

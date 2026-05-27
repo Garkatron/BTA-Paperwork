@@ -21,10 +21,8 @@ import java.util.Optional;
 @RegisterItemModel(model = ItemModelStandard.class)
 public class EmployeeStick extends Item {
 
-	// Estado temporal del stick — qué tipo de bloque se asignará próximo
 	public enum AssignMode { BED, WORK, FOOD }
 
-	// Guardado en el ItemStack via NBT idealmente, pero por ahora en el item
 	private TilePosc pendingPos  = null;
 	private AssignMode pendingMode = null;
 
@@ -39,21 +37,20 @@ public class EmployeeStick extends Item {
 	                            @NotNull Side side, double xHit, double yHit) {
 		if (world.isClientSide || player == null) return false;
 
-		// Determina tipo por bloque — ajusta IDs según tu mod
 		int blockId = world.getBlockType(blockPos).id();
 
-		// Placeholder — reemplaza con tus block IDs reales
 		if (blockId == Blocks.BED.id()) {
-			pendingPos  = new TilePos().set(blockPos.x(),blockPos.y()+1,blockPos.z());
+			pendingPos  = new TilePos().set(blockPos.x(),blockPos.y(),blockPos.z());
 			pendingMode = AssignMode.BED;
 			Brainless.LOGGER.info("[Stick] Bed position saved: {}", blockPos);
 		} else if (blockId == Blocks.WORKBENCH.id()) {
-			pendingPos  = new TilePos().set(blockPos.x(),blockPos.y()+1,blockPos.z());
+			pendingPos  = new TilePos().set(blockPos.x(),blockPos.y(),blockPos.z());
 			pendingMode = AssignMode.WORK;
 			Brainless.LOGGER.info("[Stick] Work position saved: {}", blockPos);
-		} else if (blockId == Blocks.FURNACE_STONE_IDLE.id()) {
-			pendingPos  = new TilePos().set(blockPos.x(),blockPos.y()+1,blockPos.z());
+		} else if (blockId == Blocks.CHEST_PLANKS_OAK.id()) {
+			pendingPos  = new TilePos().set(blockPos.x(),blockPos.y(),blockPos.z());
 			pendingMode = AssignMode.FOOD;
+			System.out.println(world.getTileEntity(pendingPos));
 			Brainless.LOGGER.info("[Stick] Food position saved: {}", blockPos);
 		} else {
 			Brainless.LOGGER.info("[Stick] Block not recognized for assignment");
