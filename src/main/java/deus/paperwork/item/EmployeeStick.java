@@ -2,6 +2,7 @@ package deus.paperwork.item;
 
 import deus.brainless.Brainless;
 import deus.paperwork.entities.employee.MobEmployee;
+import deus.paperwork.util.PoscArea;
 import deus.utils.annotations.RegisterItemModel;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.block.Blocks;
@@ -21,11 +22,11 @@ import java.util.Optional;
 @RegisterItemModel(model = ItemModelStandard.class)
 public class EmployeeStick extends Item {
 
-	public enum AssignMode { BED, WORK, FOOD }
+	public enum AssignMode { BED, FOOD }
 
-	private TilePosc pendingPos  = null;
-	private AssignMode pendingMode = null;
-
+	private TilePosc pendingBed  = null;
+	private TilePosc foodPointA  = null;
+	private TilePosc foodPointB  = null;
 
 	public EmployeeStick(@NotNull String translationKey, @NotNull String namespaceId, int id) {
 		super(translationKey, namespaceId, id);
@@ -38,20 +39,24 @@ public class EmployeeStick extends Item {
 		if (world.isClientSide || player == null) return false;
 
 		int blockId = world.getBlockType(blockPos).id();
+		TilePosc pos = new TilePos(blockPos.x(), blockPos.y(), blockPos.z());
 
 		if (blockId == Blocks.BED.id()) {
-			pendingPos  = new TilePos().set(blockPos.x(),blockPos.y(),blockPos.z());
-			pendingMode = AssignMode.BED;
-			Brainless.LOGGER.info("[Stick] Bed position saved: {}", blockPos);
-		} else if (blockId == Blocks.WORKBENCH.id()) {
-			pendingPos  = new TilePos().set(blockPos.x(),blockPos.y(),blockPos.z());
-			pendingMode = AssignMode.WORK;
-			Brainless.LOGGER.info("[Stick] Work position saved: {}", blockPos);
-		} else if (blockId == Blocks.CHEST_PLANKS_OAK.id()) {
-			pendingPos  = new TilePos().set(blockPos.x(),blockPos.y(),blockPos.z());
-			pendingMode = AssignMode.FOOD;
-			System.out.println(world.getTileEntity(pendingPos));
-			Brainless.LOGGER.info("[Stick] Food position saved: {}", blockPos);
+			pendingBed = pos;
+			Brainless.LOGGER.info("[Stick] Bed position saved: {}", pos);
+
+		} else if (blockId == Blocks.LOG_OAK.id()) {
+			if (player.isSneaking()) {
+				foodPointB = pos;
+				Brainless.LOGGER.info("[Stick] Food point B set: {}", pos);
+				if (foodPointA != null) {
+					Brainless.LOGGER.info("[Stick] Food area ready: {} -> {}", foodPointA, foodPointB);
+				}
+			} else {
+				foodPointA = pos;
+				foodPointB = null;
+				Brainless.LOGGER.info("[Stick] Food point A set: {}", pos);
+			}
 		} else {
 			Brainless.LOGGER.info("[Stick] Block not recognized for assignment");
 			return false;
@@ -63,19 +68,30 @@ public class EmployeeStick extends Item {
 	@Override
 	public boolean useOnEntity(@NotNull ItemStack selfStack, @NotNull Player player, @NotNull Mob mob) {
 		if (!(mob instanceof MobEmployee employee)) return false;
-		if (pendingPos == null || pendingMode == null) {
-			Brainless.LOGGER.info("[Stick] No position saved yet — click a block first");
-			return false;
+
+		boolean assigned = false;
+
+		if (pendingBed != null) {
+			employee.bed_position = Optional.of(pendingBed);
+			Brainless.LOGGER.info("[Stick] Bed assigned to employee at {}", pendingBed);
+			pendingBed = null;
+			assigned = true;
 		}
 
-		switch (pendingMode) {
-			case BED  -> { employee.bed_place = Optional.of(pendingPos); Brainless.LOGGER.info("[Stick] Bed assigned to employee at {}", pendingPos); }
-			case WORK -> { employee.work_place = Optional.of(pendingPos); Brainless.LOGGER.info("[Stick] Work assigned to employee at {}", pendingPos); }
-			case FOOD -> { employee.food_place = Optional.of(pendingPos); Brainless.LOGGER.info("[Stick] Food assigned to employee at {}", pendingPos); }
+		if (foodPointA != null && foodPointB != null) {
+			employee.food_place = Optional.of(new PoscArea.Area2D(foodPointA, foodPointB));
+			Brainless.LOGGER.info("[Stick] Food area assigned to employee: {} -> {}", foodPointA, foodPointB);
+			foodPointA = null;
+			foodPointB = null;
+			assigned = true;
+		} else if (foodPointA != null) {
+			Brainless.LOGGER.info("[Stick] Food area incomplete — shift+click second chest for point B");
 		}
 
-		pendingPos  = null;
-		pendingMode = null;
-		return true;
+		if (!assigned) {
+			Brainless.LOGGER.info("[Stick] Nothing to assign — save a position first");
+		}
+
+		return assigned;
 	}
 }

@@ -2,6 +2,7 @@ package deus.paperwork.ai.jobs;
 
 import deus.brainless.ai.interfaces.Job;
 import deus.paperwork.entities.employee.MobEmployee;
+import deus.paperwork.util.PoscArea;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 
@@ -22,6 +23,18 @@ public class JobGoto<CTX extends MobEmployee> implements Job<CTX> {
 		this.targetSupplier = targetSupplier;
 		this.name = name + "_goto";
 		this.interactionRadius = interactionRadius;
+	}
+
+	public static <CTX extends MobEmployee> JobGoto<CTX> fromArea(
+		Supplier<Optional<? extends PoscArea>> areaSupplier, String name, double radius, int py) {
+		return new JobGoto<>(
+			() -> {
+				Optional<? extends PoscArea> opt = areaSupplier.get();
+				if (opt == null) return Optional.empty();
+				return opt.flatMap(a -> Optional.of(new TilePos(a.center().x(),a.center().y()+py,a.center().z())));
+			},
+			name, radius
+		);
 	}
 
 	@Override public String name() { return name; }

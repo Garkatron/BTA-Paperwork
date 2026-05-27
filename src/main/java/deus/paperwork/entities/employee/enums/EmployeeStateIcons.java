@@ -1,4 +1,4 @@
-package deus.paperwork.entities.employee;
+package deus.paperwork.entities.employee.enums;
 
 public enum EmployeeStateIcons {
 	HUNGRY("paperwork:gui/icons/employee/states/hungry"),

@@ -1,4 +1,4 @@
-package deus.paperwork.entities.employee;
+package deus.paperwork.entities.employee.enums;
 
 public enum EmployeeProgressBar {
     WORK("paperwork:gui/alert"),

@@ -3,6 +3,7 @@ package deus.paperwork.ai.pathfinding;
 import de.bsommerfeld.pathetic.api.pathing.processing.ValidationProcessor;
 import de.bsommerfeld.pathetic.api.pathing.processing.context.EvaluationContext;
 import de.bsommerfeld.pathetic.api.wrapper.PathPosition;
+import net.minecraft.core.block.BlockLogicFlower;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
@@ -31,6 +32,14 @@ public class EmployeeWalkValidator implements ValidationProcessor {
 
 		boolean currentSolid = currentBlock.isCollidable();
 		boolean floorSolid = belowBlock.isCollidable();
+
+		if (currentBlock.getLogic() instanceof BlockLogicFlower) {
+			currentSolid = false;
+		}
+
+		if (belowBlock.getLogic() instanceof BlockLogicFlower) {
+			floorSolid = false;
+		}
 
 		boolean lava =
 			currentBlock.hasTag(BlockTags.IS_LAVA) ||

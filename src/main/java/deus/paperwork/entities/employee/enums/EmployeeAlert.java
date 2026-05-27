@@ -1,4 +1,4 @@
-package deus.paperwork.entities.employee;
+package deus.paperwork.entities.employee.enums;
 
 public enum EmployeeAlert {
 	GENERIC("paperwork:gui/icons/employee/alerts/generic"),

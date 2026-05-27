@@ -1,19 +1,23 @@
 package deus.paperwork.ai;
 
 import deus.brainless.ai.AI;
+import deus.brainless.ai.AIF;
 import deus.brainless.ai.jobs.schedulers.PersistentJobScheduler;
 import deus.paperwork.ai.jobs.JobConsume;
+import deus.paperwork.ai.jobs.JobFarm;
 import deus.paperwork.ai.jobs.JobGoto;
 import deus.paperwork.ai.jobs.JobStay;
 import deus.paperwork.entities.employee.MobEmployee;
+import deus.paperwork.entities.employee.farmer.MobEmployeeFarmer;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class Brains {
 
 
-	public static Supplier<AI<MobEmployee>> EmployeeAI = AI.factory(
+	public static AIF<MobEmployee> EmployeeAI = AIF.base(
 		brain -> {
 			brain.inputs()
 				.add("trait_social", 0.5)
@@ -72,7 +76,7 @@ public class Brains {
 
 			queue.register(
 				AI.<MobEmployee>define("Eat", a.getBrain().getNode("desire_eat"), ctx -> List.of(
-					new JobGoto<>(() -> ctx.food_place, "food", 2.0),
+					JobGoto.fromArea(() -> ctx.food_place, "food", 1.5, 0),
 					// new JobStay<>("food", () -> ctx.hunger, 0.15),
 					new JobConsume<>()
 				)).withCategory(0).withThreshold(0.15)
@@ -81,21 +85,29 @@ public class Brains {
 
 			queue.register(
 				AI.<MobEmployee>define("Sleep", a.getBrain().getNode("desire_rest"), (ctx) -> List.of(
-					new JobGoto<>(() -> ctx.bed_place, "bed", 2.0),
+					new JobGoto<>(() -> ctx.bed_position, "bed", 2.0),
 					new JobStay<>("bed", () -> ctx.fatigue, 0.05)
 				)).withCategory(0).withThreshold(0.20)
 			);
 
-			queue.register(
-				AI.<MobEmployee>define("Work", a.getBrain().getNode("desire_work"), (ctx) -> List.of(
-					new JobGoto<>(() -> ctx.work_place, "work", 2.5),
-					new JobStay<>("work", () -> 1.0 - ctx.work, 0.15)
-				)).withCategory(0).withThreshold(0.10)
-			);
 
 
 
 		}
 	);
+
+	public static AIF<MobEmployeeFarmer> EmployeeFarmerAI = EmployeeAI.extend(brain -> {
+
+	}, ai->{
+		ai.getQueue().register(
+			AI.<MobEmployeeFarmer>define("Work", ai.getBrain().getNode("desire_work"), (ctx) -> List.of(
+				JobGoto.fromArea(() -> ctx.farm_area, "work", 2.5, 1),
+				new JobFarm<>()
+				// new JobStay<>("work", () -> 1.0 - ctx.work, 0.15)
+			)).withCategory(0).withThreshold(0.10)
+		);
+
+
+	});
 
 }

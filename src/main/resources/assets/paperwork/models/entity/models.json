@@ -6,7 +6,8 @@
     "/assets/paperwork/models/entity/cardboard_box.geo.json",
     "/assets/paperwork/models/entity/gift_box.geo.json",
     "/assets/paperwork/models/entity/office_chair.geo.json",
-    "/assets/paperwork/models/entity/employee.geo.json"
+    "/assets/paperwork/models/entity/employee.geo.json",
+    "/assets/paperwork/models/entity/employee_farmer.geo.json"
   ],
   "custom_player_models": {},
   "renderers": {
@@ -30,6 +31,9 @@
     },
     "paperwork:employee": {
       "main": "geometry.paperwork.employee"
+    },
+    "paperwork:employee_farmer": {
+      "main": "geometry.paperwork.employee_farmer"
     }
   }
 }

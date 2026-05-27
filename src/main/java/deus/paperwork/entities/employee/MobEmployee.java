@@ -7,8 +7,14 @@ import de.bsommerfeld.pathetic.api.pathing.heuristic.HeuristicWeights;
 import de.bsommerfeld.pathetic.api.pathing.processing.ValidationProcessor;
 import deus.brainless.ai.AI;
 import deus.brainless.pathfinding.MobPathfinder;
+import deus.paperwork.ai.AIHolder;
 import deus.paperwork.ai.Brains;
 import deus.paperwork.ai.pathfinding.EmployeeWalkValidator;
+import deus.paperwork.entities.employee.enums.EmployeeAlert;
+import deus.paperwork.entities.employee.enums.EmployeeEmotions;
+import deus.paperwork.entities.employee.enums.EmployeeStateIcons;
+import deus.paperwork.interfaces.WithAI;
+import deus.paperwork.util.PoscArea;
 import deus.paperwork.util.RenderUtils;
 import deus.utils.annotations.RegisterEntity;
 import deus.utils.annotations.RegisterEntityRenderer;
@@ -20,10 +26,12 @@ import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.entity.IItemHolding;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -37,10 +45,9 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 	private static final double WORK_RATE = 0.00015;
 	private static final double SOCIAL_RATE = 0.0001;
 
+	public Optional<TilePosc> bed_position = Optional.empty();
+	public Optional<PoscArea.Area2D> food_place = Optional.empty();
 
-	public Optional<TilePosc> bed_place = Optional.empty();
-	public Optional<TilePosc> work_place = Optional.empty();
-	public Optional<TilePosc> food_place = Optional.empty();
 
 	public double hunger = 0.8;
 	public double fatigue = 0.1;
@@ -49,19 +56,25 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 	public double social = 0.8;
 	public double health = 1.0;
 
-	private final double traitSocial;
-	private final double traitBrave;
-	private final double traitHardworking;
-	private final double traitLazy;
+	private double traitSocial;
+	private double traitBrave;
+	private double traitHardworking;
+	private double traitLazy;
 
 	public EmployeeAlert currentAlert = EmployeeAlert.NO_FOOD_PLACE;
 	public EmployeeStateIcons currentLowState = EmployeeStateIcons.ASLEEP;
 	public EmployeeEmotions currentEmotion = EmployeeEmotions.HAPPY;
 
-	private final AI<MobEmployee> ai = Brains.EmployeeAI.get();
+	protected AIHolder<?> aiHolder;
+
 
 	public MobEmployee(@NotNull World world) {
+		this(world, new AIHolder<>(Brains.EmployeeAI.get()));
+	}
+
+	protected MobEmployee(@NotNull World world, AIHolder<?> aiHolder) {
 		super(world);
+		this.aiHolder = aiHolder;
 
 		Random rng = new Random();
 		traitSocial      = 0.3 + rng.nextDouble() * 0.7;
@@ -69,7 +82,7 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 		traitHardworking = 0.3 + rng.nextDouble() * 0.7;
 		traitLazy        = 0.3 + rng.nextDouble() * 0.7;
 
-		ai.update(
+		ai().update(
 			input -> input
 				// Initialize traits
 				.set("trait_social", traitSocial)
@@ -81,6 +94,13 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 
 		configurePathfinding();
 	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends MobEmployee> AI<T> ai() {
+		return (AI<T>) aiHolder.ai();
+	}
+
+
 
 	public boolean openChest(TilePosc posc) {
 		Block<?> block = world.getBlockType(posc);
@@ -154,6 +174,8 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 
 	}
 
+
+
 	@Override
 	public void tick() {
 		super.tick();
@@ -169,22 +191,20 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 		work = AI.clamp(work - WORK_RATE);
 		social = AI.clamp(social - SOCIAL_RATE);
 
-		System.out.println(hunger);
-		System.out.println(health);
 
 	}
 
 	@Override
 	protected void updateAI() {
-		if (work_place.isEmpty()) {
-			currentAlert = EmployeeAlert.NO_WORKPLACE;
-		} else if (food_place.isEmpty()) {
-			currentAlert = EmployeeAlert.NO_FOOD_PLACE;
-		} else if (bed_place.isEmpty()) {
-			currentAlert = EmployeeAlert.NO_REST_PLACE;
-		} else {
-			currentAlert = EmployeeAlert.GOOD;
-		}
+//		if (work_place.isEmpty()) {
+//			currentAlert = EmployeeAlert.NO_WORKPLACE;
+//		} else if (food_place.isEmpty()) {
+//			currentAlert = EmployeeAlert.NO_FOOD_PLACE;
+//		} else if (bed_place.isEmpty()) {
+//			currentAlert = EmployeeAlert.NO_REST_PLACE;
+//		} else {
+//			currentAlert = EmployeeAlert.GOOD;
+//		}
 
 		if (danger >= 0.51) {
 			currentLowState = EmployeeStateIcons.SCARED;
@@ -202,7 +222,7 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 			return;
 		}
 		double low_health = 1.0 - health;
-		ai.update(
+		ai().update(
 			input -> input
 				.set("low_health", low_health)
 
@@ -216,18 +236,44 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 			this
 		);
 
-//		if (food_place.isPresent() && near(food_place.get(), 2.0)) {
-//			hunger = AI.clamp(hunger - 0.003);
-//		}
-		if (bed_place.isPresent() && near(bed_place.get(), 2.0)) {
+
+		if (food_place.isPresent() && near(food_place.get().center(), 2.0)) {
+			hunger = AI.clamp(hunger - 0.003);
+		}
+		if (bed_position.isPresent() && near(bed_position.get(), 2.0)) {
 			fatigue = AI.clamp(fatigue - 0.004);
 		}
-		if (work_place.isPresent() && near(work_place.get(), 2.5)) {
-			work = AI.clamp(work + 0.003);
-		}
+//		if (work_place.isPresent() && near(work_place.get(), 2.5)) {
+//			work = AI.clamp(work + 0.003);
+//		}
 
 		super.updateAI();
 	}
+
+	public List<TilePosc> getBlocksInArea(PoscArea.Area2D blockArea) {
+		List<TilePosc> arr = new ArrayList<>();
+		int min_x = Math.min(blockArea.a().x(), blockArea.b().x());
+		int max_x = Math.max(blockArea.a().x(), blockArea.b().x());
+		int min_z = Math.min(blockArea.a().z(), blockArea.b().z());
+		int max_z = Math.max(blockArea.a().z(), blockArea.b().z());
+		int y = blockArea.a().y();
+
+		for (int i = min_x; i <= max_x; i++) {
+			for (int j = min_z; j <= max_z; j++) {
+				arr.add(new TilePos(i, y, j));
+			}
+		}
+
+		return arr;
+	}
+
+	public List<TilePosc> getBlocksInArea(PoscArea.Area2D blockArea, int id) {
+		return getBlocksInArea(blockArea).stream()
+			.filter(p -> world.getBlockType(p).id() == id)
+			.toList();
+	}
+
+
 
 	public boolean near(TilePosc pos, double dist) {
 		double dx = pos.x() + 0.5 - this.x;

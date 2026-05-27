@@ -56,6 +56,7 @@ public class PaperworkItems {
 	public static Item OFFICE_CHAIR;
 
 	public static Item EMPLOYEE_STICK;
+	public static Item FARMER_STICK;
 
 
 		public static void initialize() {
@@ -139,6 +140,7 @@ public class PaperworkItems {
 			);
 
 			EMPLOYEE_STICK = new EmployeeStick("employee", MOD_ID+":item/employee_stick", itemGoc("EMPLOYEE_STICK"));
+			FARMER_STICK = new FarmStick("farmer", MOD_ID+":item/farmer_stick", itemGoc("FARMER_STICK"));
 		}
 
 
