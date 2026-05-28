@@ -10,6 +10,7 @@ import deus.brainless.pathfinding.MobPathfinder;
 import deus.paperwork.ai.AIHolder;
 import deus.paperwork.ai.Brains;
 import deus.paperwork.ai.pathfinding.EmployeeWalkValidator;
+import deus.paperwork.entities.base.ContainerMob;
 import deus.paperwork.entities.employee.enums.EmployeeAlert;
 import deus.paperwork.entities.employee.enums.EmployeeEmotions;
 import deus.paperwork.entities.employee.enums.EmployeeStateIcons;
@@ -23,13 +24,20 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntityChest;
+import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.IItemHolding;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
+import net.minecraft.core.player.inventory.container.ContainerInventory;
+import net.minecraft.core.player.inventory.container.ContainerSimple;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.primitives.AABBd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +75,8 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 
 	protected AIHolder<?> aiHolder;
 
+	public final @NotNull ContainerMob inventory;
+
 
 	public MobEmployee(@NotNull World world) {
 		this(world, new AIHolder<>(Brains.EmployeeAI.get()));
@@ -74,6 +84,8 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 
 	protected MobEmployee(@NotNull World world, AIHolder<?> aiHolder) {
 		super(world);
+		this.inventory = new ContainerMob("employee_inventory", 9);
+
 		this.aiHolder = aiHolder;
 
 		Random rng = new Random();
@@ -108,6 +120,58 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 		TileEntityChest chest = (TileEntityChest) world.getTileEntity(posc);
 
 		return true;
+	}
+
+	public void absorbNearbyItems(Item item) {
+
+		AABBd box = MathHelper.aabbGrow(
+			this.bb,
+			3.0,
+			1.0,
+			3.0,
+			new AABBd()
+		);
+
+		for (EntityItem entityItem :
+			this.world.getEntitiesWithinAABB(EntityItem.class, box)) {
+
+			if (!entityItem.isAlive()) {
+				continue;
+			}
+
+			if (entityItem.pickupDelay > 0) {
+				continue;
+			}
+
+			ItemStack stack = entityItem.item;
+
+			if (stack == null) {
+				continue;
+			}
+
+			if (!stack.getItem().equals(item)) {
+				continue;
+			}
+
+			int before = stack.stackSize;
+
+			this.inventory.insertItem(stack);
+
+			if (stack.stackSize < before) {
+
+				this.world.playSoundAtEntity(
+					null,
+					this,
+					"item.pickup",
+					0.2F,
+					1.0F
+				);
+
+				if (stack.stackSize <= 0) {
+					entityItem.remove();
+				}
+			}
+		}
 	}
 
 	public Optional<ItemStack> findItem(TileEntityChest chest, int itemId) {

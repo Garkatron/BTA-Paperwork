@@ -8,6 +8,7 @@ import deus.paperwork.ai.jobs.JobFarm;
 import deus.paperwork.ai.jobs.JobGoto;
 import deus.paperwork.ai.jobs.JobStay;
 import deus.paperwork.entities.employee.MobEmployee;
+import deus.paperwork.entities.employee.chef.MobEmployeeChef;
 import deus.paperwork.entities.employee.farmer.MobEmployeeFarmer;
 
 import java.util.List;
@@ -106,6 +107,13 @@ public class Brains {
 				// new JobStay<>("work", () -> 1.0 - ctx.work, 0.15)
 			)).withCategory(0).withThreshold(0.10)
 		);
+
+
+	});
+
+	public static AIF<MobEmployeeChef> EmployeeButcherAI = EmployeeAI.extend(brain -> {
+
+	}, ai->{
 
 
 	});

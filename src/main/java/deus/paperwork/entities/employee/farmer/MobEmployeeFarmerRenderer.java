@@ -1,9 +1,9 @@
-package deus.paperwork.entities.employee;
+package deus.paperwork.entities.employee.farmer;
 
+import deus.paperwork.entities.employee.MobEmployee;
 import net.minecraft.client.render.entity.MobRendererBiped;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
-import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
 
 public class MobEmployeeFarmerRenderer extends MobRendererBiped<MobEmployee> {

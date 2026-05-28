@@ -18,41 +18,24 @@ public class EmployeeWalkValidator implements ValidationProcessor {
 
 	@Override
 	public boolean isValid(EvaluationContext context) {
-
 		PathPosition pos = context.getCurrentPathPosition();
-
-		TilePos current = new TilePos()
-			.set(pos.getX(), pos.getY(), pos.getZ());
-
-		TilePos below = new TilePos()
-			.set(pos.getX(), pos.getY() - 1, pos.getZ());
+		TilePos current  = new TilePos().set(pos.getX(), pos.getY(),     pos.getZ());
+		TilePos below    = new TilePos().set(pos.getX(), pos.getY() - 1, pos.getZ());
+		TilePos below2   = new TilePos().set(pos.getX(), pos.getY() - 2, pos.getZ());
 
 		var currentBlock = world.getBlockType(current);
-		var belowBlock = world.getBlockType(below);
+		var belowBlock   = world.getBlockType(below);
 
-		boolean currentSolid = currentBlock.isCollidable();
-		boolean floorSolid = belowBlock.isCollidable();
+		boolean currentPassable = !currentBlock.isCollidable()
+			|| currentBlock.getLogic() instanceof BlockLogicFlower;
 
-		if (currentBlock.getLogic() instanceof BlockLogicFlower) {
-			currentSolid = false;
-		}
+		boolean hasFloor = (belowBlock.isCollidable()
+			&& !(belowBlock.getLogic() instanceof BlockLogicFlower))
+			|| (world.getBlockType(below2).isCollidable());
 
-		if (belowBlock.getLogic() instanceof BlockLogicFlower) {
-			floorSolid = false;
-		}
+		boolean lava  = currentBlock.hasTag(BlockTags.IS_LAVA)  || belowBlock.hasTag(BlockTags.IS_LAVA);
+		boolean water = currentBlock.hasTag(BlockTags.IS_WATER) || belowBlock.hasTag(BlockTags.IS_WATER);
 
-		boolean lava =
-			currentBlock.hasTag(BlockTags.IS_LAVA) ||
-				belowBlock.hasTag(BlockTags.IS_LAVA);
-
-		boolean water =
-			currentBlock.hasTag(BlockTags.IS_WATER) ||
-				belowBlock.hasTag(BlockTags.IS_WATER);
-
-
-		return !currentSolid &&
-			floorSolid &&
-			!lava &&
-			!water;
+		return currentPassable && hasFloor && !lava && !water;
 	}
 }

@@ -4,6 +4,7 @@ import deus.brainless.ai.interfaces.Job;
 import deus.paperwork.Paperwork;
 import deus.paperwork.entities.employee.MobEmployee;
 import deus.paperwork.entities.employee.farmer.MobEmployeeFarmer;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 
@@ -78,6 +79,9 @@ public class JobFarm<CTX extends MobEmployeeFarmer> implements Job<CTX> {
 		if (ctx.farm_area.isEmpty()) {
 			Paperwork.LOGGER.info("[JobFarm] farm_area is empty, nothing to do");
 		}
+
+		ctx.absorbNearbyItems(Items.WHEAT);
+		ctx.absorbNearbyItems(Items.SEEDS_WHEAT);
 	}
 
 	@Override

@@ -4,9 +4,6 @@ import deus.brainless.ai.AI;
 import deus.paperwork.ai.AIHolder;
 import deus.paperwork.ai.Brains;
 import deus.paperwork.entities.employee.MobEmployee;
-import deus.paperwork.entities.employee.MobEmployeeFarmerRenderer;
-import deus.paperwork.entities.employee.MobEmployeeRenderer;
-import deus.paperwork.interfaces.WithAI;
 import deus.paperwork.util.PoscArea;
 import deus.utils.annotations.RegisterEntity;
 import deus.utils.annotations.RegisterEntityRenderer;
@@ -20,7 +17,6 @@ import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
