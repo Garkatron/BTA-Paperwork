@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.paperwork.employee_farmer",
+				"identifier": "geometry.paperwork.employee_woman_farmer",
 				"texture_width": 96,
 				"texture_height": 64,
 				"visible_bounds_width": 5,
@@ -66,11 +66,19 @@
 								"east": {"uv": [62, 16], "uv_size": [1, 16]},
 								"south": {"uv": [80, 16], "uv_size": [16, 16]},
 								"west": {"uv": [79, 16], "uv_size": [1, 16]},
-								"up": {"uv": [63, 15], "uv_size": [16, 1]},
+								"up": {"uv": [64, 15], "uv_size": [15, 1]},
 								"down": {"uv": [79, 16], "uv_size": [16, -1]}
 							}
 						},
 						{"origin": [-4, 30, -5.5], "size": [8, 3, 8], "inflate": 0.5, "uv": [64, 0]}
+					]
+				},
+				{
+					"name": "hair",
+					"parent": "hat",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-1.5, 27.25, 2.5], "size": [3, 2.75, 3], "pivot": [-1.5, 28.25, 2.5], "rotation": [-45, 0, 0], "uv": [52, 0]}
 					]
 				},
 				{
@@ -98,6 +106,15 @@
 					"name": "leftItem",
 					"parent": "leftArm",
 					"pivot": [6, 15, 1]
+				},
+				{
+					"name": "bb_main",
+					"parent": "body",
+					"pivot": [0, 0, -0.75],
+					"cubes": [
+						{"origin": [-4, 18.75, -4], "size": [8, 3, 3], "pivot": [0, 19.75, -2], "rotation": [-45, 0, 0], "uv": [24, 2]},
+						{"origin": [-1, 16.5, -4.15], "size": [2, 4, 0], "uv": [2, 2]}
+					]
 				},
 				{
 					"name": "rightLeg",

@@ -3,6 +3,8 @@ package deus.paperwork.entities.employee;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.entity.MobRendererBiped;
 import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import net.minecraft.core.Global;
+import net.minecraft.core.entity.SkinVariantList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
@@ -15,12 +17,17 @@ public class MobEmployeeRenderer extends MobRendererBiped<MobEmployee> {
 
 	@Override
 	protected @Nullable StaticEntityModel getActiveModel(@NonNull MobEmployee mobEmployee) {
-		return this.getModel("main");
+		return this.getModel(mobEmployee.isWoman ? "woman" : "man");
 	}
 
 	@Override
 	protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobEmployee entity, float brightness, float partialTick, int layer) {
-		this.bindTexture("/assets/paperwork/textures/entity/employee/" + entity.getTextureReference() + ".png");
+
+		if(entity.isWoman) {
+			this.bindTexture("/assets/paperwork/textures/entity/employee/woman/" + entity.getTextureReference() + ".png");
+		} else {
+			this.bindTexture("/assets/paperwork/textures/entity/employee/" + entity.getTextureReference() + ".png");
+		}
 
 		return super.getAndSetupModelForLayer(entity, brightness, partialTick, layer);
 	}

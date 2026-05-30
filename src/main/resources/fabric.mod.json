@@ -4,11 +4,12 @@
   "version": "${version}",
 
   "name": "Paperwork",
-  "description": "This mod aims to help new BTA modders.",
+  "description": "The office.",
   "authors": [
     "@Garkatron"
   ],
-  "contact": {
+	"contributors": ["TheMidford"],
+	"contact": {
     "homepage": "",
     "sources": ""
   },

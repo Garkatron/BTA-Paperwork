@@ -4,17 +4,22 @@ import deus.brainless.ai.interfaces.Job;
 import deus.paperwork.Paperwork;
 import deus.paperwork.entities.employee.MobEmployee;
 import deus.paperwork.entities.employee.farmer.MobEmployeeFarmer;
+import deus.paperwork.util.PoscArea;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.world.pos.TilePos;
 import net.minecraft.core.world.pos.TilePosc;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
+
 public class JobFarm<CTX extends MobEmployeeFarmer> implements Job<CTX> {
 
 	private TilePos currentTarget = null;
 	private boolean isHarvestTask = false;
 	private String parentName = null;
+	private int randomWalkCooldown = 0;
+	private Random rng = new Random();
 
 	@Override
 	public String name() { return "job_farm"; }
@@ -73,7 +78,24 @@ public class JobFarm<CTX extends MobEmployeeFarmer> implements Job<CTX> {
 
 			// Nothing to do
 			Paperwork.LOGGER.info("[JobFarm] No harvestable or sowable tiles found in area");
-			ctx.setTarget(null);
+
+
+			if (randomWalkCooldown > 0) {
+				randomWalkCooldown--;
+			}
+
+			if (!ctx.isMoving() && randomWalkCooldown <= 0) {
+
+				TilePos random = ctx.roamRandomPath(new PoscArea.Area2D(new TilePos(area2D.a().x(), area2D.a().y()+1, area2D.a().z()), new TilePos(area2D.b().x(), area2D.b().y()+1, area2D.b().z())));
+
+
+				if (random != null) {
+					ctx.setTarget(random);
+				}
+
+				randomWalkCooldown = 40 + rng.nextInt(60);
+			}
+
 		});
 
 		if (ctx.farm_area.isEmpty()) {

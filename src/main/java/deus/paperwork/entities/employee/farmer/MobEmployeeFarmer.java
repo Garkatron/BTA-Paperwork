@@ -9,6 +9,7 @@ import deus.utils.annotations.RegisterEntity;
 import deus.utils.annotations.RegisterEntityRenderer;
 import net.minecraft.core.block.BlockLogicCropsWheat;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.IBonemealable;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
@@ -28,6 +29,8 @@ public class MobEmployeeFarmer extends MobEmployee  {
 
 	public MobEmployeeFarmer(@NotNull World world) {
 		super(world, new AIHolder<>(Brains.EmployeeFarmerAI.get()));
+		this.setTextureIdentifier("paperwork", "employee_farmer");
+
 	}
 
 	@Override
@@ -56,14 +59,26 @@ public class MobEmployeeFarmer extends MobEmployee  {
 
 	public boolean harvest(TilePosc posc) {
 		if (!isHarvestable(posc)) return false;
-		world.dropItem(posc, new ItemStack(Items.WHEAT));
 		world.setBlockTypeNotify(posc, Blocks.CROPS_WHEAT);
+		ItemStack[] stacks = Blocks.CROPS_WHEAT.getBreakResult(world, EnumDropCause.PICK_BLOCK, 0, null);
+
+		if (stacks == null) return false;
+		for (ItemStack stack : stacks) {
+			world.dropItem(posc, stack);
+		}
+
+
 		return true;
 	}
 
 	public boolean seed(TilePosc posc) {
+		ItemStack stack = this.inventory.findStackOf(Items.SEEDS_WHEAT);
+		if (stack == null) return false;
+		stack.consumeItem(null);
+
 		int blockId = world.getBlockType(posc).id();
 		if (blockId != Blocks.AIR.id()) return false;
+
 		world.setBlockTypeNotify(posc, Blocks.CROPS_WHEAT);
 		return true;
 	}

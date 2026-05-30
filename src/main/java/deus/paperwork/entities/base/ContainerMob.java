@@ -1,6 +1,7 @@
 package deus.paperwork.entities.base;
 
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerSimple;
@@ -74,6 +75,41 @@ public class ContainerMob implements Container {
 		return original - stackToAdd.stackSize;
 	}
 
+	public boolean available(Item item) {
+		if (item == null) {
+			return false;
+		}
+
+		for (int i = 0; i < container.getContainerSize(); i++) {
+			ItemStack stack = container.getItem(i);
+
+			if (stack != null
+				&& stack.itemID == item.id
+				&& stack.stackSize > 0) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public @Nullable ItemStack findStackOf(@NotNull Item item) {
+		if (item == null) {
+			return null;
+		}
+
+		for (int i = 0; i < container.getContainerSize(); i++) {
+			ItemStack stack = container.getItem(i);
+
+			if (stack != null
+				&& stack.itemID == item.id
+				&& stack.stackSize > 0) {
+				return getItem(i);
+			}
+		}
+
+		return null;
+	}
 
 	@Override
 	public int getContainerSize() {

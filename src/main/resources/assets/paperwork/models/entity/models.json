@@ -7,7 +7,9 @@
     "/assets/paperwork/models/entity/gift_box.geo.json",
     "/assets/paperwork/models/entity/office_chair.geo.json",
     "/assets/paperwork/models/entity/employee.geo.json",
-    "/assets/paperwork/models/entity/employee_farmer.geo.json"
+    "/assets/paperwork/models/entity/employee_woman.geo.json",
+    "/assets/paperwork/models/entity/employee_farmer.geo.json",
+    "/assets/paperwork/models/entity/employee_woman_farmer.geo.json"
   ],
   "custom_player_models": {},
   "renderers": {
@@ -30,10 +32,12 @@
       "main": "geometry.paperwork.office_chair"
     },
     "paperwork:employee": {
-      "main": "geometry.paperwork.employee"
+      "man": "geometry.paperwork.employee",
+      "woman": "geometry.paperwork.employee_woman"
     },
     "paperwork:employee_farmer": {
-      "main": "geometry.paperwork.employee_farmer"
+      "man": "geometry.paperwork.employee_farmer",
+      "woman": "geometry.paperwork.employee_woman_farmer"
     }
   }
 }

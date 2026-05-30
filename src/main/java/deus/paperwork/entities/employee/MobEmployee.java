@@ -5,6 +5,7 @@ import de.bsommerfeld.pathetic.api.pathing.configuration.PathfinderConfiguration
 import de.bsommerfeld.pathetic.api.pathing.heuristic.HeuristicStrategies;
 import de.bsommerfeld.pathetic.api.pathing.heuristic.HeuristicWeights;
 import de.bsommerfeld.pathetic.api.pathing.processing.ValidationProcessor;
+import de.bsommerfeld.pathetic.api.wrapper.PathPosition;
 import deus.brainless.ai.AI;
 import deus.brainless.pathfinding.MobPathfinder;
 import deus.paperwork.ai.AIHolder;
@@ -69,6 +70,8 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 	private double traitHardworking;
 	private double traitLazy;
 
+	public boolean isWoman = false;
+
 	public EmployeeAlert currentAlert = EmployeeAlert.NO_FOOD_PLACE;
 	public EmployeeStateIcons currentLowState = EmployeeStateIcons.ASLEEP;
 	public EmployeeEmotions currentEmotion = EmployeeEmotions.HAPPY;
@@ -84,9 +87,16 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 
 	protected MobEmployee(@NotNull World world, AIHolder<?> aiHolder) {
 		super(world);
+		this.setTextureIdentifier("paperwork", "employee");
+
+		Random r = new Random();
+		isWoman = r.nextInt(2) == 1;
+
 		this.inventory = new ContainerMob("employee_inventory", 9);
 
 		this.aiHolder = aiHolder;
+
+		moveSpeed = 0.9f;
 
 		Random rng = new Random();
 		traitSocial      = 0.3 + rng.nextDouble() * 0.7;
@@ -343,6 +353,35 @@ public class MobEmployee extends MobPathfinder implements IItemHolding {
 		double dx = pos.x() + 0.5 - this.x;
 		double dz = pos.z() + 0.5 - this.z;
 		return Math.sqrt(dx * dx + dz * dz) <= dist;
+	}
+
+	@Nullable
+	public TilePos roamRandomPath(PoscArea.Area2D area) {
+
+		int minX = Math.min(area.a().x(), area.b().x());
+		int maxX = Math.max(area.a().x(), area.b().x());
+		int minZ = Math.min(area.a().z(), area.b().z());
+		int maxZ = Math.max(area.a().z(), area.b().z());
+
+		int y = area.a().y();
+
+		for (int i = 0; i < 10; i++) {
+
+			int x = minX + this.random.nextInt(maxX - minX + 1);
+			int z = minZ + this.random.nextInt(maxZ - minZ + 1);
+
+			if (!this.world.isAirBlock(x, y, z)) {
+				continue;
+			}
+
+			if (this.world.isAirBlock(x, y - 1, z)) {
+				continue;
+			}
+
+			return new TilePos(x, y, z);
+		}
+
+		return null;
 	}
 
 	public void setDanger(double danger) { this.danger = danger; }
