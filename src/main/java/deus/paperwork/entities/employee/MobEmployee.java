@@ -106,9 +106,16 @@ public class MobEmployee extends MobPathfinder implements IItemHolding, ICustomi
 		super(world);
 		this.setTextureIdentifier("paperwork", "employee");
 
-		hairPiece = new HairPiece(HairStyle.HEAD, 0, skinToHairColor.get(this.getTextureReference()));
-		System.out.println(skinToHairColor.get(this.getTextureReference()));
+		HairStyle[] styles = Arrays.stream(HairStyle.values())
+			.filter(s -> s != HairStyle.NONE)
+			.toArray(HairStyle[]::new);
+		HairStyle randomStyle = styles[random.nextInt(styles.length)];
 
+		hairPiece = new HairPiece(randomStyle, 0, skinToHairColor.get(this.getTextureReference()));
+
+		uniformPieces.put(UniformShape.SHIRT, new UniformPiece("/assets/paperwork/textures/entity/employee/uniform.png"));
+		uniformPieces.put(UniformShape.HAT, new UniformPiece("/assets/paperwork/textures/entity/employee/uniform.png"));
+		uniformPieces.put(UniformShape.PANTS, new UniformPiece("/assets/paperwork/textures/entity/employee/uniform.png"));
 
 		this.inventory = new ContainerMob("employee_inventory", 9);
 
